@@ -30,10 +30,10 @@
             android:text="@string/engleski" />
          
     </RadioGroup>
-
-     <TextView
+    
+    <TextView
          android:id="@+id/txtLozinka"
-         android:layout_width="wrap_content"
+         android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:layout_below="@+id/txtDobrodosli"
          android:layout_marginTop="15dp"
@@ -48,10 +48,10 @@
          android:textSize="18sp"
          android:fontFamily="sans-serif"
          android:text="@string/dobrodosli" />
-
+     
      <EditText
-         android:id="@+id/etPotvrda"
-         android:layout_width="wrap_content"
+         android:id="@+id/etLozinka"
+         android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:layout_alignLeft="@+id/txtLozinka"
          android:layout_below="@+id/txtLozinka"
@@ -61,67 +61,67 @@
 
      <TextView
          android:id="@+id/txtPotvrda"
-         android:layout_width="wrap_content"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignLeft="@+id/etLozinka"
+         android:layout_below="@+id/etLozinka"
+         android:layout_marginTop="16dp"
+         android:text="@string/lozinkaPotvrda" />
+     
+     <ImageButton
+         android:id="@+id/btnPrijava"
+         android:layout_width="120dp"
+         android:layout_height="30dp"
+         android:layout_alignParentBottom="true"
+         android:layout_centerHorizontal="true"
+         android:layout_marginBottom="32dp"
+         android:src="@drawable/puce" />
+
+     <Spinner
+         android:id="@+id/spinPitanje"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignLeft="@+id/txtPitanje"
+         android:layout_below="@+id/txtPitanje"
+         android:entries="@array/pitanje" />
+
+     <TextView
+         android:id="@+id/txtPitanje"
+         android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:layout_alignLeft="@+id/etPotvrda"
-         android:layout_below="@+id/etPotvrda"
-         android:text="@string/lozinkaPotvrda" />
+         android:layout_below="@+id/txtPotvrda"
+         android:layout_marginTop="36dp"
+         android:text="@string/sigurnosnoPitanje" />
 
      <EditText
-         android:id="@+id/etLozinka"
-         android:layout_width="wrap_content"
+         android:id="@+id/etPotvrda"
+         android:layout_width="match_parent"
          android:layout_height="wrap_content"
+         android:layout_alignLeft="@+id/txtPotvrda"
          android:layout_below="@+id/txtPotvrda"
-         android:layout_toLeftOf="@+id/radioGroup1"
          android:ems="10"
          android:hint="@string/lozinkaHint"
          android:inputType="textPassword" >
 
          <requestFocus />
      </EditText>
-
-     <TextView
-         android:id="@+id/txtPitanje"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignLeft="@+id/txtPotvrda"
-         android:layout_centerVertical="true"
-         android:text="@string/sigurnosnoPitanje" />
-
-     <TextView
+     
+         <TextView
          android:id="@+id/txtOdgovor"
-         android:layout_width="wrap_content"
+         android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:layout_alignLeft="@+id/txtPitanje"
-         android:layout_below="@+id/txtPitanje"
-         android:layout_marginTop="34dp"
+         android:layout_alignLeft="@+id/spinPitanje"
+         android:layout_below="@+id/spinPitanje"
          android:text="@string/odgovor" />
 
      <EditText
          android:id="@+id/etOdgovor"
-         android:layout_width="wrap_content"
+         android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:layout_alignLeft="@+id/etLozinka"
+         android:layout_alignLeft="@+id/txtOdgovor"
          android:layout_below="@+id/txtOdgovor"
          android:ems="10"
          android:inputType="text" />
-
-     <ImageButton
-         android:id="@+id/btnPrijava"
-         android:layout_width="120dp"
-         android:layout_height="30dp"
-         android:layout_below="@+id/etOdgovor"
-         android:layout_centerHorizontal="true"
-         android:layout_marginTop="32dp"
-         android:src="@drawable/puce" />
-
-     <Spinner
-         android:id="@+id/spinPitanje"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignTop="@+id/txtPitanje"
-         android:layout_toRightOf="@+id/btnPrijava" 
-         android:entries="@array/pitanje"/>
-         />
 
 </RelativeLayout>
