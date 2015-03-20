@@ -1,0 +1,8 @@
+package hr.foi.air.osobnibankar;
+
+import android.app.Activity;
+
+public class LoginActivity extends Activity{
+	
+
+}
