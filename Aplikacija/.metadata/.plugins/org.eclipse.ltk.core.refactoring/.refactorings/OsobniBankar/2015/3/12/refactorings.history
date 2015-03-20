@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;hr.foi.air.osobnibankar.database.Login&apos; to &apos;Registracija&apos;&#x0D;&#x0A;- Original project: &apos;OsobniBankar&apos;&#x0D;&#x0A;- Original element: &apos;hr.foi.air.osobnibankar.database.Login&apos;&#x0D;&#x0A;- Renamed element: &apos;hr.foi.air.osobnibankar.database.Registracija&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;Login&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;hr.foi.air.osobnibankar.database{Login.java[Login" matchStrategy="1" name="Registracija" qualified="false" references="true" similarDeclarations="false" stamp="1426867783304" textual="false" version="1.0"/>
+</session>
