@@ -31,24 +31,25 @@ public class MainActivity extends Activity{
 	}
 
 	private void registracija() {
-		EditText etLozinka = (EditText) findViewById(R.id.etLozinka);
-		final String lozinka = etLozinka.getText().toString();
-		
-		EditText etPotvrda = (EditText) findViewById(R.id.etPotvrda);
-		final String potvrda = etPotvrda.getText().toString();
-		
-		EditText etOdgovor = (EditText) findViewById(R.id.etOdgovor);
-		final String odgovor = etOdgovor.getText().toString();
-		
-		Spinner spinPitanje = (Spinner) findViewById(R.id.spinPitanje);
-		final String pitanje = spinPitanje.getSelectedItem().toString();
-		
 		ImageButton btnRegistracija = (ImageButton) findViewById(R.id.btnPrijava);
 			
 		btnRegistracija.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
+					EditText etLozinka = (EditText) findViewById(R.id.etLozinka);
+					final String lozinka = etLozinka.getText().toString();
+					
+					EditText etPotvrda = (EditText) findViewById(R.id.etPotvrda);
+					final String potvrda = etPotvrda.getText().toString();
+					
+					EditText etOdgovor = (EditText) findViewById(R.id.etOdgovor);
+					final String odgovor = etOdgovor.getText().toString();
+					
+					Spinner spinPitanje = (Spinner) findViewById(R.id.spinPitanje);
+					final String pitanje = spinPitanje.getSelectedItem().toString();
+					
+					
 					if (lozinka.equals(potvrda)){
 						Toast.makeText(getApplicationContext(), "Lozinka potvrdjena!", Toast.LENGTH_SHORT).show();
 						Login login = new Login(lozinka, pitanje, odgovor);

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background2"
+    android:columnCount="1"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".RegistracijaActivity" >
+
+    <ImageButton
+        android:id="@+id/imgPiD"
+        android:layout_width="150dp"
+        android:layout_height="130dp"
+        android:layout_column="0"
+        android:layout_gravity="right|center_vertical"
+        android:layout_row="0"
+        android:background="@drawable/pir1"
+        android:contentDescription="@string/btnPiD" />
+
+    <ImageButton
+        android:id="@+id/imgPiR"
+        android:layout_width="150dp"
+        android:layout_height="130dp"
+        android:layout_column="0"
+        android:layout_gravity="left|center_vertical"
+        android:layout_row="0"
+        android:background="@drawable/pir2"
+        android:contentDescription="@string/btnPiR" />
+
+    <ImageButton
+        android:id="@+id/imgIzvjestaji"
+        android:layout_width="150dp"
+        android:layout_height="130dp"
+        android:layout_column="0"
+        android:layout_gravity="left|center_vertical"
+        android:layout_row="3"
+        android:background="@drawable/izvjestaji"
+        android:contentDescription="@string/btnIzvjestaji" />
+
+    <ImageButton
+        android:id="@+id/imgTecaj"
+        android:layout_width="150dp"
+        android:layout_height="130dp"
+        android:layout_column="0"
+        android:layout_gravity="right|center_vertical"
+        android:layout_row="3"
+        android:background="@drawable/tecaj"
+        android:contentDescription="@string/btnTecaj" />
+
+    <ImageButton
+        android:id="@+id/imgStednja"
+        android:layout_width="150dp"
+        android:layout_height="130dp"
+        android:layout_column="0"
+        android:layout_gravity="left|bottom"
+        android:layout_row="1"
+        android:background="@drawable/stednja"
+        android:contentDescription="@string/btnStednja" />
+
+    <ImageButton
+        android:id="@+id/imgGrafikoni"
+        android:layout_width="150dp"
+        android:layout_height="130dp"
+        android:layout_column="0"
+        android:layout_gravity="right|center_vertical"
+        android:layout_row="1"
+        android:background="@drawable/grafikoni"
+        android:contentDescription="@string/btnGrafikoni" />
+
+</GridLayout>

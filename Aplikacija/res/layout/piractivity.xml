@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ExpandableListView
+        android:id="@+id/expandableListView1"
+        android:layout_width="match_parent"
+        android:layout_height="382dp"
+        android:layout_x="2dp"
+        android:layout_y="2dp" >
+    </ExpandableListView>
+
+    <Button
+        android:id="@+id/btnDodajPiR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="31dp"
+        android:layout_y="396dp"
+        android:text="@string/btnDodajPiR" />
+
+</AbsoluteLayout>

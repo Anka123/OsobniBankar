@@ -10,17 +10,29 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ikona"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="hr.foi.air.osobnibankar.MainActivity"
+            android:name="hr.foi.air.osobnibankar.RegistracijaActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity 
+            android:name=".LoginActivity" >
+        </activity>
+         <activity 
+            android:name=".GlavniIzbornikActivity" >
+        </activity>
+        <activity 
+            android:name=".PiRActivity" >
+        </activity>
+        <activity 
+            android:name=".PiDActivity" >
         </activity>
     </application>
 

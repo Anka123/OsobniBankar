@@ -13,6 +13,28 @@
 	<string name="sigurnosnoPitanje">Odaberite sigurnosno pitanje:</string>
     <string name="odgovor">Odgovor:</string>
     <string name="prijava">Prijava</string>
+    <string name="zaboravljena">Zaboravili ste lozinku?</string>
+    <string name="btnRegistracija">Registracija:</string>
+    <string name="btnLogin">Prijava</string>
+    
+    <string name="btnPiR">Prihodi i Rashodi</string>
+    <string name="btnPiD">Potraživanja i Dugovanja</string>
+    <string name="btnTecaj">Tečajne liste</string>
+    <string name="btnStednja">Štednja</string>
+    <string name="btnGrafikoni">Grafikoni</string>
+    <string name="btnIzvjestaji">Izvjestaji</string>
+    <string name="btnDodajPiR">Dodaj novi</string>
+    <string name="rbPrihod">Prihod</string>
+    <string name="rbRashod">Rashod</string>
+    <string name="txtNaziv">Naziv</string>
+    <string name="txtOpis">Opis</string>
+    <string name="txtIznos">Iznos</string>
+    <string name="btnSpremi">Spremi</string>
+    <string name="btnDodajPiD">Dodaj novi</string>
+    <string name="btnPodmiri">Podmiri</string>
+    <string name="rbPotrazivanje">Potrazivanje</string>
+    <string name="rbDugovanje">Dugovanje</string>
+    <string name="datum">Datum</string>
     
     
     <string-array name="pitanje">
