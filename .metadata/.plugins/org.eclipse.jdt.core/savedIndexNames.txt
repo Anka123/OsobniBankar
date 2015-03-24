@@ -1,0 +1,5 @@
+INDEX VERSION 1.126+C:\Users\Marija\Documents\GitHub\OsobniBankar\.metadata\.plugins\org.eclipse.jdt.core
+1335299503.index
+1813993796.index
+1868056960.index
+2333180550.index
