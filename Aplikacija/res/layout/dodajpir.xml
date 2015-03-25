@@ -4,17 +4,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <RadioButton
-        android:id="@+id/rbPrihod"
+    <RadioGroup 
+        android:id="@+id/radioGroup2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rbPrihod" />
-
-    <RadioButton
-        android:id="@+id/rbRashod"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rbRashod" />
+        android:layout_height="wrap_content">
+        
+	    <RadioButton
+	        android:id="@+id/rbPrihod"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:checked="true"
+	        android:text="@string/rbPrihod" />
+	
+	    <RadioButton
+	        android:id="@+id/rbRashod"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/rbRashod" />
+    
+    </RadioGroup>
 
     <TextView
         android:id="@+id/txtNaziv"
@@ -54,6 +62,20 @@
 
     <EditText
         android:id="@+id/etIznos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" 
+        android:inputType="textPassword"/>
+    
+    <TextView
+        android:id="@+id/txtDatum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtDatum"
+         />
+
+    <EditText
+        android:id="@+id/etDatum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" 

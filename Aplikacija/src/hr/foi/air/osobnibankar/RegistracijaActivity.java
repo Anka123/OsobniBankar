@@ -26,6 +26,9 @@ public class RegistracijaActivity extends Activity{
 		Context c = this;
 		ActiveAndroid.initialize(c);		
 		
+		//Intent i = new Intent(getApplicationContext(),GlavniIzbornikActivity.class);
+		//startActivity(i);
+		
 		registracija();	
 	}
 

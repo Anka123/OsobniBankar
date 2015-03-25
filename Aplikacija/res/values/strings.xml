@@ -29,12 +29,21 @@
     <string name="txtNaziv">Naziv</string>
     <string name="txtOpis">Opis</string>
     <string name="txtIznos">Iznos</string>
+    <string name="txtDatum">Datum</string>
     <string name="btnSpremi">Spremi</string>
     <string name="btnDodajPiD">Dodaj novi</string>
     <string name="btnPodmiri">Podmiri</string>
     <string name="rbPotrazivanje">Potrazivanje</string>
     <string name="rbDugovanje">Dugovanje</string>
     <string name="datum">Datum</string>
+    
+    <string name="noviUnos">Novi unos</string>
+    <string name="txtSigpitanje">Sigurnosno pitanje:</string>
+    <string name="txtPitanje">Pitanje</string>
+    <string name="txtOdgovor">Odgovor:</string>
+    <string name="btnProvjeri">Provjeri</string>
+    <string name="zabLozinka">Zaboravljena lozinka</string>
+    
     
     
     <string-array name="pitanje">
