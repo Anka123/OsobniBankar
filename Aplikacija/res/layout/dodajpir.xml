@@ -13,7 +13,6 @@
 	        android:id="@+id/rbPrihod"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:checked="true"
 	        android:text="@string/rbPrihod" />
 	
 	    <RadioButton
@@ -35,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"       
-        android:inputType="textPassword"  >
+        android:inputType="text"  >
 
         <requestFocus />
     </EditText>
@@ -51,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" 
-        android:inputType="textPassword"/>
+        android:inputType="text"/>
 
     <TextView
         android:id="@+id/txtIznos"
@@ -65,21 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" 
-        android:inputType="textPassword"/>
-    
-    <TextView
-        android:id="@+id/txtDatum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txtDatum"
-         />
-
-    <EditText
-        android:id="@+id/etDatum"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" 
-        android:inputType="textPassword"/>
+        android:inputType="numberDecimal"/>
 
     <Button
         android:id="@+id/btnSpremi"

@@ -4,17 +4,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <RadioButton
-        android:id="@+id/rbPotrazivanje"
+     <RadioGroup 
+        android:id="@+id/radioGroup3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rbPotrazivanje" />
-
-    <RadioButton
-        android:id="@+id/rbDugovanje"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rbDugovanje" />
+        android:layout_height="wrap_content">
+    
+	    <RadioButton
+	        android:id="@+id/rbPotrazivanje"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/rbPotrazivanje" />
+	
+	    <RadioButton
+	        android:id="@+id/rbDugovanje"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/rbDugovanje" />
+    </RadioGroup>
 
     <TextView
         android:id="@+id/txtNaziv"
@@ -27,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"       
-        android:inputType="textPassword"  >
+        android:inputType="text"  >
 
         <requestFocus />
     </EditText>
@@ -43,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" 
-        android:inputType="textPassword"/>
+        android:inputType="text"/>
 
     <TextView
         android:id="@+id/txtIznos"
@@ -57,26 +63,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" 
-        android:inputType="textPassword"/>
+        android:inputType="numberDecimal"/>
     
-    <TextView
+    <TextView 
         android:id="@+id/txtDatum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/datum"
-         />
-
-    <EditText
-        android:id="@+id/etDatum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10" 
-        android:inputType="textPassword"/>
+        android:text="@string/txtDatum"
+        />
 
-    <Button
-        android:id="@+id/btnSpremi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btnSpremi" />
+        <DatePicker
+            android:id="@+id/datePicker1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:calendarViewShown="false" />
+
+        <Button
+            android:id="@+id/btnSpremi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btnSpremi"
+            android:layout_gravity="center" />
 
 </LinearLayout>
