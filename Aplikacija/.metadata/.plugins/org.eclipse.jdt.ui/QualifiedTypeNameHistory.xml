@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="hr.foi.air.osobnibankar.database.Potrazivanje"/>
+<fullyQualifiedTypeName name="hr.foi.air.osobnibankar.database.Dugovanje"/>
+<fullyQualifiedTypeName name="android.widget.DatePicker"/>
+</qualifiedTypeNameHistroy>

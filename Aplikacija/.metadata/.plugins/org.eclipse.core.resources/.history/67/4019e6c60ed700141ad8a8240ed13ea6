@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Osobni Bankar</string>
+    <string name="action_settings">Settings</string>
+    
+    <string name="hrvatski">HR</string>
+    <string name="engleski">ENG</string>
+	<string name="dobrodosli">Dobrodošli!</string>
+	<string name="lozinkaUnos">Unesite lozinku:</string>
+	<string name="lozinkaPotvrda">Potvrdite lozinku:</string>
+	<string name="lozinkaHint">*****</string>
+	<string name="sigurnosnoPitanje">Odaberite sigurnosno pitanje:</string>
+    <string name="odgovor">Odgovor:</string>
+    <string name="prijava">Prijava</string>
+    <string name="zaboravljena">Zaboravili ste lozinku?</string>
+    <string name="btnRegistracija">Registracija:</string>
+    <string name="btnLogin">Prijava</string>
+    
+    <string name="btnPiR">Prihodi i Rashodi</string>
+    <string name="btnPiD">Potraživanja i Dugovanja</string>
+    <string name="btnTecaj">Tečajne liste</string>
+    <string name="btnStednja">Štednja</string>
+    <string name="btnGrafikoni">Grafikoni</string>
+    <string name="btnIzvjestaji">Izvjestaji</string>
+    <string name="btnDodajPiR">Dodaj novi</string>
+    <string name="rbPrihod">Prihod</string>
+    <string name="rbRashod">Rashod</string>
+    <string name="txtNaziv">Naziv</string>
+    <string name="txtOpis">Opis</string>
+    <string name="txtIznos">Iznos</string>
+    <string name="txtDatum">Datum</string>
+    <string name="btnSpremi">Spremi</string>
+    <string name="btnDodajPiD">Dodaj novi</string>
+    <string name="btnPodmiri">Podmiri</string>
+    <string name="rbPotrazivanje">Potrazivanje</string>
+    <string name="rbDugovanje">Dugovanje</string>
+    <string name="datum">Datum</string>
+    
+    <string name="noviUnos">Novi unos</string>
+    <string name="txtSigpitanje">Sigurnosno pitanje:</string>
+    <string name="txtPitanje">Pitanje</string>
+    <string name="txtOdgovor">Odgovor:</string>
+    <string name="btnProvjeri">Provjeri</string>
+    <string name="zabLozinka">Zaboravljena lozinka</string>
+    
+    
+    
+    <string-array name="pitanje">
+        <item>Ime kućnog ljubimca?</item>
+        <item>Omiljeni okus sladoleda?</item>
+        <item>Najbolji prijatelj?</item>
+        <item>Najdraža boja?</item>
+        <item>Omiljena agilna metodika?</item>
+        
+    </string-array>
+	
+</resources>
