@@ -3,8 +3,8 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Marija/Documents/GitHub/OsobniBankar/Dokumentacija/ActiveAndroid.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/TIHANA/Desktop/AIR2015/App za Tihanu/App za Tihanu/ActiveAndroid.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

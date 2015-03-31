@@ -4,17 +4,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <RadioButton
-        android:id="@+id/rbPrihod"
+    <RadioGroup 
+        android:id="@+id/radioGroup2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rbPrihod" />
-
-    <RadioButton
-        android:id="@+id/rbRashod"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rbRashod" />
+        android:layout_height="wrap_content">
+        
+	    <RadioButton
+	        android:id="@+id/rbPrihod"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/rbPrihod" />
+	
+	    <RadioButton
+	        android:id="@+id/rbRashod"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/rbRashod" />
+    
+    </RadioGroup>
 
     <TextView
         android:id="@+id/txtNaziv"
@@ -27,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"       
-        android:inputType="textPassword"  >
+        android:inputType="text"  >
 
         <requestFocus />
     </EditText>
@@ -43,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" 
-        android:inputType="textPassword"/>
+        android:inputType="text"/>
 
     <TextView
         android:id="@+id/txtIznos"
@@ -57,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" 
-        android:inputType="textPassword"/>
+        android:inputType="numberDecimal"/>
 
     <Button
         android:id="@+id/btnSpremi"

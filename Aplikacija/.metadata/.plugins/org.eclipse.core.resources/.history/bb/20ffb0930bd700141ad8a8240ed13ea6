@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RadioGroup 
+        android:id="@+id/radioGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        
+	    <RadioButton
+	        android:id="@+id/rbPrihod"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/rbPrihod" />
+	
+	    <RadioButton
+	        android:id="@+id/rbRashod"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/rbRashod" />
+    
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/txtNaziv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtNaziv" />
+
+    <EditText
+        android:id="@+id/etNaziv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"       
+        android:inputType="text"  >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/txtOpis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtOpis" />
+
+    <EditText
+        android:id="@+id/etOpis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" 
+        android:inputType="text"/>
+
+    <TextView
+        android:id="@+id/txtIznos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtIznos"
+         />
+
+    <EditText
+        android:id="@+id/etIznos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" 
+        android:inputType="text"/>
+    
+    <TextView
+        android:id="@+id/txtDatum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtDatum"
+         />
+
+    <EditText
+        android:id="@+id/etDatum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" 
+        android:inputType="text"/>
+
+    <Button
+        android:id="@+id/btnSpremi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnSpremi" />
+
+</LinearLayout>
