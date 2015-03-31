@@ -96,12 +96,20 @@ public class PiDActivity extends Activity {
 			Potrazivanje potrazivanje = new Potrazivanje(naziv, opis, iznos,
 					datum);
 			potrazivanje.save();
+<<<<<<< HEAD
 			Toast.makeText(getApplicationContext(), "Potrazivanje spremljeno",
+=======
+			Toast.makeText(getApplicationContext(), "potrazivanje spremljen",
+>>>>>>> origin/master
 					Toast.LENGTH_SHORT).show();
 
 		} else if (iz == 1) {
 			Dugovanje dugovanje = new Dugovanje(naziv, opis, iznos, datum);
+<<<<<<< HEAD
 			Toast.makeText(getApplicationContext(), "Dugovanje spremljeno",
+=======
+			Toast.makeText(getApplicationContext(), "dugovanje spremljen",
+>>>>>>> origin/master
 					Toast.LENGTH_SHORT).show();
 			dugovanje.save();
 		}
