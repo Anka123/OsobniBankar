@@ -91,20 +91,14 @@ public class PiRActivity extends Activity {
 		if (iz == 0) {
 			Prihod prihod = new Prihod(naziv, opis, iznos, danasnjiDatum);
 			prihod.save();
-<<<<<<< HEAD
+
 			Toast.makeText(getApplicationContext(), "Prihod spremljen",
-=======
-			Toast.makeText(getApplicationContext(), "prihod spremljen",
->>>>>>> origin/master
 					Toast.LENGTH_SHORT).show();
 
 		} else if (iz == 1) {
 			Rashod rashod = new Rashod(naziv, opis, iznos, danasnjiDatum);
-<<<<<<< HEAD
+			
 			Toast.makeText(getApplicationContext(), "Rashod spremljen",
-=======
-			Toast.makeText(getApplicationContext(), "rashod spremljen",
->>>>>>> origin/master
 					Toast.LENGTH_SHORT).show();
 			rashod.save();
 		}
