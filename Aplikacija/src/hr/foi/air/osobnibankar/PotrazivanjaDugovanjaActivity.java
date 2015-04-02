@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -24,57 +26,74 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pidactivity);
 
-		final Context context = this;
+		
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.potrazivanja_dugovanja, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
 
-		Button btnDodajPiR = (Button) findViewById(R.id.btnDodajPiD);
-		btnDodajPiR.setOnClickListener(new OnClickListener() {
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.itemPotrazivanja:
+
+			return true;
+		case R.id.itemDugovanja:
+			return true;
+		case R.id.itemDodaj:
+			noviUnos();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+
+	}
+
+	public void noviUnos() {
+		dialog = new Dialog(c);
+		dialog.setContentView(R.layout.dodajpid);
+		dialog.setTitle(R.string.noviUnos);
+		dialog.show();
+
+		RadioGroup rgPiR = (RadioGroup) dialog
+				.findViewById(R.id.radioGroup3);
+		rgPiR.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			int izbor;
 
 			@Override
-			public void onClick(View v) {
-				dialog = new Dialog(context);
-				dialog.setContentView(R.layout.dodajpid);
-				dialog.setTitle(R.string.noviUnos);
-				dialog.show();
-
-				RadioGroup rgPiR = (RadioGroup) dialog
-						.findViewById(R.id.radioGroup3);
-				rgPiR.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-					int izbor;
-
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				final int chkId = checkedId;
+				Button btnSpremi = (Button) dialog
+						.findViewById(R.id.btnSpremi);
+				btnSpremi.setOnClickListener(new OnClickListener() {
 					@Override
-					public void onCheckedChanged(RadioGroup group, int checkedId) {
-						final int chkId = checkedId;
-						Button btnSpremi = (Button) dialog
-								.findViewById(R.id.btnSpremi);
-						btnSpremi.setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
+					public void onClick(View v) {
 
-								switch (chkId) {
-								case R.id.rbPotrazivanje:
-									izbor = 0;
-									unos(izbor);
-									Toast.makeText(getApplicationContext(),
-											"potraživanje", Toast.LENGTH_SHORT)
-											.show();
-									dialog.dismiss();
-									break;
+						switch (chkId) {
+						case R.id.rbPotrazivanje:
+							izbor = 0;
+							unos(izbor);
+							Toast.makeText(getApplicationContext(),
+									"potraživanje", Toast.LENGTH_SHORT)
+									.show();
+							dialog.dismiss();
+							break;
 
-								case R.id.rbDugovanje:
-									izbor = 1;
-									unos(izbor);
-									dialog.dismiss();
-									break;
-								}
+						case R.id.rbDugovanje:
+							izbor = 1;
+							unos(izbor);
+							dialog.dismiss();
+							break;
+						}
 
-							}
-						});
 					}
 				});
 			}
 		});
 	}
-
+	
 	public void unos(int izbor) {
 		int iz = izbor;
 		EditText etNaziv = (EditText) dialog.findViewById(R.id.etNaziv);

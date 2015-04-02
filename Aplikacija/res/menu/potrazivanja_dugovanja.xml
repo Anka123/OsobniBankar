@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/itemPotrazivanja" android:title="@string/potrazivanja" android:visible="true" android:checkable="true" android:checked="true"></item>
+    <item android:id="@+id/itemDugovanja" android:title="@string/dugovanja" android:visible="true" android:checkable="true" android:checked="true"></item>
+    <item android:id="@+id/itemDodaj" android:title="@string/noviUnos" android:visible="true"></item>
+    <item android:id="@+id/itemPodmiri" android:title="@string/podmiri" android:visible="true"></item>
+
+</menu>
