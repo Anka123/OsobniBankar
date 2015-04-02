@@ -2,13 +2,9 @@ package hr.foi.air.osobnibankar;
 
 import hr.foi.air.osobnibankar.database.Registracija;
 
-import com.activeandroid.ActiveAndroid;
-
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -21,18 +17,7 @@ public class RegistracijaActivity extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.registracija);
-		
-		Context c = this;
-		ActiveAndroid.initialize(c);		
-		
-		//Intent i = new Intent(getApplicationContext(),GlavniIzbornikActivity.class);
-		//startActivity(i);
-		
-		registracija();	
-	}
-
-	private void registracija() {
+		setContentView(R.layout.registracija);	
 		
 		ImageButton btnRegistracija = (ImageButton) findViewById(R.id.btnRegistracija);
 			
@@ -56,7 +41,7 @@ public class RegistracijaActivity extends Activity{
 							Toast.makeText(getApplicationContext(), "Lozinka potvrdjena!", Toast.LENGTH_SHORT).show();
 							Registracija registracija = new Registracija(lozinka, pitanje, odgovor);
 							registracija.save();
-							Intent i = new Intent(getApplicationContext(),LoginActivity.class);
+							Intent i = new Intent(getApplicationContext(), GlavniIzbornikActivity.class);
 							startActivity(i);
 						}
 						else 
@@ -65,10 +50,5 @@ public class RegistracijaActivity extends Activity{
 				});	
 	}
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
 }
+

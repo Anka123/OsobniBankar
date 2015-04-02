@@ -18,7 +18,7 @@ public class GlavniIzbornikActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(getApplicationContext(), PiRActivity.class);
+				Intent i = new Intent(getApplicationContext(), PrihodiRashodiActivity.class);
 				startActivity(i);
 				
 			}
@@ -29,7 +29,7 @@ public class GlavniIzbornikActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(getApplicationContext(), PiDActivity.class);
+				Intent i = new Intent(getApplicationContext(), PotrazivanjaDugovanjaActivity.class);
 				startActivity(i);
 				
 			}

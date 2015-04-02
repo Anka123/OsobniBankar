@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -17,7 +18,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
-public class PiRActivity extends Activity {
+public class PrihodiRashodiActivity extends Activity {
 	Context c = this;
 	Dialog dialog = null;
 
@@ -103,6 +104,12 @@ public class PiRActivity extends Activity {
 			rashod.save();
 		}
 
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.prihodi_rashodi, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
 
 }

@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Select;
  
 public class LoginActivity extends Activity{
@@ -28,7 +30,9 @@ public class LoginActivity extends Activity{
         protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.login);
-                
+        		
+        		Context c = this;
+        		ActiveAndroid.initialize(c);	
                
                 login();
                 
@@ -37,7 +41,7 @@ public class LoginActivity extends Activity{
  
         private void login() {
                
-                ImageButton btnLogin = (ImageButton) findViewById(R.id.btnLogin);
+                ImageButton btnLogin = (ImageButton) findViewById(R.id.imgBtnPrijava);
                
                 btnLogin.setOnClickListener(new OnClickListener() {
                                                             
@@ -57,6 +61,18 @@ public class LoginActivity extends Activity{
                                 }                      
                         }                  
                 });
+                
+                ImageButton btnRegistracija = (ImageButton) findViewById(R.id.imgBtnRegistracija);
+                
+                btnRegistracija.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						Intent i = new Intent(getApplicationContext(),RegistracijaActivity.class);
+						startActivity(i);
+						
+					}
+				});
                 
                 TextView txtZaboravljena = (TextView) findViewById(R.id.txtZaboravljena);
                 txtZaboravljena.setOnClickListener(new OnClickListener() {
@@ -137,6 +153,13 @@ public class LoginActivity extends Activity{
 			}
 			return a;
 					
+		}
+		
+		@Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			// Inflate the menu; this adds items to the action bar if it is present.
+			getMenuInflater().inflate(R.menu.main, menu);
+			return true;
 		}
        
 }

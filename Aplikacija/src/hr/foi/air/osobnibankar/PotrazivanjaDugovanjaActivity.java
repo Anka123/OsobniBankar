@@ -15,7 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
-public class PiDActivity extends Activity {
+public class PotrazivanjaDugovanjaActivity extends Activity {
 	Context c = this;
 	Dialog dialog = null;
 

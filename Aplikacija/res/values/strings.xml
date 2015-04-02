@@ -44,7 +44,8 @@
     <string name="btnProvjeri">Provjeri</string>
     <string name="zabLozinka">Zaboravljena lozinka</string>
     
-    
+    <string name="prihodi">Prihodi</string>
+    <string name="rashodi">Rashodi</string>
     
     <string-array name="pitanje">
         <item>Ime kućnog ljubimca?</item>
