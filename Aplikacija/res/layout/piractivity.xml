@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_bright"
     android:orientation="vertical" >
 
+    <ImageButton
+        android:id="@+id/imgBtnDesno"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_toRightOf="@+id/textView1"
+        android:contentDescription="@string/btnDesno"
+        android:src="@drawable/desno" />
+
+    <ImageButton
+        android:id="@+id/imgBtnLijevo"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_toLeftOf="@+id/textView1"
+        android:contentDescription="@string/btnLijevo"
+        android:src="@drawable/lijevo" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgBtnLijevo"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:text="@string/txtDatum" />
+
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="395dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" >
+
     </ListView>
 
-</LinearLayout>
+</RelativeLayout>
