@@ -64,5 +64,16 @@
         <item>Omiljena agilna metodika?</item>
         
     </string-array>
+    
+    <string-array name="kategorija">
+        <item icon="@drawable/ikona">Plaća</item>
+        <item>Džeparac</item>
+        <item>Stipendija</item>
+        <item>Automobil</item>
+        <item>Hrana</item>
+        <item>Zabava</item>
+        <item>Ostalo</item>
+        
+    </string-array>
 	
 </resources>

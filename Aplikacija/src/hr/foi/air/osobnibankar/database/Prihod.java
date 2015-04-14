@@ -38,7 +38,7 @@ public class Prihod extends Model {
 	}
 
 	public String getOpis() {
-		return naziv;
+		return opis;
 	}
 
 	public Double getIznos() {

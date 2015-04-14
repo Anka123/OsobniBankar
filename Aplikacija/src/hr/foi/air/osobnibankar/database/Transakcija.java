@@ -8,31 +8,45 @@ import com.activeandroid.annotation.Table;
 public class Transakcija extends Model{
 	@Column (name = "remote__id")
 	public long remote_id;
-	@Column (name = "prihod_id")
-	public Prihod prihod;
-	@Column (name = "rashod_id")
-	public Rashod rashod;
+	@Column (name = "iznos")
+	public double iznos;
+	@Column (name = "zatvoreno")
+	public boolean zatvoreno;
+	@Column (name = "kategorija")
+	public String kategorija;
+	@Column (name = "partner_id")
+	public Partner partner_id;
 
 	public Transakcija () {
 		super();
 	}
 
-	public Transakcija (long remote_id, Prihod prihod, Rashod rashod) {
+	public Transakcija (long remote_id, double iznos, boolean zatvoreno, String kategorija, Partner partner_id) {
 		this.remote_id = remote_id;
-		this.prihod = prihod;
-		this.rashod = rashod;
+		this.iznos = iznos;
+		this.zatvoreno = zatvoreno;
+		this.kategorija = kategorija;
+		this.partner_id = partner_id;
 	}
 	
 	public long getRemote_id () {
 		return remote_id;
 	}
 	
-	public Prihod getPrihod() {
-		return prihod;
+	public double getIznos() {
+		return iznos;
 	}
 	
-	public Rashod getRashod() {
-		return rashod;
+	public boolean getZatvoreno() {
+		return zatvoreno;
+	}
+	
+	public String getKategorija() {
+		return kategorija;
+	}
+	
+	public Partner getPartner_id() {
+		return partner_id;
 	}
 }
 

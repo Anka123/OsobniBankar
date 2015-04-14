@@ -3,6 +3,7 @@ package hr.foi.air.osobnibankar;
 import hr.foi.air.osobnibankar.adapters.PrihodiAdapter;
 import hr.foi.air.osobnibankar.database.Prihod;
 import hr.foi.air.osobnibankar.database.Rashod;
+import hr.foi.air.osobnibankar.database.Tip;
 import hr.foi.air.osobnibankar.database.Transakcija;
 
 import java.util.Date;
@@ -20,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ import com.activeandroid.query.Select;
 public class PrihodiRashodiActivity extends Activity {
 	Context c = this;
 	Dialog dialog = null;
+	Tip tip = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +73,7 @@ public class PrihodiRashodiActivity extends Activity {
 
 		RadioGroup rgPiR = (RadioGroup) dialog.findViewById(R.id.radioGroup2);
 		rgPiR.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			int izbor;
+			
 
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -81,17 +84,24 @@ public class PrihodiRashodiActivity extends Activity {
 					public void onClick(View v) {
 
 						switch (chkId) {
+						
 						case R.id.rbPrihod:
-							izbor = 0;
-							unos(izbor);
+							
+							tip.remote_id = 0;
+							tip.naziv = "Prihod";
+							tip.save();
+							unos(tip);
 							Toast.makeText(getApplicationContext(), "prihod",
 									Toast.LENGTH_SHORT).show();
 							dialog.dismiss();
 							break;
 
 						case R.id.rbRashod:
-							izbor = 1;
-							unos(izbor);
+							
+							tip.remote_id = 1;
+							tip.naziv = "Rashod";
+							tip.save();
+							unos(tip);
 							dialog.dismiss();
 							break;
 						}
@@ -102,8 +112,10 @@ public class PrihodiRashodiActivity extends Activity {
 		});
 	}
 
-	public void unos(int izbor) {
-		int iz = izbor;
+	public void unos(Tip tip) {
+		Tip t = tip;
+		boolean zatvoreno = false;	
+		
 		EditText etNaziv = (EditText) dialog.findViewById(R.id.etNaziv);
 		String naziv = etNaziv.getText().toString();
 		EditText etOpis = (EditText) dialog.findViewById(R.id.etOpis);
@@ -113,10 +125,12 @@ public class PrihodiRashodiActivity extends Activity {
 		iznos = Double.valueOf(etIznos.getText().toString());
 		Date datum = new Date(System.currentTimeMillis());
 		String danasnjiDatum = datum.toString();
+		Spinner sp = (Spinner)dialog.findViewById(R.id.spinKategorija);
+		String kategorija = sp.getSelectedItem().toString();
 		
 		
 		
-		if (iz == 0) {
+		if (t.remote_id == 0) {
 			Transakcija prije = new Select().from(Transakcija.class).executeSingle();
 			Prihod prethodni = new Select().from(Prihod.class).orderBy("remote_id DESC").executeSingle();
 			long trenutniId;
@@ -136,13 +150,13 @@ public class PrihodiRashodiActivity extends Activity {
 			Prihod prihod = new Prihod(trenutniId, naziv, opis, iznos, danasnjiDatum);
 			prihod.save();
 			
-			Transakcija trans = new Transakcija (idTrans,prihod, null);
+			Transakcija trans = new Transakcija(idTrans, iznos, zatvoreno, kategorija, null);
 			trans.save();
 
 			Toast.makeText(getApplicationContext(), "Prihod spremljen",
 					Toast.LENGTH_SHORT).show();
 
-		} else if (iz == 1) {
+		} else if (t.remote_id == 1) {
 			Rashod prethodni = new Select().from(Rashod.class).orderBy("remote_id DESC").executeSingle();
 			long trenutniId;
 			try {
@@ -156,6 +170,7 @@ public class PrihodiRashodiActivity extends Activity {
 			Toast.makeText(getApplicationContext(), "Rashod spremljen",
 					Toast.LENGTH_SHORT).show();
 			rashod.save();
+			
 		}
 
 	}
@@ -170,5 +185,6 @@ public class PrihodiRashodiActivity extends Activity {
 		list.setAdapter(prihodiAdapter);
 
 	}
+	
 
 }

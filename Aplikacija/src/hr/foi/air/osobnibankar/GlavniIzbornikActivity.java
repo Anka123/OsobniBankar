@@ -1,5 +1,6 @@
 package hr.foi.air.osobnibankar;
 
+import hr.foi.air.osobnibankar.database.Tip;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ public class GlavniIzbornikActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.glavni_izbornik);
+		
 		
 		ImageButton btnPiR = (ImageButton)findViewById(R.id.imgPiR);
 		btnPiR.setOnClickListener(new OnClickListener() {
@@ -75,4 +77,5 @@ public class GlavniIzbornikActivity extends Activity {
 			}
 		});
 	}
+
 }

@@ -66,10 +66,17 @@
         android:ems="10" 
         android:inputType="numberDecimal"/>
 
-    <Button
-        android:id="@+id/btnSpremi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btnSpremi" />
+     <Spinner
+         android:id="@+id/spinKategorija"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:entries="@array/kategorija" />
+
+     <Button
+         android:id="@+id/btnSpremi"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center"
+         android:text="@string/btnSpremi" />
 
 </LinearLayout>
