@@ -10,6 +10,8 @@ public class Dugovanje extends Model {
 	public String naziv;
 	@Column(name = "opis")
 	public String opis;
+	@Column(name = "kategorija")
+	public String kategorija;
 	@Column(name = "iznos")
 	public Double iznos;
 	@Column(name = "datum")
@@ -19,9 +21,10 @@ public class Dugovanje extends Model {
 		super();
 	}
 
-	public Dugovanje(String naziv, String opis, Double iznos, String datum) {
+	public Dugovanje(String naziv, String opis, String kategorija, Double iznos, String datum) {
 		this.naziv = naziv;
 		this.opis = opis;
+		this.kategorija = kategorija;
 		this.iznos = iznos;
 		this.datum = datum;
 	}
@@ -31,7 +34,11 @@ public class Dugovanje extends Model {
 	}
 
 	public String getOpis() {
-		return naziv;
+		return opis;
+	}
+	
+	public String getKategorija() {
+		return kategorija;
 	}
 
 	public Double getIznos() {

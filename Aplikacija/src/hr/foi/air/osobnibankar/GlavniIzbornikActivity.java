@@ -1,6 +1,5 @@
 package hr.foi.air.osobnibankar;
 
-import hr.foi.air.osobnibankar.database.Tip;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

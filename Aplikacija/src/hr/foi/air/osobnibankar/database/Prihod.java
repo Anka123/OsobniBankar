@@ -12,6 +12,8 @@ public class Prihod extends Model {
 	public String naziv;
 	@Column(name = "opis")
 	public String opis;
+	@Column (name = "kategorija")
+	public String kategorija;
 	@Column(name = "iznos")
 	public Double iznos;
 	@Column(name = "datum")
@@ -21,10 +23,11 @@ public class Prihod extends Model {
 		super();
 	}
 
-	public Prihod(long remote_id, String naziv, String opis, Double iznos, String datum) {
+	public Prihod(long remote_id, String naziv, String opis, String kategorija, Double iznos, String datum) {
 		this.remote_id = remote_id;
 		this.naziv = naziv;
 		this.opis = opis;
+		this.kategorija = kategorija;
 		this.iznos = iznos;
 		this.datum = datum;
 	}
@@ -39,6 +42,10 @@ public class Prihod extends Model {
 
 	public String getOpis() {
 		return opis;
+	}
+	
+	public String getKategorija() {
+		return kategorija;
 	}
 
 	public Double getIznos() {

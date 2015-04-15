@@ -8,8 +8,10 @@ import com.activeandroid.annotation.Table;
 public class Transakcija extends Model{
 	@Column (name = "remote__id")
 	public long remote_id;
+	@Column (name = "naziv")
+	public String naziv;
 	@Column (name = "iznos")
-	public double iznos;
+	public String iznos;
 	@Column (name = "zatvoreno")
 	public boolean zatvoreno;
 	@Column (name = "kategorija")
@@ -21,8 +23,9 @@ public class Transakcija extends Model{
 		super();
 	}
 
-	public Transakcija (long remote_id, double iznos, boolean zatvoreno, String kategorija, Partner partner_id) {
+	public Transakcija (long remote_id, String naziv, String iznos, boolean zatvoreno, String kategorija, Partner partner_id) {
 		this.remote_id = remote_id;
+		this.naziv = naziv;
 		this.iznos = iznos;
 		this.zatvoreno = zatvoreno;
 		this.kategorija = kategorija;
@@ -33,7 +36,11 @@ public class Transakcija extends Model{
 		return remote_id;
 	}
 	
-	public double getIznos() {
+	public String getNaziv() {
+		return naziv;
+	}
+	
+	public String getIznos() {
 		return iznos;
 	}
 	

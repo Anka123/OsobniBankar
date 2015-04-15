@@ -36,6 +36,7 @@
     <string name="rbPotrazivanje">Potrazivanje</string>
     <string name="rbDugovanje">Dugovanje</string>
     <string name="datum">Datum</string>
+    <string name="kategorija">Kategorija</string>
     
     <string name="noviUnos">Novi unos</string>
     <string name="txtSigpitanje">Sigurnosno pitanje:</string>

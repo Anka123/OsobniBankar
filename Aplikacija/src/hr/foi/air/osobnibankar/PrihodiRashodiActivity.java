@@ -1,10 +1,11 @@
 package hr.foi.air.osobnibankar;
 
-import hr.foi.air.osobnibankar.adapters.PrihodiAdapter;
+import hr.foi.air.osobnibankar.adapters.TransakcijeAdapter;
+import hr.foi.air.osobnibankar.core.Transakcije;
 import hr.foi.air.osobnibankar.database.Prihod;
 import hr.foi.air.osobnibankar.database.Rashod;
-import hr.foi.air.osobnibankar.database.Tip;
 import hr.foi.air.osobnibankar.database.Transakcija;
+import hr.foi.air.osobnibankar.interfaces.ITransakcija;
 
 import java.util.Date;
 import java.util.List;
@@ -21,8 +22,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.activeandroid.query.Select;
@@ -30,17 +31,17 @@ import com.activeandroid.query.Select;
 public class PrihodiRashodiActivity extends Activity {
 	Context c = this;
 	Dialog dialog = null;
-	Tip tip = null;
+	int izbor;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.piractivity);
 
-		pregledPrihoda();
+		pregledZajedno();
 
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.prihodi_rashodi, menu);
@@ -48,13 +49,17 @@ public class PrihodiRashodiActivity extends Activity {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
+		
 		switch (item.getItemId()) {
 		case R.id.itemPrihodi:
-			pregledPrihoda();
+			item.setChecked(true);
+			izbor = 0;
+			pregled(izbor);
 			return true;
 		case R.id.itemRashodi:
 			item.setChecked(true);
-			pregledPrihoda();
+			izbor = 1;
+			pregled(izbor);
 			return true;
 		case R.id.itemDodaj:
 			noviUnos();
@@ -73,7 +78,6 @@ public class PrihodiRashodiActivity extends Activity {
 
 		RadioGroup rgPiR = (RadioGroup) dialog.findViewById(R.id.radioGroup2);
 		rgPiR.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			
 
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -84,24 +88,18 @@ public class PrihodiRashodiActivity extends Activity {
 					public void onClick(View v) {
 
 						switch (chkId) {
-						
+
 						case R.id.rbPrihod:
-							
-							tip.remote_id = 0;
-							tip.naziv = "Prihod";
-							tip.save();
-							unos(tip);
+							izbor = 0;
+							unos(izbor);
 							Toast.makeText(getApplicationContext(), "prihod",
 									Toast.LENGTH_SHORT).show();
 							dialog.dismiss();
 							break;
 
 						case R.id.rbRashod:
-							
-							tip.remote_id = 1;
-							tip.naziv = "Rashod";
-							tip.save();
-							unos(tip);
+							izbor = 1;
+							unos(izbor);
 							dialog.dismiss();
 							break;
 						}
@@ -112,10 +110,7 @@ public class PrihodiRashodiActivity extends Activity {
 		});
 	}
 
-	public void unos(Tip tip) {
-		Tip t = tip;
-		boolean zatvoreno = false;	
-		
+	public void unos(int izbor) {
 		EditText etNaziv = (EditText) dialog.findViewById(R.id.etNaziv);
 		String naziv = etNaziv.getText().toString();
 		EditText etOpis = (EditText) dialog.findViewById(R.id.etOpis);
@@ -125,66 +120,70 @@ public class PrihodiRashodiActivity extends Activity {
 		iznos = Double.valueOf(etIznos.getText().toString());
 		Date datum = new Date(System.currentTimeMillis());
 		String danasnjiDatum = datum.toString();
-		Spinner sp = (Spinner)dialog.findViewById(R.id.spinKategorija);
+		Spinner sp = (Spinner) dialog.findViewById(R.id.spinKategorija);
 		String kategorija = sp.getSelectedItem().toString();
-		
-		
-		
-		if (t.remote_id == 0) {
-			Transakcija prije = new Select().from(Transakcija.class).executeSingle();
-			Prihod prethodni = new Select().from(Prihod.class).orderBy("remote_id DESC").executeSingle();
+
+		if (izbor == 0) {
+			Prihod prethodni = new Select().from(Prihod.class)
+					.orderBy("remote_id DESC").executeSingle();
 			long trenutniId;
-			long idTrans;
 			try {
-				idTrans = prije.getRemote_id();
 				trenutniId = prethodni.getRemote_id();
-				idTrans++;
 				trenutniId++;
 			} catch (Exception e) {
 				trenutniId = 0;
-				idTrans = 0;
 			}
-			
-			
-			
-			Prihod prihod = new Prihod(trenutniId, naziv, opis, iznos, danasnjiDatum);
+
+			Prihod prihod = new Prihod(trenutniId, naziv, opis, kategorija,
+					iznos, danasnjiDatum);
 			prihod.save();
-			
-			Transakcija trans = new Transakcija(idTrans, iznos, zatvoreno, kategorija, null);
-			trans.save();
 
 			Toast.makeText(getApplicationContext(), "Prihod spremljen",
 					Toast.LENGTH_SHORT).show();
 
-		} else if (t.remote_id == 1) {
-			Rashod prethodni = new Select().from(Rashod.class).orderBy("remote_id DESC").executeSingle();
-			long trenutniId;
-			try {
-				trenutniId = prethodni.getRemote_id();
-				trenutniId++;
-			} catch (Exception e) {
-				trenutniId = 0;
-			}
-			Rashod rashod = new Rashod(trenutniId, naziv, opis, iznos, danasnjiDatum);
+		} else if (izbor == 1) {
+				Rashod prethodni = new Select().from(Rashod.class)
+						.orderBy("remote_id DESC").executeSingle();
+				long trenutniId;
+				try {
+					trenutniId = prethodni.getRemote_id();
+					trenutniId++;
+				} catch (Exception e) {
+					trenutniId = 0;
+				}
 
-			Toast.makeText(getApplicationContext(), "Rashod spremljen",
-					Toast.LENGTH_SHORT).show();
-			rashod.save();
-			
+				Rashod rashod = new Rashod(trenutniId, naziv, opis, kategorija,
+						iznos, danasnjiDatum);
+				rashod.save();
+
+				Toast.makeText(getApplicationContext(), "Rashod spremljen",
+						Toast.LENGTH_SHORT).show();
 		}
 
 	}
 
-	public void pregledPrihoda() {
+	public void pregled(int iz) {
+		int t = iz;
+		ITransakcija tr = new Transakcije();
+		List<Transakcija> listaTransakcija = tr.dohvatiTipTransakcije(t);
+		
 		ListView list = (ListView) findViewById(R.id.list);
-		List<Transakcija> listaTransakcija = new Select().all()
-				.from(Transakcija.class).execute();
 
-		PrihodiAdapter prihodiAdapter = new PrihodiAdapter(this,
-				R.layout.item_prihod, listaTransakcija);
+		TransakcijeAdapter prihodiAdapter = new TransakcijeAdapter(this,
+				R.layout.item_pir, listaTransakcija);
 		list.setAdapter(prihodiAdapter);
 
 	}
 	
+	public void pregledZajedno(){
+		ITransakcija tr = new Transakcije();
+		List<Transakcija> listaTransakcija = tr.dohvatiTransakcije();
+		
+		ListView list = (ListView) findViewById(R.id.list);
+
+		TransakcijeAdapter prihodiAdapter = new TransakcijeAdapter(this,
+				R.layout.item_pir, listaTransakcija);
+		list.setAdapter(prihodiAdapter);
+	}
 
 }

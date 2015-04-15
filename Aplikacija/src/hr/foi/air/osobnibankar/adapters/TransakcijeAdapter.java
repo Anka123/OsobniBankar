@@ -1,12 +1,10 @@
 package hr.foi.air.osobnibankar.adapters;
 
+import hr.foi.air.osobnibankar.R;
+import hr.foi.air.osobnibankar.database.Transakcija;
+
 import java.util.List;
 
-import hr.foi.air.osobnibankar.R;
-import hr.foi.air.osobnibankar.database.Prihod;
-import hr.foi.air.osobnibankar.database.Rashod;
-import hr.foi.air.osobnibankar.database.Tip;
-import hr.foi.air.osobnibankar.database.Transakcija;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,26 +13,32 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class PrihodiAdapter extends ArrayAdapter<Transakcija> {
+public class TransakcijeAdapter extends ArrayAdapter<Transakcija> {
 	public Context c;
 	private List<Transakcija> transakcije;
 
-	public PrihodiAdapter(Context c, int resource, List<Transakcija> transakcije) {
+	public TransakcijeAdapter(Context c, int resource, List<Transakcija> transakcije) {
 		super(c, resource, transakcije);
 		this.c = c;
 		this.transakcije = transakcije;
-		
+
 	}
-	
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		LayoutInflater inflater = (LayoutInflater) c
 				.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-		View v = inflater.inflate(R.layout.item_prihod, parent, false);
+		View v = inflater.inflate(R.layout.item_pir, parent, false);
 
 		Transakcija transakcija = transakcije.get(position);
-		
+		TextView naziv = (TextView) v.findViewById(R.id.txtNaziv);
+		naziv.setText(String.valueOf(transakcija.getNaziv()));
+		TextView kategorija = (TextView) v.findViewById(R.id.txtKategorija);
+		kategorija.setText(String.valueOf(transakcija.getKategorija()));
+		TextView iznos = (TextView) v.findViewById(R.id.txtIznos);
+		iznos.setText(transakcija.getIznos());
+
 		return v;
 	}
 }

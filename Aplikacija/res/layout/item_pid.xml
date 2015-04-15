@@ -9,22 +9,30 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:contentDescription="@string/plus"
-        android:src="@drawable/plus" />
+        android:src="@drawable/kvacica" />
 
     <TextView
         android:id="@+id/txtNaziv"
-        android:layout_width="140dp"
+        android:layout_width="104dp"
         android:layout_height="30dp"
         android:gravity="center"
-        android:textSize="16sp"
-        android:text="@string/txtNaziv" />
+        android:text="@string/txtNaziv"
+        android:textSize="16sp" />
+    
+    <TextView
+        android:id="@+id/txtKategorija"
+        android:layout_width="94dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="@string/kategorija"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/txtIznos"
-        android:layout_width="140dp"
+        android:layout_width="86dp"
         android:layout_height="30dp"
-        android:textSize="16sp"
         android:gravity="end"
-        android:text="@string/txtIznos" />
+        android:text="@string/txtIznos"
+        android:textSize="16sp" />
 
 </LinearLayout>
