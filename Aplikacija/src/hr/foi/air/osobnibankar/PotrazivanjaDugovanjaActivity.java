@@ -30,12 +30,14 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 	Dialog dialog = null;
 	int izbor;
 
+	boolean potrazivanjaSelected=false;
+	boolean dugovanjaSelected=false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pidactivity);
 
-		pregledZajedno();
+		pregledSve();
 
 	}
 
@@ -48,11 +50,45 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.itemPotrazivanja:
-			izbor = 2;
+			if(item.isChecked()){
+				item.setChecked(false);
+				izbor=3;
+				potrazivanjaSelected=false;
+				if(!potrazivanjaSelected&&!dugovanjaSelected){
+					pregledSve();
+					return true;
+				}
+			}
+			else{
+				item.setChecked(true);
+				izbor=2;
+				potrazivanjaSelected=true;
+				if(potrazivanjaSelected&&dugovanjaSelected){
+					pregledSve();
+					return true;
+				}
+			}
 			pregled(izbor);
 			return true;
 		case R.id.itemDugovanja:
-			izbor = 3;
+			if(item.isChecked()){
+				item.setChecked(false);
+				izbor=2;
+				dugovanjaSelected=false;
+				if(!potrazivanjaSelected&&!dugovanjaSelected){
+					pregledSve();
+					return true;
+				}
+			}
+			else{
+				item.setChecked(true);
+				izbor=3;
+				dugovanjaSelected=true;
+				if(potrazivanjaSelected&&dugovanjaSelected){
+					pregledSve();
+					return true;
+				}
+			}
 			pregled(izbor);
 			return true;
 		case R.id.itemDodaj:
@@ -144,20 +180,20 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 
 		ListView list = (ListView) findViewById(R.id.list);
 
-		TransakcijeAdapter transakcijeAdapter = new TransakcijeAdapter(this,
+		TransakcijeAdapter pidAdapter = new TransakcijeAdapter(this,
 				R.layout.item_pid, listaTransakcija);
-		list.setAdapter(transakcijeAdapter);
+		list.setAdapter(pidAdapter);
 
 	}
 
-	public void pregledZajedno() {
+	public void pregledSve() {
 		ITransakcija tr = new Transakcije();
 		List<Transakcija> listaTransakcija = tr.dohvatiTransakcije();
 
 		ListView list = (ListView) findViewById(R.id.listview);
 
-		TransakcijeAdapter prihodiAdapter = new TransakcijeAdapter(this,
+		TransakcijeAdapter pidAdapter = new TransakcijeAdapter(this,
 				R.layout.item_pid, listaTransakcija);
-		list.setAdapter(prihodiAdapter);
+		list.setAdapter(pidAdapter);
 	}
 }

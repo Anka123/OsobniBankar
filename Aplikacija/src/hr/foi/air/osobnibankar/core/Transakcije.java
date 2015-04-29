@@ -36,7 +36,7 @@ public class Transakcije implements ITransakcija {
 						zatvoreno, kategorija, partner_id);
 				transakcija.add(trans);
 			}
-				List<Rashod> rashodi = new Select().all().from(Rashod.class)
+			List<Rashod> rashodi = new Select().all().from(Rashod.class)
 						.execute();
 
 			for (int j = 0; j < rashodi.size(); j++) {
@@ -74,7 +74,7 @@ public class Transakcije implements ITransakcija {
 						.where("remote_id = ?", remote_id).executeSingle();
 				String naziv = prihod.getNaziv();
 				String iznos = String.valueOf(prihod.getIznos());
-				String kategorija = prihod.getKategorija();
+				String kategorija = "prihod";
 				boolean zatvoreno = false;
 				Partner partner_id = null;
 
@@ -96,7 +96,7 @@ public class Transakcije implements ITransakcija {
 						.where("remote_id = ?", remote_id).executeSingle();
 				String naziv = rashod.getNaziv();
 				String iznos = String.valueOf(rashod.getIznos());
-				String kategorija = rashod.getKategorija();
+				String kategorija = "rashod";
 				boolean zatvoreno = false;
 				Partner partner_id = null;
 		
@@ -118,7 +118,7 @@ public class Transakcije implements ITransakcija {
 						.where("remote_id = ?", remote_id).executeSingle();
 				String naziv = potrazivanje.getNaziv();
 				String iznos = String.valueOf(potrazivanje.getIznos());
-				String kategorija = potrazivanje.getKategorija();
+				String kategorija = "potrazivanja";
 				boolean zatvoreno = false;
 				Partner partner_id = null;
 		
@@ -140,7 +140,7 @@ public class Transakcije implements ITransakcija {
 						.where("remote_id = ?", remote_id).executeSingle();
 				String naziv = dugovanje.getNaziv();
 				String iznos = String.valueOf(dugovanje.getIznos());
-				String kategorija = dugovanje.getKategorija();
+				String kategorija = "dugovanja";
 				boolean zatvoreno = false;
 				Partner partner_id = null;
 		

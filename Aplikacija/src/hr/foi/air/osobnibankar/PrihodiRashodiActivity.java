@@ -33,6 +33,9 @@ public class PrihodiRashodiActivity extends Activity {
 	Dialog dialog = null;
 	int izbor;
 
+	boolean prihodiSelected=false;
+	boolean rashodiSelected=false;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,23 +54,54 @@ public class PrihodiRashodiActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		
 		switch (item.getItemId()) {
-		case R.id.itemPrihodi:
-			item.setChecked(true);
-			izbor = 0;
-			pregled(izbor);
-			return true;
-		case R.id.itemRashodi:
-			item.setChecked(true);
-			izbor = 1;
-			pregled(izbor);
-			return true;
-		case R.id.itemDodaj:
-			noviUnos();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
+			case R.id.itemPrihodi:
+				if(item.isChecked()){
+					item.setChecked(false);
+					izbor=1;
+					prihodiSelected=false;
+					if(!prihodiSelected&&!rashodiSelected){
+						pregledZajedno();
+						return true;
+					}
+				}
+				else{
+					item.setChecked(true);
+					izbor=0;
+					prihodiSelected=true;
+					if(prihodiSelected&&rashodiSelected){
+						pregledZajedno();
+						return true;
+					}
+				}
+				pregled(izbor);
+				return true;
+			case R.id.itemRashodi:
+				if(item.isChecked()){
+					item.setChecked(false);
+					izbor=0;
+					rashodiSelected=false;
+					if(!prihodiSelected&&!rashodiSelected){
+						pregledZajedno();
+						return true;
+					}
+				}
+				else{
+					item.setChecked(true);
+					izbor=1;
+					rashodiSelected=true;
+					if(prihodiSelected&&rashodiSelected){
+						pregledZajedno();
+						return true;
+					}
+				}
+				pregled(izbor);
+				return true;
+			case R.id.itemDodaj:
+				noviUnos();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
 		}
-
 	}
 
 	public void noviUnos() {
@@ -169,9 +203,9 @@ public class PrihodiRashodiActivity extends Activity {
 		
 		ListView list = (ListView) findViewById(R.id.list);
 
-		TransakcijeAdapter prihodiAdapter = new TransakcijeAdapter(this,
+		TransakcijeAdapter pirAdapter = new TransakcijeAdapter(this,
 				R.layout.item_pir, listaTransakcija);
-		list.setAdapter(prihodiAdapter);
+		list.setAdapter(pirAdapter);
 
 	}
 	
@@ -181,9 +215,9 @@ public class PrihodiRashodiActivity extends Activity {
 		
 		ListView list = (ListView) findViewById(R.id.list);
 
-		TransakcijeAdapter prihodiAdapter = new TransakcijeAdapter(this,
+		TransakcijeAdapter pirAdapter = new TransakcijeAdapter(this,
 				R.layout.item_pir, listaTransakcija);
-		list.setAdapter(prihodiAdapter);
+		list.setAdapter(pirAdapter);
 	}
 
 }

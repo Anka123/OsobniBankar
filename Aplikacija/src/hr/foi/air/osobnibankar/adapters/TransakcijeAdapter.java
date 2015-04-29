@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class TransakcijeAdapter extends ArrayAdapter<Transakcija> {
@@ -32,6 +33,20 @@ public class TransakcijeAdapter extends ArrayAdapter<Transakcija> {
 		View v = inflater.inflate(R.layout.item_pir, parent, false);
 
 		Transakcija transakcija = transakcije.get(position);
+		ImageView iv = (ImageView) v.findViewById(R.id.imageView1);
+
+		if(transakcija.getKategorija()=="prihod"){
+			iv.setImageResource(R.drawable.plus);
+		}
+		else if(transakcija.getKategorija()=="rashod"){
+			iv.setImageResource(R.drawable.minus);
+		}
+		else if(transakcija.getKategorija()=="potrazivanja"){
+			iv.setImageResource(R.drawable.kvacica);
+		}
+		else if(transakcija.getKategorija()=="dugovanja"){
+			iv.setImageResource(R.drawable.x);
+		}
 		TextView naziv = (TextView) v.findViewById(R.id.txtNaziv);
 		naziv.setText(String.valueOf(transakcija.getNaziv()));
 		TextView kategorija = (TextView) v.findViewById(R.id.txtKategorija);
