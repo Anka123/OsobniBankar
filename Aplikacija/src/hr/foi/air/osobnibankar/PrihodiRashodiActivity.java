@@ -20,10 +20,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.query.Select;
@@ -32,10 +34,11 @@ public class PrihodiRashodiActivity extends Activity {
 	Context c = this;
 	Dialog dialog = null;
 	int izbor;
+	int grupa = 1;
 
-	boolean prihodiSelected=false;
-	boolean rashodiSelected=false;
-	
+	boolean prihodiSelected = false;
+	boolean rashodiSelected = false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,7 +47,7 @@ public class PrihodiRashodiActivity extends Activity {
 		pregledZajedno();
 
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.prihodi_rashodi, menu);
@@ -52,55 +55,53 @@ public class PrihodiRashodiActivity extends Activity {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-		
+
 		switch (item.getItemId()) {
-			case R.id.itemPrihodi:
-				if(item.isChecked()){
-					item.setChecked(false);
-					izbor=1;
-					prihodiSelected=false;
-					if(!prihodiSelected&&!rashodiSelected){
-						pregledZajedno();
-						return true;
-					}
+		case R.id.itemPrihodi:
+			if (item.isChecked()) {
+				item.setChecked(false);
+				izbor = 1;
+				prihodiSelected = false;
+				if (!prihodiSelected && !rashodiSelected) {
+					pregledZajedno();
+					return true;
 				}
-				else{
-					item.setChecked(true);
-					izbor=0;
-					prihodiSelected=true;
-					if(prihodiSelected&&rashodiSelected){
-						pregledZajedno();
-						return true;
-					}
+			} else {
+				item.setChecked(true);
+				izbor = 0;
+				prihodiSelected = true;
+				if (prihodiSelected && rashodiSelected) {
+					pregledZajedno();
+					return true;
 				}
-				pregled(izbor);
-				return true;
-			case R.id.itemRashodi:
-				if(item.isChecked()){
-					item.setChecked(false);
-					izbor=0;
-					rashodiSelected=false;
-					if(!prihodiSelected&&!rashodiSelected){
-						pregledZajedno();
-						return true;
-					}
+			}
+			pregled(izbor);
+			return true;
+		case R.id.itemRashodi:
+			if (item.isChecked()) {
+				item.setChecked(false);
+				izbor = 0;
+				rashodiSelected = false;
+				if (!prihodiSelected && !rashodiSelected) {
+					pregledZajedno();
+					return true;
 				}
-				else{
-					item.setChecked(true);
-					izbor=1;
-					rashodiSelected=true;
-					if(prihodiSelected&&rashodiSelected){
-						pregledZajedno();
-						return true;
-					}
+			} else {
+				item.setChecked(true);
+				izbor = 1;
+				rashodiSelected = true;
+				if (prihodiSelected && rashodiSelected) {
+					pregledZajedno();
+					return true;
 				}
-				pregled(izbor);
-				return true;
-			case R.id.itemDodaj:
-				noviUnos();
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
+			}
+			pregled(izbor);
+			return true;
+		case R.id.itemDodaj:
+			noviUnos();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
 	}
 
@@ -176,48 +177,120 @@ public class PrihodiRashodiActivity extends Activity {
 					Toast.LENGTH_SHORT).show();
 
 		} else if (izbor == 1) {
-				Rashod prethodni = new Select().from(Rashod.class)
-						.orderBy("remote_id DESC").executeSingle();
-				long trenutniId;
-				try {
-					trenutniId = prethodni.getRemote_id();
-					trenutniId++;
-				} catch (Exception e) {
-					trenutniId = 0;
-				}
+			Rashod prethodni = new Select().from(Rashod.class)
+					.orderBy("remote_id DESC").executeSingle();
+			long trenutniId;
+			try {
+				trenutniId = prethodni.getRemote_id();
+				trenutniId++;
+			} catch (Exception e) {
+				trenutniId = 0;
+			}
 
-				Rashod rashod = new Rashod(trenutniId, naziv, opis, kategorija,
-						iznos, danasnjiDatum);
-				rashod.save();
+			Rashod rashod = new Rashod(trenutniId, naziv, opis, kategorija,
+					iznos, danasnjiDatum);
+			rashod.save();
 
-				Toast.makeText(getApplicationContext(), "Rashod spremljen",
-						Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), "Rashod spremljen",
+					Toast.LENGTH_SHORT).show();
 		}
 
 	}
 
 	public void pregled(int iz) {
 		int t = iz;
+
+		Date d = new Date(System.currentTimeMillis());
+		@SuppressWarnings("deprecation")
+		int mjesec = d.getMonth();
+
+		TextView datum = (TextView) findViewById(R.id.txtDatum);
+		datum.setText(mjesec);
+
 		ITransakcija tr = new Transakcije();
 		List<Transakcija> listaTransakcija = tr.dohvatiTipTransakcije(t);
-		
+
 		ListView list = (ListView) findViewById(R.id.list);
 
 		TransakcijeAdapter pirAdapter = new TransakcijeAdapter(this,
-				R.layout.item_pir, listaTransakcija);
+				R.layout.item_transakcija, listaTransakcija);
 		list.setAdapter(pirAdapter);
 
+	}
+
+	public void pregledZajedno() {
+		datum();
+		ITransakcija tr = new Transakcije();
+		List<Transakcija> listaTransakcija = tr.dohvatiTransakcije(grupa);
+
+		ListView list = (ListView) findViewById(R.id.list);
+
+		TransakcijeAdapter pirAdapter = new TransakcijeAdapter(this,
+				R.layout.item_transakcija, listaTransakcija);
+		list.setAdapter(pirAdapter);
+	}
+
+	public void datum(){
+		Date d = new Date(System.currentTimeMillis());
+		@SuppressWarnings("deprecation")
+		final int mjesec = d.getMonth()+1;
+		String nazivMjeseca = "";
+		
+		nazivMjeseca = nazivMj(mjesec);		
+		final TextView datum = (TextView) findViewById(R.id.textView1);
+		datum.setText(nazivMjeseca);
+		
+		ImageButton btnLijevo = (ImageButton) findViewById(R.id.imgBtnLijevo);
+		btnLijevo.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				int m = mjesec-1;
+				String lijevo = nazivMj(m);
+				datum.setText(lijevo);
+			}
+		});
+		ImageButton btnDesno = (ImageButton) findViewById(R.id.imgBtnDesno);
+		btnDesno.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				int m = mjesec+1;
+				String desno = nazivMj(m);
+				datum.setText(desno);
+			}
+		});
+		
+		
 	}
 	
-	public void pregledZajedno(){
-		ITransakcija tr = new Transakcije();
-		List<Transakcija> listaTransakcija = tr.dohvatiTransakcije();
-		
-		ListView list = (ListView) findViewById(R.id.list);
-
-		TransakcijeAdapter pirAdapter = new TransakcijeAdapter(this,
-				R.layout.item_pir, listaTransakcija);
-		list.setAdapter(pirAdapter);
+	public String nazivMj(int mj){
+		int mjesec = mj;
+		String nazivMjeseca = "";
+		if(mjesec == 1)
+			nazivMjeseca = "Sijeèanj";
+		else if(mjesec == 2)
+			nazivMjeseca = "Veljaèa";
+		else if(mjesec == 3)
+			nazivMjeseca = "Ožujak";
+		else if(mjesec == 4)
+			nazivMjeseca = "Travanj";
+		else if(mjesec == 5)
+			nazivMjeseca = "Svibanj";
+		else if(mjesec == 6)
+			nazivMjeseca = "Lipanj";
+		else if(mjesec == 7)
+			nazivMjeseca = "Srpanj";
+		else if(mjesec == 8)
+			nazivMjeseca = "Kolovoz";
+		else if(mjesec == 9)
+			nazivMjeseca = "Rujan";
+		else if(mjesec == 10)
+			nazivMjeseca = "Listopa"; 
+		else if(mjesec == 11)
+			nazivMjeseca = "Studeni";
+		else if(mjesec == 12)
+			nazivMjeseca = "Prosinac";
+	return nazivMjeseca;
 	}
-
 }

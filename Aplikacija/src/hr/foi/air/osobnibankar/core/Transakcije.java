@@ -16,45 +16,89 @@ import com.activeandroid.query.Select;
 public class Transakcije implements ITransakcija {
 
 	@Override
-	public List<Transakcija> dohvatiTransakcije() {
+	public List<Transakcija> dohvatiTransakcije(int grupa) {
+		int grupaTransakcija = grupa;
 		List<Transakcija> transakcija = new ArrayList<Transakcija>();
+		switch(grupaTransakcija){
+		case 1:
 
-		List<Prihod> prihodi = new Select().all().from(Prihod.class)
-					.execute();
-
-			for (int i = 0; i < prihodi.size(); i++) {
-				long remote_id = i;
-				Prihod prihod = new Select().from(Prihod.class)
-						.where("remote_id = ?", remote_id).executeSingle();
-				String naziv = prihod.getNaziv();
-				String iznos = String.valueOf(prihod.getIznos());
-				String kategorija = prihod.getKategorija();
-				boolean zatvoreno = false;
-				Partner partner_id = null;
-
-				Transakcija trans = new Transakcija(remote_id, naziv, iznos,
-						zatvoreno, kategorija, partner_id);
-				transakcija.add(trans);
-			}
-			List<Rashod> rashodi = new Select().all().from(Rashod.class)
+			List<Prihod> prihodi = new Select().all().from(Prihod.class)
 						.execute();
+	
+				for (int i = 0; i < prihodi.size(); i++) {
+					long remote_id = i;
+					Prihod prihod = new Select().from(Prihod.class)
+							.where("remote_id = ?", remote_id).executeSingle();
+					String naziv = prihod.getNaziv();
+					String iznos = String.valueOf(prihod.getIznos());
+					String kategorija = prihod.getKategorija();
+					boolean zatvoreno = false;
+					Partner partner_id = null;
+	
+					Transakcija trans = new Transakcija(remote_id, naziv, iznos,
+							zatvoreno, kategorija, partner_id);
+					transakcija.add(trans);
+				}
+				List<Rashod> rashodi = new Select().all().from(Rashod.class)
+							.execute();
+	
+				for (int j = 0; j < rashodi.size(); j++) {
+					long r_id = j;
+					Rashod rashod = new Select().from(Rashod.class)
+										.where("remote_id = ?", r_id).executeSingle();
+					String n = rashod.getNaziv();
+					String iz = String.valueOf(rashod.getIznos());
+					String k = rashod.getKategorija();
+					boolean z = false;
+					Partner p_id = null;
+						
+					Transakcija trans2 = new Transakcija(r_id, n, iz,
+										z, k, p_id);
+					transakcija.add(trans2);
+						
+				}
+				return transakcija;
+		case 0:
 
-			for (int j = 0; j < rashodi.size(); j++) {
-				long r_id = j;
-				Rashod rashod = new Select().from(Rashod.class)
-									.where("remote_id = ?", r_id).executeSingle();
-				String n = rashod.getNaziv();
-				String iz = String.valueOf(rashod.getIznos());
-				String k = rashod.getKategorija();
-				boolean z = false;
-				Partner p_id = null;
-					
-				Transakcija trans2 = new Transakcija(r_id, n, iz,
-									z, k, p_id);
-				transakcija.add(trans2);
-					
-			}
-			
+			List<Potrazivanje> potrazivanja = new Select().all().from(Potrazivanje.class)
+						.execute();
+	
+				for (int i = 0; i < potrazivanja.size(); i++) {
+					long remote_id = i;
+					Potrazivanje potrazivanje = new Select().from(Potrazivanje.class)
+							.where("remote_id = ?", remote_id).executeSingle();
+					String naziv = potrazivanje.getNaziv();
+					String iznos = String.valueOf(potrazivanje.getIznos());
+					String kategorija = potrazivanje.getKategorija();
+					boolean zatvoreno = false;
+					Partner partner_id = null;
+	
+					Transakcija t = new Transakcija(remote_id, naziv, iznos,
+							zatvoreno, kategorija, partner_id);
+					transakcija.add(t);
+				}
+				List<Dugovanje> dugovanja = new Select().all().from(Dugovanje.class)
+							.execute();
+	
+				for (int j = 0; j < dugovanja.size(); j++) {
+					long r_id = j;
+					Dugovanje dugovanje = new Select().from(Dugovanje.class)
+										.where("remote_id = ?", r_id).executeSingle();
+					String n = dugovanje.getNaziv();
+					String iz = String.valueOf(dugovanje.getIznos());
+					String k = dugovanje.getKategorija();
+					boolean z = false;
+					Partner p_id = null;
+						
+					Transakcija t2 = new Transakcija(r_id, n, iz,
+										z, k, p_id);
+					transakcija.add(t2);
+						
+				}
+				return transakcija;
+		default:
+			break;
+		}
 		return transakcija;
 	}
 

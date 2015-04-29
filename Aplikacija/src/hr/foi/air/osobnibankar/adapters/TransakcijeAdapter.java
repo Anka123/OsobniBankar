@@ -30,7 +30,7 @@ public class TransakcijeAdapter extends ArrayAdapter<Transakcija> {
 
 		LayoutInflater inflater = (LayoutInflater) c
 				.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-		View v = inflater.inflate(R.layout.item_pir, parent, false);
+		View v = inflater.inflate(R.layout.item_transakcija, parent, false);
 
 		Transakcija transakcija = transakcije.get(position);
 		ImageView iv = (ImageView) v.findViewById(R.id.imageView1);

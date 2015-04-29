@@ -4,10 +4,13 @@ import hr.foi.air.osobnibankar.adapters.TransakcijeAdapter;
 import hr.foi.air.osobnibankar.core.Transakcije;
 import hr.foi.air.osobnibankar.database.Dugovanje;
 import hr.foi.air.osobnibankar.database.Potrazivanje;
+import hr.foi.air.osobnibankar.database.Prihod;
 import hr.foi.air.osobnibankar.database.Transakcija;
 import hr.foi.air.osobnibankar.interfaces.ITransakcija;
 
 import java.util.List;
+
+import com.activeandroid.query.Select;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -29,9 +32,11 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 	Context c = this;
 	Dialog dialog = null;
 	int izbor;
+	int grupa = 0;
 
 	boolean potrazivanjaSelected=false;
 	boolean dugovanjaSelected=false;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -157,15 +162,33 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 
 		String datum = day + "." + (month + 1) + "." + year + ".";
 
-		if (iz == 0) {
-			Potrazivanje potrazivanje = new Potrazivanje(naziv, opis, null,
+		if (iz == 2) {
+			Potrazivanje prethodni = new Select().from(Potrazivanje.class)
+					.orderBy("remote_id DESC").executeSingle();
+			long trenutniId;
+			try {
+				trenutniId = prethodni.getRemoteId();
+				trenutniId++;
+			} catch (Exception e) {
+				trenutniId = 0;
+			}
+			Potrazivanje potrazivanje = new Potrazivanje(trenutniId, naziv, opis, null,
 					iznos, datum);
 			potrazivanje.save();
 
 			Toast.makeText(getApplicationContext(), "Potrazivanje spremljeno",
 					Toast.LENGTH_SHORT).show();
-		} else if (iz == 1) {
-			Dugovanje dugovanje = new Dugovanje(naziv, opis, null, iznos, datum);
+		} else if (iz == 3) {
+			Dugovanje prije = new Select().from(Dugovanje.class)
+					.orderBy("remote_id DESC").executeSingle();
+			long trenutniId;
+			try {
+				trenutniId = prije.getRemoteId();
+				trenutniId++;
+			} catch (Exception e) {
+				trenutniId = 0;
+			}
+			Dugovanje dugovanje = new Dugovanje(trenutniId, naziv, opis, null, iznos, datum);
 
 			Toast.makeText(getApplicationContext(), "Dugovanje spremljeno",
 					Toast.LENGTH_SHORT).show();
@@ -178,22 +201,22 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		ITransakcija tr = new Transakcije();
 		List<Transakcija> listaTransakcija = tr.dohvatiTipTransakcije(t);
 
-		ListView list = (ListView) findViewById(R.id.list);
+		ListView list = (ListView) findViewById(R.id.listview);
 
-		TransakcijeAdapter pidAdapter = new TransakcijeAdapter(this,
-				R.layout.item_pid, listaTransakcija);
-		list.setAdapter(pidAdapter);
+		TransakcijeAdapter pirAdapter = new TransakcijeAdapter(this,
+				R.layout.item_transakcija, listaTransakcija);
+		list.setAdapter(pirAdapter);
 
 	}
 
 	public void pregledSve() {
 		ITransakcija tr = new Transakcije();
-		List<Transakcija> listaTransakcija = tr.dohvatiTransakcije();
+		List<Transakcija> listaTransakcija = tr.dohvatiTransakcije(grupa);
 
 		ListView list = (ListView) findViewById(R.id.listview);
 
-		TransakcijeAdapter pidAdapter = new TransakcijeAdapter(this,
-				R.layout.item_pid, listaTransakcija);
-		list.setAdapter(pidAdapter);
+		TransakcijeAdapter pirAdapter = new TransakcijeAdapter(this,
+				R.layout.item_transakcija, listaTransakcija);
+		list.setAdapter(pirAdapter);
 	}
 }

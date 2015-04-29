@@ -6,6 +6,8 @@ import com.activeandroid.annotation.Table;
 
 @Table(name = "Potrazivanje")
 public class Potrazivanje extends Model {
+	@Column(name = "remote_id")
+	public long remote_id;
 	@Column(name = "naziv")
 	public String naziv;
 	@Column(name = "opis")
@@ -21,7 +23,8 @@ public class Potrazivanje extends Model {
 		super();
 	}
 
-	public Potrazivanje(String naziv, String opis, String kategorija, Double iznos, String datum) {
+	public Potrazivanje(long remote_id, String naziv, String opis, String kategorija, Double iznos, String datum) {
+		this.remote_id = remote_id;
 		this.naziv = naziv;
 		this.opis = opis;
 		this.kategorija = kategorija;
@@ -29,6 +32,10 @@ public class Potrazivanje extends Model {
 		this.datum = datum;
 	}
 
+	public long getRemoteId() {
+		return remote_id;
+	}
+	
 	public String getNaziv() {
 		return naziv;
 	}
