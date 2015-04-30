@@ -4,14 +4,16 @@ import hr.foi.air.osobnibankar.adapters.TransakcijeAdapter;
 import hr.foi.air.osobnibankar.core.Transakcije;
 import hr.foi.air.osobnibankar.database.Dugovanje;
 import hr.foi.air.osobnibankar.database.Potrazivanje;
-import hr.foi.air.osobnibankar.database.Prihod;
 import hr.foi.air.osobnibankar.database.Transakcija;
+import hr.foi.air.osobnibankar.dodatno.Datum;
 import hr.foi.air.osobnibankar.interfaces.ITransakcija;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
-import com.activeandroid.query.Select;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -23,10 +25,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
+
+import com.activeandroid.query.Select;
 
 public class PotrazivanjaDugovanjaActivity extends Activity {
 	Context c = this;
@@ -34,15 +40,55 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 	int izbor;
 	int grupa = 0;
 
-	boolean potrazivanjaSelected=false;
-	boolean dugovanjaSelected=false;
-	
+	boolean potrazivanjaSelected = false;
+	boolean dugovanjaSelected = false;
+
+	Date date = new Date(System.currentTimeMillis());
+	@SuppressLint("SimpleDateFormat") SimpleDateFormat datum = new SimpleDateFormat("dd/mm/yyyy");
+	int mjesec = DateFormat.MONTH_FIELD+2;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pidactivity);
 
-		pregledSve();
+		final Datum datum = new Datum();
+		String mj = datum.nazivMj(mjesec);
+		
+		final TextView txtDatum = (TextView) findViewById(R.id.textMjesec);
+		txtDatum.setText(mj);
+		
+		ImageButton lijevo = (ImageButton)findViewById(R.id.imgBtnLijevo);
+		ImageButton desno = (ImageButton)findViewById(R.id.imgBtnDesno);
+		
+		lijevo.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				String trenutni = txtDatum.getText().toString();
+				int odabrani = datum.brojMj(trenutni);
+				odabrani--;
+				String nazivMjeseca = datum.nazivMj(odabrani);
+				txtDatum.setText(nazivMjeseca);
+				pregledSve(odabrani);
+			}
+		});
+		
+		desno.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				String trenutni = txtDatum.getText().toString();
+				int odabrani = datum.brojMj(trenutni);
+				odabrani++;
+				String mjesec = datum.nazivMj(odabrani);
+				txtDatum.setText(mjesec);
+				pregledSve(odabrani);
+				
+			}
+		});
+		
+		pregledSve(mjesec);
 
 	}
 
@@ -55,46 +101,44 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.itemPotrazivanja:
-			if(item.isChecked()){
+			if (item.isChecked()) {
 				item.setChecked(false);
-				izbor=3;
-				potrazivanjaSelected=false;
-				if(!potrazivanjaSelected&&!dugovanjaSelected){
-					pregledSve();
+				izbor = 3;
+				potrazivanjaSelected = false;
+				if (!potrazivanjaSelected && !dugovanjaSelected) {
+					pregledSve(mjesec);
 					return true;
 				}
-			}
-			else{
+			} else {
 				item.setChecked(true);
-				izbor=2;
-				potrazivanjaSelected=true;
-				if(potrazivanjaSelected&&dugovanjaSelected){
-					pregledSve();
+				izbor = 2;
+				potrazivanjaSelected = true;
+				if (potrazivanjaSelected && dugovanjaSelected) {
+					pregledSve(mjesec);
 					return true;
 				}
 			}
-			pregled(izbor);
+			pregled(izbor, mjesec);
 			return true;
 		case R.id.itemDugovanja:
-			if(item.isChecked()){
+			if (item.isChecked()) {
 				item.setChecked(false);
-				izbor=2;
-				dugovanjaSelected=false;
-				if(!potrazivanjaSelected&&!dugovanjaSelected){
-					pregledSve();
+				izbor = 2;
+				dugovanjaSelected = false;
+				if (!potrazivanjaSelected && !dugovanjaSelected) {
+					pregledSve(mjesec);
 					return true;
 				}
-			}
-			else{
+			} else {
 				item.setChecked(true);
-				izbor=3;
-				dugovanjaSelected=true;
-				if(potrazivanjaSelected&&dugovanjaSelected){
-					pregledSve();
+				izbor = 3;
+				dugovanjaSelected = true;
+				if (potrazivanjaSelected && dugovanjaSelected) {
+					pregledSve(mjesec);
 					return true;
 				}
 			}
-			pregled(izbor);
+			pregled(izbor, mjesec);
 			return true;
 		case R.id.itemDodaj:
 			noviUnos();
@@ -172,8 +216,8 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 			} catch (Exception e) {
 				trenutniId = 0;
 			}
-			Potrazivanje potrazivanje = new Potrazivanje(trenutniId, naziv, opis, null,
-					iznos, datum);
+			Potrazivanje potrazivanje = new Potrazivanje(trenutniId, naziv,
+					opis, null, iznos, datum, month + 1);
 			potrazivanje.save();
 
 			Toast.makeText(getApplicationContext(), "Potrazivanje spremljeno",
@@ -188,7 +232,8 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 			} catch (Exception e) {
 				trenutniId = 0;
 			}
-			Dugovanje dugovanje = new Dugovanje(trenutniId, naziv, opis, null, iznos, datum);
+			Dugovanje dugovanje = new Dugovanje(trenutniId, naziv, opis, null,
+					iznos, datum, month + 1);
 
 			Toast.makeText(getApplicationContext(), "Dugovanje spremljeno",
 					Toast.LENGTH_SHORT).show();
@@ -196,10 +241,12 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		}
 	}
 
-	public void pregled(int iz) {
+	public void pregled(int iz, int brojMj) {
 		int t = iz;
+		int mjesec = brojMj;
+		
 		ITransakcija tr = new Transakcije();
-		List<Transakcija> listaTransakcija = tr.dohvatiTipTransakcije(t);
+		List<Transakcija> listaTransakcija = tr.dohvatiTipTransakcije(t, mjesec);
 
 		ListView list = (ListView) findViewById(R.id.listview);
 
@@ -209,9 +256,12 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 
 	}
 
-	public void pregledSve() {
+	public void pregledSve(int brojMj) {
+		int mjesec = brojMj;
+
 		ITransakcija tr = new Transakcije();
-		List<Transakcija> listaTransakcija = tr.dohvatiTransakcije(grupa);
+		List<Transakcija> listaTransakcija = tr.dohvatiTransakcije(grupa,
+				mjesec);
 
 		ListView list = (ListView) findViewById(R.id.listview);
 

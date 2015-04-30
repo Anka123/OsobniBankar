@@ -7,7 +7,7 @@ import java.util.List;
 public interface ITransakcija {
 	List<Transakcija> transakcije = null;
 
-	public List<Transakcija> dohvatiTransakcije(int grupa);
+	public List<Transakcija> dohvatiTransakcije(int grupa, int mjesec);
 
-	public List<Transakcija> dohvatiTipTransakcije(int t);
+	public List<Transakcija> dohvatiTipTransakcije(int t, int mjesec);
 }

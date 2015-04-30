@@ -16,13 +16,15 @@ import com.activeandroid.query.Select;
 public class Transakcije implements ITransakcija {
 
 	@Override
-	public List<Transakcija> dohvatiTransakcije(int grupa) {
+	public List<Transakcija> dohvatiTransakcije(int grupa, int mjesec) {
 		int grupaTransakcija = grupa;
+		int trenutniMjesec = mjesec;
+		
 		List<Transakcija> transakcija = new ArrayList<Transakcija>();
 		switch(grupaTransakcija){
 		case 1:
-
-			List<Prihod> prihodi = new Select().all().from(Prihod.class)
+			
+			List<Prihod> prihodi = new Select().all().from(Prihod.class).where("mjesec = ?", trenutniMjesec)
 						.execute();
 	
 				for (int i = 0; i < prihodi.size(); i++) {
@@ -39,7 +41,7 @@ public class Transakcije implements ITransakcija {
 							zatvoreno, kategorija, partner_id);
 					transakcija.add(trans);
 				}
-				List<Rashod> rashodi = new Select().all().from(Rashod.class)
+				List<Rashod> rashodi = new Select().all().from(Rashod.class).where("mjesec = ?", trenutniMjesec)
 							.execute();
 	
 				for (int j = 0; j < rashodi.size(); j++) {
@@ -60,7 +62,7 @@ public class Transakcije implements ITransakcija {
 				return transakcija;
 		case 0:
 
-			List<Potrazivanje> potrazivanja = new Select().all().from(Potrazivanje.class)
+			List<Potrazivanje> potrazivanja = new Select().all().from(Potrazivanje.class).where("mjesec = ?", trenutniMjesec)
 						.execute();
 	
 				for (int i = 0; i < potrazivanja.size(); i++) {
@@ -77,7 +79,7 @@ public class Transakcije implements ITransakcija {
 							zatvoreno, kategorija, partner_id);
 					transakcija.add(t);
 				}
-				List<Dugovanje> dugovanja = new Select().all().from(Dugovanje.class)
+				List<Dugovanje> dugovanja = new Select().all().from(Dugovanje.class).where("mjesec = ?", trenutniMjesec)
 							.execute();
 	
 				for (int j = 0; j < dugovanja.size(); j++) {
@@ -103,13 +105,15 @@ public class Transakcije implements ITransakcija {
 	}
 
 	@Override
-	public List<Transakcija> dohvatiTipTransakcije(int t) {
+	public List<Transakcija> dohvatiTipTransakcije(int t, int mjesec) {
 		int tip = t;
+		int trenutniMjesec = mjesec;
+		
 		List<Transakcija> transakcija = new ArrayList<Transakcija>();
 
 		switch (tip) {
 		case 0:
-			List<Prihod> prihodi = new Select().all().from(Prihod.class)
+			List<Prihod> prihodi = new Select().all().from(Prihod.class).where("mjesec = ?", trenutniMjesec)
 					.execute();
 
 			for (int i = 0; i < prihodi.size(); i++) {
@@ -131,7 +135,7 @@ public class Transakcije implements ITransakcija {
 			break;
 
 		case 1:
-			List<Rashod> rashodi = new Select().all().from(Rashod.class)
+			List<Rashod> rashodi = new Select().all().from(Rashod.class).where("mjesec = ?", trenutniMjesec)
 			.execute();
 
 			for (int i = 0; i < rashodi.size(); i++) {
@@ -153,7 +157,7 @@ public class Transakcije implements ITransakcija {
 			break;
 
 		case 2:
-			List<Potrazivanje> potrazivanja = new Select().all().from(Potrazivanje.class)
+			List<Potrazivanje> potrazivanja = new Select().all().from(Potrazivanje.class).where("mjesec = ?", trenutniMjesec)
 			.execute();
 
 			for (int i = 0; i < potrazivanja.size(); i++) {
@@ -175,7 +179,7 @@ public class Transakcije implements ITransakcija {
 			break;
 
 		case 3:
-			List<Dugovanje> dugovanja = new Select().all().from(Dugovanje.class)
+			List<Dugovanje> dugovanja = new Select().all().from(Dugovanje.class).where("mjesec = ?", trenutniMjesec)
 			.execute();
 
 			for (int i = 0; i < dugovanja.size(); i++) {

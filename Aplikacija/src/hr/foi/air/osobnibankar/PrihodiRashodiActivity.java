@@ -5,11 +5,14 @@ import hr.foi.air.osobnibankar.core.Transakcije;
 import hr.foi.air.osobnibankar.database.Prihod;
 import hr.foi.air.osobnibankar.database.Rashod;
 import hr.foi.air.osobnibankar.database.Transakcija;
+import hr.foi.air.osobnibankar.dodatno.Datum;
 import hr.foi.air.osobnibankar.interfaces.ITransakcija;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -39,12 +42,53 @@ public class PrihodiRashodiActivity extends Activity {
 	boolean prihodiSelected = false;
 	boolean rashodiSelected = false;
 
+	Date date = new Date(System.currentTimeMillis());
+	@SuppressLint("SimpleDateFormat")
+	SimpleDateFormat datum = new SimpleDateFormat("dd/mm/yyyy");
+	int mjesec = java.text.DateFormat.MONTH_FIELD + 2;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.piractivity);
 
-		pregledZajedno();
+		final Datum datum = new Datum();
+		String mj = datum.nazivMj(mjesec);
+
+		final TextView txtDatum = (TextView) findViewById(R.id.textMjesec);
+		txtDatum.setText(mj);
+
+		ImageButton lijevo = (ImageButton) findViewById(R.id.imgBtnLijevo);
+		ImageButton desno = (ImageButton) findViewById(R.id.imgBtnDesno);
+
+		lijevo.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				String trenutni = txtDatum.getText().toString();
+				int odabrani = datum.brojMj(trenutni);
+				odabrani--;
+				String nazivMjeseca = datum.nazivMj(odabrani);
+				txtDatum.setText(nazivMjeseca);
+				pregledZajedno(odabrani);
+			}
+		});
+
+		desno.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				String trenutni = txtDatum.getText().toString();
+				int odabrani = datum.brojMj(trenutni);
+				odabrani++;
+				String mjesec = datum.nazivMj(odabrani);
+				txtDatum.setText(mjesec);
+				pregledZajedno(odabrani);
+
+			}
+		});
+
+		pregledZajedno(mjesec);
 
 	}
 
@@ -63,7 +107,7 @@ public class PrihodiRashodiActivity extends Activity {
 				izbor = 1;
 				prihodiSelected = false;
 				if (!prihodiSelected && !rashodiSelected) {
-					pregledZajedno();
+					pregledZajedno(mjesec);
 					return true;
 				}
 			} else {
@@ -71,11 +115,11 @@ public class PrihodiRashodiActivity extends Activity {
 				izbor = 0;
 				prihodiSelected = true;
 				if (prihodiSelected && rashodiSelected) {
-					pregledZajedno();
+					pregledZajedno(mjesec);
 					return true;
 				}
 			}
-			pregled(izbor);
+			pregled(izbor, mjesec);
 			return true;
 		case R.id.itemRashodi:
 			if (item.isChecked()) {
@@ -83,7 +127,7 @@ public class PrihodiRashodiActivity extends Activity {
 				izbor = 0;
 				rashodiSelected = false;
 				if (!prihodiSelected && !rashodiSelected) {
-					pregledZajedno();
+					pregledZajedno(mjesec);
 					return true;
 				}
 			} else {
@@ -91,11 +135,11 @@ public class PrihodiRashodiActivity extends Activity {
 				izbor = 1;
 				rashodiSelected = true;
 				if (prihodiSelected && rashodiSelected) {
-					pregledZajedno();
+					pregledZajedno(mjesec);
 					return true;
 				}
 			}
-			pregled(izbor);
+			pregled(izbor, mjesec);
 			return true;
 		case R.id.itemDodaj:
 			noviUnos();
@@ -153,8 +197,7 @@ public class PrihodiRashodiActivity extends Activity {
 		EditText etIznos = (EditText) dialog.findViewById(R.id.etIznos);
 		Double iznos = 0.0;
 		iznos = Double.valueOf(etIznos.getText().toString());
-		Date datum = new Date(System.currentTimeMillis());
-		String danasnjiDatum = datum.toString();
+		String danasnjiDatum = datum.format(date);
 		Spinner sp = (Spinner) dialog.findViewById(R.id.spinKategorija);
 		String kategorija = sp.getSelectedItem().toString();
 
@@ -170,7 +213,7 @@ public class PrihodiRashodiActivity extends Activity {
 			}
 
 			Prihod prihod = new Prihod(trenutniId, naziv, opis, kategorija,
-					iznos, danasnjiDatum);
+					iznos, danasnjiDatum, mjesec);
 			prihod.save();
 
 			Toast.makeText(getApplicationContext(), "Prihod spremljen",
@@ -188,7 +231,7 @@ public class PrihodiRashodiActivity extends Activity {
 			}
 
 			Rashod rashod = new Rashod(trenutniId, naziv, opis, kategorija,
-					iznos, danasnjiDatum);
+					iznos, danasnjiDatum, mjesec);
 			rashod.save();
 
 			Toast.makeText(getApplicationContext(), "Rashod spremljen",
@@ -197,18 +240,12 @@ public class PrihodiRashodiActivity extends Activity {
 
 	}
 
-	public void pregled(int iz) {
+	public void pregled(int iz, int brojMj) {
 		int t = iz;
-
-		Date d = new Date(System.currentTimeMillis());
-		@SuppressWarnings("deprecation")
-		int mjesec = d.getMonth();
-
-		TextView datum = (TextView) findViewById(R.id.txtDatum);
-		datum.setText(mjesec);
+		int mjesec = brojMj;
 
 		ITransakcija tr = new Transakcije();
-		List<Transakcija> listaTransakcija = tr.dohvatiTipTransakcije(t);
+		List<Transakcija> listaTransakcija = tr.dohvatiTipTransakcije(t, mjesec);
 
 		ListView list = (ListView) findViewById(R.id.list);
 
@@ -218,10 +255,12 @@ public class PrihodiRashodiActivity extends Activity {
 
 	}
 
-	public void pregledZajedno() {
-		datum();
+	public void pregledZajedno(int brojMj) {
+		int mjesec = brojMj;
+
 		ITransakcija tr = new Transakcije();
-		List<Transakcija> listaTransakcija = tr.dohvatiTransakcije(grupa);
+		List<Transakcija> listaTransakcija = tr.dohvatiTransakcije(grupa,
+				mjesec);
 
 		ListView list = (ListView) findViewById(R.id.list);
 
@@ -230,67 +269,4 @@ public class PrihodiRashodiActivity extends Activity {
 		list.setAdapter(pirAdapter);
 	}
 
-	public void datum(){
-		Date d = new Date(System.currentTimeMillis());
-		@SuppressWarnings("deprecation")
-		final int mjesec = d.getMonth()+1;
-		String nazivMjeseca = "";
-		
-		nazivMjeseca = nazivMj(mjesec);		
-		final TextView datum = (TextView) findViewById(R.id.textView1);
-		datum.setText(nazivMjeseca);
-		
-		ImageButton btnLijevo = (ImageButton) findViewById(R.id.imgBtnLijevo);
-		btnLijevo.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				int m = mjesec-1;
-				String lijevo = nazivMj(m);
-				datum.setText(lijevo);
-			}
-		});
-		ImageButton btnDesno = (ImageButton) findViewById(R.id.imgBtnDesno);
-		btnDesno.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				int m = mjesec+1;
-				String desno = nazivMj(m);
-				datum.setText(desno);
-			}
-		});
-		
-		
-	}
-	
-	public String nazivMj(int mj){
-		int mjesec = mj;
-		String nazivMjeseca = "";
-		if(mjesec == 1)
-			nazivMjeseca = "Sijeèanj";
-		else if(mjesec == 2)
-			nazivMjeseca = "Veljaèa";
-		else if(mjesec == 3)
-			nazivMjeseca = "Ožujak";
-		else if(mjesec == 4)
-			nazivMjeseca = "Travanj";
-		else if(mjesec == 5)
-			nazivMjeseca = "Svibanj";
-		else if(mjesec == 6)
-			nazivMjeseca = "Lipanj";
-		else if(mjesec == 7)
-			nazivMjeseca = "Srpanj";
-		else if(mjesec == 8)
-			nazivMjeseca = "Kolovoz";
-		else if(mjesec == 9)
-			nazivMjeseca = "Rujan";
-		else if(mjesec == 10)
-			nazivMjeseca = "Listopa"; 
-		else if(mjesec == 11)
-			nazivMjeseca = "Studeni";
-		else if(mjesec == 12)
-			nazivMjeseca = "Prosinac";
-	return nazivMjeseca;
-	}
 }

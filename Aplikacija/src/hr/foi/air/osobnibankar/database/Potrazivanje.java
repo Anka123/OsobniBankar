@@ -18,18 +18,21 @@ public class Potrazivanje extends Model {
 	public Double iznos;
 	@Column(name = "datum")
 	public String datum;
+	@Column(name = "mjesec")
+	public int mjesec;
 
 	public Potrazivanje() {
 		super();
 	}
 
-	public Potrazivanje(long remote_id, String naziv, String opis, String kategorija, Double iznos, String datum) {
+	public Potrazivanje(long remote_id, String naziv, String opis, String kategorija, Double iznos, String datum, int mjesec) {
 		this.remote_id = remote_id;
 		this.naziv = naziv;
 		this.opis = opis;
 		this.kategorija = kategorija;
 		this.iznos = iznos;
 		this.datum = datum;
+		this.mjesec = mjesec;
 	}
 
 	public long getRemoteId() {
@@ -54,6 +57,10 @@ public class Potrazivanje extends Model {
 
 	public String getDatum() {
 		return datum;
+	}
+	
+	public int getMjesec() {
+		return mjesec;
 	}
 
 }
