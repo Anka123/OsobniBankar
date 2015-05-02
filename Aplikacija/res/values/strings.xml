@@ -56,6 +56,8 @@
     <string name="x">X</string>
     <string name="btnLijevo">Lijevo</string>
     <string name="btnDesno">Desno</string>
+    <string name="limit">Limit</string>
+    <string name="txtTrenutni">Trenutni iznos</string>
     
     <string-array name="pitanje">
         <item>Ime kućnog ljubimca?</item>
