@@ -10,18 +10,15 @@ public class Kategorija extends Model {
 	public long remote_id;
 	@Column(name = "naziv")
 	public String naziv;
-	@Column(name = "tip_id")
-	public Tip tip_id;
 	
 
 	public Kategorija() {
 		super();
 	}
 
-	public Kategorija(long remote_id, String naziv, Tip tip_id) {
+	public Kategorija(long remote_id, String naziv) {
 		this.remote_id = remote_id;
 		this.naziv = naziv;
-		this.tip_id = tip_id;
 		
 	}
 
@@ -31,10 +28,6 @@ public class Kategorija extends Model {
 	
 	public String getNaziv() {
 		return naziv;
-	}
-
-	public Tip getTip_id() {
-		return tip_id;
 	}
 
 	

@@ -2,8 +2,6 @@ package hr.foi.air.osobnibankar;
 
 import hr.foi.air.osobnibankar.adapters.TransakcijeAdapter;
 import hr.foi.air.osobnibankar.core.Transakcije;
-import hr.foi.air.osobnibankar.database.Prihod;
-import hr.foi.air.osobnibankar.database.Rashod;
 import hr.foi.air.osobnibankar.database.Transakcija;
 import hr.foi.air.osobnibankar.dodatno.Datum;
 import hr.foi.air.osobnibankar.interfaces.ITransakcija;
@@ -17,7 +15,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.view.Menu;
@@ -54,6 +51,8 @@ public class PrihodiRashodiActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		sumaRashoda = 0;
+		TransakcijeAdapter.tipTransakcije = false;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.piractivity);
 
@@ -95,20 +94,20 @@ public class PrihodiRashodiActivity extends Activity {
 
 		pregledZajedno(mjesec);
 		izracunajTrenutni();
-		
+
 		if (sumaRashoda > limit) {
-			
+
 			NotificationCompat.Builder notif = new NotificationCompat.Builder (this);					
 			notif.setSmallIcon(R.drawable.minus);					
 			notif.setContentTitle("Potrošnja");					
 			notif.setContentText("Prekoraèili ste potrošnju!");					
-					
+
 			int notifid = 001;
-					
+
 			NotificationManager notifMan = (NotificationManager) getSystemService (NOTIFICATION_SERVICE);
-					
+
 			notifMan.notify (notifid, notif.build());
-			}
+		}
 	}
 
 	@Override
@@ -170,21 +169,21 @@ public class PrihodiRashodiActivity extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	public void odrediLimit () {
 		dialog = new Dialog(c);
 		dialog.setContentView(R.layout.odredilimit);
 		dialog.setTitle(R.string.limit);
 		dialog.show();
-		
+
 		ImageButton btnOk = (ImageButton) dialog.findViewById(R.id.btnOK);
 		btnOk.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				EditText etLimit = (EditText) dialog.findViewById(R.id.etLimit);
 				limit = Integer.valueOf(etLimit.getText().toString());
-				
+
 				dialog.dismiss();
 			}
 		});
@@ -242,43 +241,21 @@ public class PrihodiRashodiActivity extends Activity {
 		Spinner sp = (Spinner) dialog.findViewById(R.id.spinKategorija);
 		String kategorija = sp.getSelectedItem().toString();
 
-		if (izbor == 0) {
-			Prihod prethodni = new Select().from(Prihod.class)
-					.orderBy("remote_id DESC").executeSingle();
-			long trenutniId;
-			try {
-				trenutniId = prethodni.getRemote_id();
-				trenutniId++;
-			} catch (Exception e) {
-				trenutniId = 0;
-			}
-
-			Prihod prihod = new Prihod(trenutniId, naziv, opis, kategorija,
-					iznos, danasnjiDatum, mjesec);
-			prihod.save();
-
-			Toast.makeText(getApplicationContext(), "Prihod spremljen",
-					Toast.LENGTH_SHORT).show();
-
-		} else if (izbor == 1) {
-			Rashod prethodni = new Select().from(Rashod.class)
-					.orderBy("remote_id DESC").executeSingle();
-			long trenutniId;
-			try {
-				trenutniId = prethodni.getRemote_id();
-				trenutniId++;
-			} catch (Exception e) {
-				trenutniId = 0;
-			}
-
-			Rashod rashod = new Rashod(trenutniId, naziv, opis, kategorija,
-					iznos, danasnjiDatum, mjesec);
-			rashod.save();
-
-			Toast.makeText(getApplicationContext(), "Rashod spremljen",
-					Toast.LENGTH_SHORT).show();
+		Transakcija prethodni = new Select().from(Transakcija.class)
+				.orderBy("remote_id DESC").executeSingle();
+		long trenutniId;
+		try {
+			trenutniId = prethodni.getRemote_id();
+			trenutniId++;
+		} catch (Exception e) {
+			trenutniId = 0;
 		}
 
+		Transakcija transakcija = new Transakcija(trenutniId, naziv, opis, iznos, false, kategorija, null, danasnjiDatum, mjesec,izbor);
+		transakcija.save();
+
+		Toast.makeText(getApplicationContext(), "Transakcija spremljena",
+				Toast.LENGTH_SHORT).show();
 	}
 
 	public void pregled(int iz, int brojMj) {
@@ -309,33 +286,33 @@ public class PrihodiRashodiActivity extends Activity {
 				R.layout.item_transakcija, listaTransakcija);
 		list.setAdapter(pirAdapter);
 	}
-	
-public void izracunajTrenutni() {
-		
+
+	public void izracunajTrenutni() {
+
 		double sumaPrihoda = 0;
-							
-		List<Prihod> listaPrihoda = new Select().all().from(Prihod.class).execute();	
-		List<Rashod> listaRashoda = new Select().all().from(Rashod.class).execute();
-			
-		for (Prihod prihod : listaPrihoda) {
-			sumaPrihoda += prihod.getIznos();
+		sumaRashoda=0;
+		List<Transakcija> listaTransakcija = new Select().all().from(Transakcija.class).where("tip_id=0 OR tip_id=1").execute();	
+
+		for (Transakcija transakcija : listaTransakcija) {
+			if(transakcija.getTip()==0){
+				sumaPrihoda += transakcija.getIznos();
+			}
+			else if(transakcija.getTip()==1){
+				sumaRashoda += transakcija.getIznos();
+			}
 		}
-		
-		for (Rashod rashod : listaRashoda) {
-			sumaRashoda += rashod.getIznos();
-		}
-		
+
 		double ukupno = sumaPrihoda - sumaRashoda;
-								
+
 		TextView txtUkupno = (TextView) findViewById(R.id.txtTrenutni);
-			txtUkupno.setText("Trenutni iznos: " + String.valueOf(ukupno));
-		}
-		
+		txtUkupno.setText("Trenutni iznos: " + String.valueOf(ukupno));
+	}
+
 	@Override
-		public void onResume() {	
+	public void onResume() {	
 		izracunajTrenutni();
 		super.onResume();
-				}
+	}
 
 
 }

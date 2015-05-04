@@ -59,6 +59,14 @@
     <string name="limit">Limit</string>
     <string name="txtTrenutni">Trenutni iznos</string>
     
+    <string name="poruka">Odaberite</string>
+    <string name="promijeni">Promijeni</string>
+    <string name="izbrisi">Izbriši</string>
+    <string name="ok">OK</string>
+    <string name="odustani">Odustani</string>
+	
+    
+    
     <string-array name="pitanje">
         <item>Ime kućnog ljubimca?</item>
         <item>Omiljeni okus sladoleda?</item>
@@ -78,5 +86,6 @@
         <item>Ostalo</item>
         
     </string-array>
-	
+    
+    
 </resources>
