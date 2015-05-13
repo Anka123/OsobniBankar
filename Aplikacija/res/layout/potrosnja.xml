@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/txtPotrosnja"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/potrosnja" />
+
+    <TextView
+        android:id="@+id/txtStanje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/stanje" />
+
+    <TextView
+        android:id="@+id/txtVasLimit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vasLimit" />
+
+    <TextView
+        android:id="@+id/txtTrenutniLimit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/trenutniLimit" />
+
+    <Button
+        android:id="@+id/btnOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ok" />
+
+    <Button
+        android:id="@+id/btnLimit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/limit" />
+
+</LinearLayout>

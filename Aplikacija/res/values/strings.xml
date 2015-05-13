@@ -65,7 +65,12 @@
     <string name="ok">OK</string>
     <string name="odustani">Odustani</string>
 	
+    <string name="potrosnja">Vaša trenutna potrošnja iznosi: </string>
+    <string name="stanje">Potrošnja</string>
+    <string name="vasLimit">Postavljeni limit:</string>
+    <string name="trenutniLimit">Trenutni limit</string>
     
+    <string name="prekoracena">Prekoračili ste limit!</string>
     
     <string-array name="pitanje">
         <item>Ime kućnog ljubimca?</item>

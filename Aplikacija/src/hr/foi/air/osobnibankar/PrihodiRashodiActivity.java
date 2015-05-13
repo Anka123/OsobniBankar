@@ -41,7 +41,7 @@ public class PrihodiRashodiActivity extends Activity {
 
 	boolean prihodiSelected = false;
 	boolean rashodiSelected = false;
-	int limit;
+	int limit = 0;
 	double sumaRashoda = 0;
 
 	Date date = new Date(System.currentTimeMillis());
@@ -94,21 +94,54 @@ public class PrihodiRashodiActivity extends Activity {
 
 		pregledZajedno(mjesec);
 		izracunajTrenutni();
-
+		
 		if (sumaRashoda > limit) {
 
-			NotificationCompat.Builder notif = new NotificationCompat.Builder (this);					
-			notif.setSmallIcon(R.drawable.minus);					
-			notif.setContentTitle("Potrošnja");					
-			notif.setContentText("Prekoraèili ste potrošnju!");					
+			dialog = new Dialog(c);
+			dialog.setContentView(R.layout.potrosnja);
+			dialog.setTitle(R.string.prekoracena);
+			dialog.show();
+			
+			TextView potrosnja = (TextView)dialog.findViewById(R.id.txtStanje);
+			String suma = Double.valueOf(sumaRashoda).toString();
+			potrosnja.setText(suma);
+			
+			TextView txtlimit = (TextView)dialog.findViewById(R.id.txtTrenutniLimit);
+			String postavljeni = Integer.valueOf(limit).toString();
+			txtlimit.setText(postavljeni);
+			
+			Button ok = (Button)dialog.findViewById(R.id.btnOK);
+			
+			ok.setOnClickListener(new OnClickListener () {
+				
 
-			int notifid = 001;
+				@Override
+				public void onClick(View v) {
+					dialog.dismiss();
+					
+				}
+				
+			});
+			
+			Button limit = (Button)dialog.findViewById(R.id.btnLimit);
+			
+			limit.setOnClickListener(new OnClickListener() {
 
-			NotificationManager notifMan = (NotificationManager) getSystemService (NOTIFICATION_SERVICE);
-
-			notifMan.notify (notifid, notif.build());
+				@Override
+				public void onClick(View v) {
+					
+					dialog.dismiss();
+					odrediLimit();
+					
+				}
+				
+			});
+			
 		}
+		
 	}
+
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -175,8 +208,10 @@ public class PrihodiRashodiActivity extends Activity {
 		dialog.setContentView(R.layout.odredilimit);
 		dialog.setTitle(R.string.limit);
 		dialog.show();
+		
+		
 
-		ImageButton btnOk = (ImageButton) dialog.findViewById(R.id.btnOK);
+		Button btnOk = (Button) dialog.findViewById(R.id.btnSpremi);
 		btnOk.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -185,6 +220,7 @@ public class PrihodiRashodiActivity extends Activity {
 				limit = Integer.valueOf(etLimit.getText().toString());
 
 				dialog.dismiss();
+				
 			}
 		});
 	}
