@@ -70,16 +70,7 @@
     <string name="vasLimit">Postavljeni limit:</string>
     <string name="trenutniLimit">Trenutni limit</string>
     
-    
     <string name="prekoracena">Prekoračili ste limit!</string>
-    
-    <string name="stednja">Stanje štednje:</string>
-    <string name="iznosstednje">Iznos štednje</string>
-    <string name="dostupno">Raspoloživo za štednju:</string>
-    <string name="iznos">Raspoloživi iznos</string>
-    <string name="vrsta">Odaberite način štednje</string>
-    <string name="proizvoljna">Proizvoljna</string>
-    <string name="kontinuirana">Kontinuirana</string>
     
     <string-array name="pitanje">
         <item>Ime kućnog ljubimca?</item>

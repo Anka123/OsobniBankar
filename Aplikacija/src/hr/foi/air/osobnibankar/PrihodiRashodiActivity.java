@@ -2,7 +2,6 @@ package hr.foi.air.osobnibankar;
 
 import hr.foi.air.osobnibankar.adapters.TransakcijeAdapter;
 import hr.foi.air.osobnibankar.core.Transakcije;
-import hr.foi.air.osobnibankar.database.Limit;
 import hr.foi.air.osobnibankar.database.Transakcija;
 import hr.foi.air.osobnibankar.dodatno.Datum;
 import hr.foi.air.osobnibankar.interfaces.ITransakcija;
@@ -14,8 +13,10 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,7 +41,7 @@ public class PrihodiRashodiActivity extends Activity {
 
 	boolean prihodiSelected = false;
 	boolean rashodiSelected = false;
-	double limit1;
+	int limit = 0;
 	double sumaRashoda = 0;
 
 	Date date = new Date(System.currentTimeMillis());
@@ -93,14 +94,8 @@ public class PrihodiRashodiActivity extends Activity {
 
 		pregledZajedno(mjesec);
 		izracunajTrenutni();
-		provjeraLimita();
 		
-	}
-
-	
-	private void provjeraLimita() {
-		
-		if (sumaRashoda > limit1) {
+		if (sumaRashoda > limit) {
 
 			dialog = new Dialog(c);
 			dialog.setContentView(R.layout.potrosnja);
@@ -112,7 +107,7 @@ public class PrihodiRashodiActivity extends Activity {
 			potrosnja.setText(suma);
 			
 			TextView txtlimit = (TextView)dialog.findViewById(R.id.txtTrenutniLimit);
-			String postavljeni = Double.valueOf(limit1).toString();
+			String postavljeni = Integer.valueOf(limit).toString();
 			txtlimit.setText(postavljeni);
 			
 			Button ok = (Button)dialog.findViewById(R.id.btnOK);
@@ -146,6 +141,7 @@ public class PrihodiRashodiActivity extends Activity {
 		
 	}
 
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -221,10 +217,7 @@ public class PrihodiRashodiActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				EditText etLimit = (EditText) dialog.findViewById(R.id.etLimit);
-				limit1 = Double.valueOf(etLimit.getText().toString());
-				
-				Limit limit = new Limit (limit1);
-				limit.save();
+				limit = Integer.valueOf(etLimit.getText().toString());
 
 				dialog.dismiss();
 				

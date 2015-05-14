@@ -34,9 +34,6 @@
         <activity 
             android:name=".PotrazivanjaDugovanjaActivity" >
         </activity>
-        <activity 
-            android:name=".StednjaActivity" >
-        </activity>
     </application>
 
 </manifest>
