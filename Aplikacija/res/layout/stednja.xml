@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background2"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/txtStednja"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/stednja" />
+    
+     <TextView
+        android:id="@+id/txtStanje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/iznosstednje" />
+
+     <TextView
+         android:id="@+id/txtDostupno"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/txtStanje"
+         android:layout_marginLeft="20dp"
+         android:layout_margin="20dp"
+         android:text="@string/dostupno" />
+    
+    <TextView
+        android:id="@+id/txtIznos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="@string/iznos" />
+
+    
+
+    <TextView
+        android:id="@+id/txtVrsta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="@string/vrsta" />
+
+    <ImageButton
+        android:id="@+id/btnKontinuirana"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:src="@drawable/puce"
+        android:text="@string/kontinuirana" />
+
+    <ImageButton
+        android:id="@+id/btnProizvoljna"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        
+        android:contentDescription="@string/proizvoljna" />
+    
+    
+
+</LinearLayout>

@@ -51,7 +51,8 @@ public class GlavniIzbornikActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				Intent i = new Intent(getApplicationContext(), StednjaActivity.class);
+				startActivity(i);
 				
 			}
 		});
