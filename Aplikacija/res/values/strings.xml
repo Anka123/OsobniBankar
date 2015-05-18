@@ -72,6 +72,11 @@
     
     <string name="prekoracena">Prekoračili ste limit!</string>
     
+    <string name="ustedeno">Do sada ste ukupno uštedjeli:</string>
+    <string name="ustedeniIznos">Ušteđeni iznos</string>
+    <string name="iznosProizvoljne">Iznos koji želite uštediti:</string>
+    <string name="proizvoljna">Proizvoljna štednja</string>
+    
     <string-array name="pitanje">
         <item>Ime kućnog ljubimca?</item>
         <item>Omiljeni okus sladoleda?</item>

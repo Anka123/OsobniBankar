@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@android:color/holo_blue_bright"
+    >
+
+    <ImageButton
+        android:id="@+id/imgKontinuirana"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="55dp"
+        android:layout_marginRight="17dp"
+        android:background="@drawable/kontinuirana" />
+
+    <ImageButton
+        android:id="@+id/imgProizvoljna"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/imgKontinuirana"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/proizvoljna" />
+
+    <TextView
+        android:id="@+id/txtUstedeno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imgProizvoljna"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="85dp"
+        android:text="@string/ustedeno" />
+
+    <TextView
+        android:id="@+id/txtUstedeniIznos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtUstedeno"
+        android:layout_below="@+id/txtUstedeno"
+        android:layout_marginTop="40dp"
+        android:text="@string/ustedeniIznos" />
+
+</RelativeLayout>
