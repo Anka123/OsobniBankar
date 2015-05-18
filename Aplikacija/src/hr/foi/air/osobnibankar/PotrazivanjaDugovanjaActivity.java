@@ -6,7 +6,6 @@ import hr.foi.air.osobnibankar.database.Transakcija;
 import hr.foi.air.osobnibankar.dodatno.Datum;
 import hr.foi.air.osobnibankar.interfaces.ITransakcija;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -21,13 +20,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.query.Select;
@@ -43,7 +43,7 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 
 	Date date = new Date(System.currentTimeMillis());
 	@SuppressLint("SimpleDateFormat") SimpleDateFormat datum = new SimpleDateFormat("dd/mm/yyyy");
-	int mjesec = DateFormat.MONTH_FIELD+2;
+	final Datum d = new Datum();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +51,14 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pidactivity);
 
-		final Datum datum = new Datum();
-		String mj = datum.nazivMj(mjesec);
+		//CalendarView kalendar = (CalendarView)findViewById(R.id.calendarView1);
+		
+		Date date = new Date(System.currentTimeMillis());
+
+		@SuppressWarnings("deprecation")
+		int mjesec = date.getMonth() + 1;
+
+		String mj = d.nazivMj(mjesec);
 		
 		final TextView txtDatum = (TextView) findViewById(R.id.textMjesec);
 		txtDatum.setText(mj);
@@ -65,9 +71,9 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				String trenutni = txtDatum.getText().toString();
-				int odabrani = datum.brojMj(trenutni);
+				int odabrani = d.brojMj(trenutni);
 				odabrani--;
-				String nazivMjeseca = datum.nazivMj(odabrani);
+				String nazivMjeseca = d.nazivMj(odabrani);
 				txtDatum.setText(nazivMjeseca);
 				pregledSve(odabrani);
 			}
@@ -78,9 +84,9 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				String trenutni = txtDatum.getText().toString();
-				int odabrani = datum.brojMj(trenutni);
+				int odabrani = d.brojMj(trenutni);
 				odabrani++;
-				String mjesec = datum.nazivMj(odabrani);
+				String mjesec = d.nazivMj(odabrani);
 				txtDatum.setText(mjesec);
 				pregledSve(odabrani);
 				
@@ -98,6 +104,10 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Date date = new Date(System.currentTimeMillis());
+
+		@SuppressWarnings("deprecation")
+		int mjesec = date.getMonth() + 1;
 		switch (item.getItemId()) {
 		case R.id.itemPotrazivanja:
 			if (item.isChecked()) {
@@ -196,6 +206,11 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		EditText etIznos = (EditText) dialog.findViewById(R.id.etIznos);
 		Double iznos = 0.0;
 		iznos = Double.valueOf(etIznos.getText().toString());
+		
+		Date date = new Date(System.currentTimeMillis());
+
+		@SuppressWarnings("deprecation")
+		int mjesec = date.getMonth() + 1;
 
 		DatePicker dp = (DatePicker) dialog.findViewById(R.id.datePicker1);
 		int day = dp.getDayOfMonth();
