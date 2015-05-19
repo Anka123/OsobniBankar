@@ -1,4 +1,4 @@
-package hr.foi.air.osobnibankar.database;
+package hr.foi.air.osobnibankar.db;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;

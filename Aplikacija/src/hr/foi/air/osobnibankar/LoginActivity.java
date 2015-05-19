@@ -1,6 +1,6 @@
 package hr.foi.air.osobnibankar;
  
-import hr.foi.air.osobnibankar.database.Registracija;
+import hr.foi.air.osobnibankar.db.Registracija;
 
 import java.util.List;
 

@@ -1,23 +1,23 @@
-package hr.foi.air.osobnibankar.database;
+package hr.foi.air.osobnibankar.db;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table (name = "Registracija")
-public class Registracija extends Model{
+@Table (name = "Login")
+public class Login extends Model{
 	@Column (name = "lozinka")
-	public String lozinka;
+	private String lozinka;
 	@Column (name = "pitanje")
-	public String pitanje;
+	private String pitanje;
 	@Column (name = "odgovor")
-	public String odgovor;
+	private String odgovor;
 	
-	public Registracija() {
+	public Login() {
 		super();
 	}
 
-	public Registracija(String lozinka, String pitanje, String odgovor){
+	public Login(String lozinka, String pitanje, String odgovor){
 		super();
 		this.lozinka = lozinka;
 		this.pitanje = pitanje;

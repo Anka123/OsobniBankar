@@ -2,7 +2,7 @@ package hr.foi.air.osobnibankar.adapters;
 
 import hr.foi.air.osobnibankar.R;
 
-import hr.foi.air.osobnibankar.database.Transakcija;
+import hr.foi.air.osobnibankar.db.Transakcija;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package hr.foi.air.osobnibankar.core;
 
-import hr.foi.air.osobnibankar.database.Transakcija;
+import hr.foi.air.osobnibankar.db.Transakcija;
 import hr.foi.air.osobnibankar.interfaces.ITransakcija;
 
 import java.util.List;

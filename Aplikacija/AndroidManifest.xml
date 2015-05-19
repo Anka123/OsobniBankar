@@ -3,7 +3,7 @@
     package="hr.foi.air.osobnibankar"
     android:versionCode="1"
     android:versionName="1.0" >
-
+    
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
@@ -13,6 +13,10 @@
         android:icon="@drawable/ikona"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        
+        <meta-data android:name="AA_DB_NAME"  android:value="ob.db" />
+        <meta-data android:name="AA_DB_VERSION"  android:value="1" />
+        
         <activity
             android:name="hr.foi.air.osobnibankar.LoginActivity"
             android:label="@string/app_name" >

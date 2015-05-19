@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.activeandroid.query.Select;
 
-import hr.foi.air.osobnibankar.database.Transakcija;
+import hr.foi.air.osobnibankar.db.Transakcija;
 import hr.foi.air.osobnibankar.dodatno.Datum;
 import android.annotation.SuppressLint;
 import android.app.Activity;
