@@ -13,10 +13,8 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,7 +50,6 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pidactivity);
 
-		dohvatiMjesec();
 		//CalendarView kalendar = (CalendarView)findViewById(R.id.calendarView1);
 		
 		Date date = new Date(System.currentTimeMillis());
@@ -266,32 +263,4 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 				R.layout.item_transakcija, listaTransakcija);
 		list.setAdapter(pirAdapter);
 	}
-	public void dohvatiMjesec(){
-		List<Transakcija> listaMjeseci = new Select().all().from(Transakcija.class).where("tip_id=2 OR tip_id=3").execute();
-		for (Transakcija transakcija:listaMjeseci) {
-			int mjesec = transakcija.getMjesec();
-			
-			@SuppressWarnings("deprecation")
-			int danasnji = date.getMonth() + 1;
-			
-			if (mjesec == danasnji) {
-				
-				NotificationCompat.Builder notif = new NotificationCompat.Builder (this);					
-				notif.setSmallIcon(R.drawable.minus);					
-				notif.setContentTitle("Dospjeæe obveze");					
-				notif.setContentText("Postoji obveza koju je potrebno podmiriti!");					
-
-				int notifid = 001;
-
-				NotificationManager notifMan = (NotificationManager) getSystemService (NOTIFICATION_SERVICE);
-
-				notifMan.notify (notifid, notif.build());
-			}
-		}
-		
-	}
-	
-	
-	}
-	
-
+}
