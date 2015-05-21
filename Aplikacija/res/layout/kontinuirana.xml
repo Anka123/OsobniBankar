@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_bright" >
+
+    <TextView
+        android:id="@+id/txtMjeseci"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="45dp"
+        android:text="@string/mjeseci" />
+
+    <ProgressBar
+        android:id="@+id/progCilj"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/txtNapredak"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/etIznosKontinuirane"
+        android:layout_marginBottom="19dp" />
+
+    <EditText
+        android:id="@+id/etIznosKontinuirane"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtIznosKontinuirane"
+        android:layout_alignRight="@+id/txtIznosKontinuirane"
+        android:layout_below="@+id/txtMjeseci"
+        android:layout_marginTop="74dp"
+        android:ems="10"
+        android:inputType="number" />
+
+    <ToggleButton
+        android:id="@+id/togZapocni"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtNapredak"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="29dp"
+        android:textOn="@string/zaustavi" 
+    	android:textOff="@string/zapocni" />
+
+    <TextView
+        android:id="@+id/txtNapredak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/progCilj"
+        android:layout_alignLeft="@+id/txtMjeseci"
+        android:text="@string/napredak" />
+
+    <NumberPicker
+        android:id="@+id/nmbMjesec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/txtMjeseci"
+        android:layout_below="@+id/txtMjeseci"
+        android:layout_marginTop="14dp" />
+
+    <TextView
+        android:id="@+id/txtIznosKontinuirane"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtMjeseci"
+        android:layout_alignBottom="@+id/txtMjeseci"
+        android:layout_toRightOf="@+id/togZapocni"
+        android:text="@string/iznosKontinuirane" />
+
+</RelativeLayout>

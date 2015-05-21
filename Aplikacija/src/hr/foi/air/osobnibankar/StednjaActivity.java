@@ -1,17 +1,17 @@
 package hr.foi.air.osobnibankar;
 
+import hr.foi.air.osobnibankar.db.Transakcija;
+import hr.foi.air.osobnibankar.dodatno.Datum;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.activeandroid.query.Select;
-
-import hr.foi.air.osobnibankar.db.Transakcija;
-import hr.foi.air.osobnibankar.dodatno.Datum;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.activeandroid.query.Select;
 
 public class StednjaActivity extends Activity{
 	Dialog dialog = null;
@@ -80,11 +82,21 @@ public class StednjaActivity extends Activity{
 					transakcija.save();
 					
 					dialog.dismiss();
-				}
-				
-				
+				}	
 			});
 			}});
+		
+		ImageButton btnKontinuirana = (ImageButton)findViewById(R.id.imgKontinuirana);
+		btnKontinuirana.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				Intent i = new Intent(getApplicationContext(),KontinuiranaActivity.class);
+				startActivity(i);
+				
+			}
+			
+		});
 		
 	}
 	
@@ -93,7 +105,7 @@ public class StednjaActivity extends Activity{
 		double sumaStednje = 0;
 		
 		List<Transakcija> listaStednje = new Select().all()
-				.from(Transakcija.class).where("tip_id=4")
+				.from(Transakcija.class).where("tip_id=4 OR tip_id=5")
 				.execute();
 
 		for (Transakcija transakcija : listaStednje) {
@@ -107,5 +119,5 @@ public class StednjaActivity extends Activity{
 		
 		txtUstedeni.setText(iznosStednje);
 	}
-
+	
 }

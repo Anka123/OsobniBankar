@@ -41,6 +41,9 @@
         <activity 
             android:name=".StednjaActivity" >
         </activity>
+        <activity 
+            android:name=".KontinuiranaActivity" >
+        </activity>
     </application>
 
 </manifest>

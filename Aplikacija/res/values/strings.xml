@@ -76,6 +76,11 @@
     <string name="ustedeniIznos">Ušteđeni iznos</string>
     <string name="iznosProizvoljne">Iznos koji želite uštediti:</string>
     <string name="proizvoljna">Proizvoljna štednja</string>
+    <string name="mjeseci">Mjeseci štednje</string>
+    <string name="iznosKontinuirane">Iznos štednje</string>
+    <string name="napredak">Napredak</string>
+    <string name="zapocni">Započni štednju</string>
+    <string name="zaustavi">Zaustavi štednju</string>
     
     <string-array name="pitanje">
         <item>Ime kućnog ljubimca?</item>
