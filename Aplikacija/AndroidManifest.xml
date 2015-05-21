@@ -44,6 +44,10 @@
         <activity 
             android:name=".KontinuiranaActivity" >
         </activity>
+        <activity
+            android:name=".TecajActivity" >
+            
+        </activity>
     </application>
 
 </manifest>

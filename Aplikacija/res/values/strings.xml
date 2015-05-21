@@ -81,6 +81,10 @@
     <string name="napredak">Napredak</string>
     <string name="zapocni">Započni štednju</string>
     <string name="zaustavi">Zaustavi štednju</string>
+    <string name="valuta">Valuta</string>
+    <string name="kupovni">Kupovni</string>
+    <string name="srednji">Srednji</string>
+    <string name="prodajni">Prodajni</string>
     
     <string-array name="pitanje">
         <item>Ime kućnog ljubimca?</item>
