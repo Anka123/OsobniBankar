@@ -79,5 +79,9 @@ public class Transakcija extends Model{
 	public int getTip(){
 		return tip_id;
 	}
+	
+	public int getMjesec(){
+		return mjesec;
+	}
 }
 

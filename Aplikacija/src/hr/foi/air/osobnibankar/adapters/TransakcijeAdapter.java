@@ -1,13 +1,9 @@
 package hr.foi.air.osobnibankar.adapters;
 
 import hr.foi.air.osobnibankar.R;
-
 import hr.foi.air.osobnibankar.db.Transakcija;
 
 import java.util.List;
-
-import com.activeandroid.query.Delete;
-import com.activeandroid.query.Select;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -24,9 +20,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.activeandroid.query.Delete;
+import com.activeandroid.query.Select;
 
 
 public class TransakcijeAdapter extends ArrayAdapter<Transakcija> {
@@ -95,7 +93,7 @@ public class TransakcijeAdapter extends ArrayAdapter<Transakcija> {
 									
 									final Dialog dialog1 =new Dialog(c);
 									final Transakcija t;
-									RadioGroup rg;
+									
 									if(tipTransakcije == true){
 										dialog1.setContentView(R.layout.dodajpid);
 										t = new  Select().all().from(Transakcija.class).where("remote_id =? AND(tip_id=2 OR tip_id=3)",tagPosition).executeSingle();
@@ -108,7 +106,7 @@ public class TransakcijeAdapter extends ArrayAdapter<Transakcija> {
 											RadioButton r = (RadioButton)dialog1.findViewById(R.id.rbDugovanje);
 											r.setChecked(false);
 										}
-										rg = (RadioGroup) dialog1.findViewById(R.id.radioGroup3);
+										
 									}
 									else{
 										
@@ -123,7 +121,7 @@ public class TransakcijeAdapter extends ArrayAdapter<Transakcija> {
 											RadioButton r = (RadioButton)dialog1.findViewById(R.id.rbRashod);
 											r.setChecked(false);
 										}
-										rg = (RadioGroup) dialog1.findViewById(R.id.radioGroup2);
+										
 									}
 									tip = t.getTip();
 									dialog1.setTitle(R.string.noviUnos);
