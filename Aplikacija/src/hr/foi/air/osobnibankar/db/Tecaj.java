@@ -16,7 +16,7 @@ public class Tecaj extends Model {
 	@Column(name = "prodajni")
 	private long prodajni;
 
-	public Tecaj() {
+	public Tecaj(int i, String valuta, String kupovniTecaj, String srednjiTecaj, String prodajniTecaj) {
 		super();
 	}
 
