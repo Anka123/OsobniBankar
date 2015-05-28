@@ -1,35 +1,40 @@
 package hr.foi.air.osobnibankar.core;
 
-import hr.foi.air.osobnibankar.db.Tecaj;
-
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-import android.R.string;
+import hr.foi.air.osobnibankar.db.Tecaj;
+import hr.foi.air.osobnibankar.interfaces.ITecajevi;
 
-public class Tecajevi {
-	
-		public int dohvatiBrojTecaja(){
-			return 0;					
-		}
-		public Tecaj dohvatiTecaj(string imeTecaja){
-			return null;						
-		}
+
+public class Tecajevi implements ITecajevi {
+
+	@Override
+	public int dohvatiBrojTecaja() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Tecaj dohvatiTecaj(String imeTecaja) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Tecaj> dohvatiSveTecajeve() {
+		// TODO Auto-generated method stub
+		TecajeviAsyncTask tecajevi = new TecajeviAsyncTask();
+		tecajevi.execute();
 		
-		public List<Tecaj> dohvatiSveTecajeve()
-		{
-			TecajeviAsyncTask tecajevi = new TecajeviAsyncTask();
-			tecajevi.execute();
-			
-			try {
-				return tecajevi.get();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return null;		
+		try {
+			return tecajevi.get();
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
+		return null;
+	}
+		
+
+		
 }
+
