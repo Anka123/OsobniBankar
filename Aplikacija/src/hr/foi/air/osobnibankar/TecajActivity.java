@@ -1,32 +1,59 @@
 package hr.foi.air.osobnibankar;
 
-import java.util.List;
-
 import hr.foi.air.osobnibankar.adapters.TecajeviAdapter;
 import hr.foi.air.osobnibankar.core.Tecajevi;
 import hr.foi.air.osobnibankar.db.Tecaj;
-import hr.foi.air.osobnibankar.interfaces.ITecajevi;
+
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.Toast;
 
-public class TecajActivity extends Activity{
-	
+public class TecajActivity extends Activity {
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-	
+
 		super.onCreate(savedInstanceState);
 		Context c = this;
 		setContentView(R.layout.tecaj);
-		//NetworkInfo[] ni = null;
-		//ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		ITecajevi tecajClass = new Tecajevi();
-		List<Tecaj> listaTecajeva = tecajClass.dohvatiSveTecajeve();
-		ListView listview = (ListView) findViewById(R.id.listview);
-		TecajeviAdapter tecajeviAdapter = new TecajeviAdapter(this, R.layout.tecaj_entry, listaTecajeva);
-		listview.setAdapter(tecajeviAdapter);
+		NetworkInfo[] ni = null;
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+		if (cm != null) {
+			ni = cm.getAllNetworkInfo();
+
+			if (ni != null) {
+
+				for (int i = 0; i < ni.length; i++)
+					if (ni[i].getState() == NetworkInfo.State.CONNECTED) {
+						ispisTecaja();
+						Toast.makeText(c, R.string.connected, Toast.LENGTH_LONG)
+								.show();
+					}
+
+					else if (ni[i].getState() == NetworkInfo.State.DISCONNECTED) {
+						Toast.makeText(c, R.string.disconnected,
+								Toast.LENGTH_LONG).show();
+					}
+			}
+
+		}
+
 	}
 
+	private void ispisTecaja() {
+		Tecajevi t = new Tecajevi();
+		List<Tecaj> listaTecajeva = t.dohvatiTecajeve();
+		ListView listView = (ListView) findViewById(R.id.lvTecajevi);
+		TecajeviAdapter lwAdapter = new TecajeviAdapter(this,
+				R.layout.tecaj_entry, listaTecajeva);
+		listView.setAdapter(lwAdapter);
 
+	}
 }

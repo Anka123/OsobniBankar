@@ -10,17 +10,17 @@ public class Tecaj extends Model {
 	@Column(name = "valuta")
 	private String valuta;
 	@Column(name = "kupovni")
-	private long kupovni;
+	private String kupovni;
 	@Column(name = "srednji")
-	private long srednji;
+	private String srednji;
 	@Column(name = "prodajni")
-	private long prodajni;
+	private String prodajni;
 
-	public Tecaj(int i, String valuta, String kupovniTecaj, String srednjiTecaj, String prodajniTecaj) {
+	public Tecaj() {
 		super();
 	}
 
-	public Tecaj(String valuta, long kupovni, long srednji, long prodajni) {
+	public Tecaj(String valuta, String kupovni, String srednji, String prodajni) {
 		super();
 		this.valuta = valuta;
 		this.kupovni = kupovni;
@@ -32,15 +32,15 @@ public class Tecaj extends Model {
 		return valuta;
 	}
 
-	public long getKupovni() {
+	public String getKupovni() {
 		return kupovni;
 	}
 
-	public long getSrednji() {
+	public String getSrednji() {
 		return srednji;
 	}
 
-	public long getProdajni() {
+	public String getProdajni() {
 		return prodajni;
 	}
 

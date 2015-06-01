@@ -86,6 +86,8 @@
     <string name="kupovni">Kupovni</string>
     <string name="srednji">Srednji</string>
     <string name="prodajni">Prodajni</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
     
     <string-array name="pitanje">
         <item>Ime kućnog ljubimca?</item>

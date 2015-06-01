@@ -43,7 +43,7 @@ public class TecajeviAsyncTask extends AsyncTask<String, Void, List<Tecaj>>{
 				     String srednjiTecaj = currency.getString("meanRate");
 				     String kupovniTecaj = currency.getString("sellRateForeign");
 				     
-				     Tecaj noviTecaj = new Tecaj(0,naziv,prodajniTecaj,srednjiTecaj,kupovniTecaj);
+				     Tecaj noviTecaj = new Tecaj(naziv, kupovniTecaj, srednjiTecaj, prodajniTecaj);
 				     tecajevi.add(noviTecaj);
 				}
 				return tecajevi;
