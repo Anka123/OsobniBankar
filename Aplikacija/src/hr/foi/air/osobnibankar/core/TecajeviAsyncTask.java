@@ -10,6 +10,7 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.os.AsyncTask;
@@ -32,18 +33,17 @@ public class TecajeviAsyncTask extends AsyncTask<String, Void, List<Tecaj>>{
 			 httpClient.getConnectionManager().shutdown();
 			 
 			 if (result !=null && result != "") {
-				 	JSONObject jsonObject = new JSONObject(result);
-				    JSONObject jsonObject2 =jsonObject.getJSONObject("currency");
+				 	JSONArray jsonArray = new JSONArray(result);
 				   
-				    for(int i=0;i<jsonObject2.length();i++){
-				     JSONObject currency = jsonObject2.getJSONObject(String.valueOf(i+1));
+				    for(int i=0;i<jsonArray.length();i++){
+				     JSONObject jsonObject = jsonArray.getJSONObject(i);
 				     
-				     String naziv = currency.getString("name");
-				     String prodajniTecaj = currency.getString("buyRateForeign");
-				     String srednjiTecaj = currency.getString("meanRate");
-				     String kupovniTecaj = currency.getString("sellRateForeign");
-				     
-				     Tecaj noviTecaj = new Tecaj(naziv, kupovniTecaj, srednjiTecaj, prodajniTecaj);
+				     String naziv = jsonObject.getString("currency_code");
+				     String prodajniTecaj = jsonObject.getString("selling_rate");
+				     String srednjiTecaj = jsonObject.getString("median_rate");
+				     String kupovniTecaj = jsonObject.getString("buying_rate");
+				    		 
+				     Tecaj noviTecaj = new Tecaj(naziv, prodajniTecaj, srednjiTecaj, kupovniTecaj);
 				     tecajevi.add(noviTecaj);
 				}
 				return tecajevi;
