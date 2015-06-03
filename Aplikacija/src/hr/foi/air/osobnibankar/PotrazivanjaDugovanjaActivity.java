@@ -12,6 +12,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -19,16 +20,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 
 public class PotrazivanjaDugovanjaActivity extends Activity {
@@ -36,7 +41,8 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 	Dialog dialog = null;
 	int izbor;
 	int grupa = 0;
-
+	int g_mjesec;
+	
 	boolean potrazivanjaSelected = false;
 	boolean dugovanjaSelected = false;
 
@@ -72,6 +78,7 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 				String trenutni = txtDatum.getText().toString();
 				int odabrani = d.brojMj(trenutni);
 				odabrani--;
+				g_mjesec = odabrani;
 				String nazivMjeseca = d.nazivMj(odabrani);
 				txtDatum.setText(nazivMjeseca);
 				pregledSve(odabrani);
@@ -85,13 +92,14 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 				String trenutni = txtDatum.getText().toString();
 				int odabrani = d.brojMj(trenutni);
 				odabrani++;
+				g_mjesec = odabrani;
 				String mjesec = d.nazivMj(odabrani);
 				txtDatum.setText(mjesec);
 				pregledSve(odabrani);
 				
 			}
 		});
-		
+		g_mjesec = mjesec;
 		pregledSve(mjesec);
 
 	}
@@ -244,10 +252,10 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 
 		ListView list = (ListView) findViewById(R.id.listview);
 
-		TransakcijeAdapter pirAdapter = new TransakcijeAdapter(this,
+		TransakcijeAdapter pidAdapter = new TransakcijeAdapter(this,
 				R.layout.item_transakcija, listaTransakcija);
-		list.setAdapter(pirAdapter);
-
+		list.setAdapter(pidAdapter);
+		onItemClick(list);
 	}
 
 	public void pregledSve(int brojMj) {
@@ -259,8 +267,126 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 
 		ListView list = (ListView) findViewById(R.id.listview);
 
-		TransakcijeAdapter pirAdapter = new TransakcijeAdapter(this,
+		TransakcijeAdapter pidAdapter = new TransakcijeAdapter(this,
 				R.layout.item_transakcija, listaTransakcija);
-		list.setAdapter(pirAdapter);
+		list.setAdapter(pidAdapter);
+		onItemClick(list);
 	}
-}
+	
+	public void onItemClick(ListView list){
+		list.setOnItemClickListener(new OnItemClickListener() {
+		
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View v, int arg2,
+                long arg3) {
+
+			final String tagPosition = (v.getTag().toString());
+			
+			AlertDialog.Builder ad = new AlertDialog.Builder(c);
+			ad.setMessage(c.getResources().getString(R.string.poruka));
+			ad.setPositiveButton(c.getResources().getString(R.string.promijeni),
+					new android.content.DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(
+								android.content.DialogInterface dialog,
+								int odabir) {
+								
+								final Dialog dialog1 =new Dialog(c);
+								final Transakcija t;
+								
+								dialog1.setContentView(R.layout.dodajpid);
+								t = new  Select().all().from(Transakcija.class).where("remote_id =? AND(tip_id=2 OR tip_id=3)",tagPosition).executeSingle();
+								
+								if(t.getTip()==2){
+									RadioButton r = (RadioButton)dialog1.findViewById(R.id.rbPotrazivanje);
+									r.setChecked(true);
+								}
+								else{
+									RadioButton r = (RadioButton)dialog1.findViewById(R.id.rbDugovanje);
+									r.setChecked(false);
+								}
+								final int tip = t.getTip();
+								dialog1.setTitle(R.string.noviUnos);
+								dialog1.show();
+								EditText etNaziv = (EditText) dialog1.findViewById(R.id.etNaziv);
+								etNaziv.setText(t.getNaziv());
+								EditText etOpis = (EditText) dialog1.findViewById(R.id.etOpis);
+								etOpis.setText(t.getOpis());
+								EditText etIznos = (EditText) dialog1.findViewById(R.id.etIznos);
+								etIznos.setText(t.getIznos().toString());
+								Button btnSpremi = (Button) dialog1.findViewById(R.id.btnSpremi);
+								btnSpremi.setOnClickListener(new OnClickListener() {
+									@Override
+									public void onClick(View v) {
+
+										switch (tip) {
+										case 0:
+											unos(dialog1,2, t.getId());
+											break;
+
+										case 1:
+											unos(dialog1,2, t.getId());
+											break;
+										}
+										dialog1.dismiss();
+									}
+								});
+						}
+
+					});
+			ad.setNegativeButton(c.getResources().getString(R.string.izbrisi),
+					new android.content.DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(
+						android.content.DialogInterface dialog,int odabir) {
+						new Delete().from(Transakcija.class).where("remote_id =?",tagPosition).execute();
+						pregledSve(g_mjesec);
+						
+				}
+			
+			
+			});
+			ad.setNeutralButton(c.getResources().getString(R.string.podmiri),
+					new android.content.DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(
+						android.content.DialogInterface dialog,int odabir) {
+						
+						pregledSve(g_mjesec);
+						
+				}
+			});
+			ad.show();
+		}
+	});
+	}
+		public void unos(Dialog dialog, int izbor, long id) {
+			EditText etNaziv = (EditText) dialog.findViewById(R.id.etNaziv);
+			String naziv = etNaziv.getText().toString();
+			EditText etOpis = (EditText) dialog.findViewById(R.id.etOpis);
+			String opis = etOpis.getText().toString();
+			EditText etIznos = (EditText) dialog.findViewById(R.id.etIznos);
+			Double iznos = 0.0;
+			iznos = Double.valueOf(etIznos.getText().toString());
+
+			DatePicker dp = (DatePicker) dialog.findViewById(R.id.datePicker1);
+			int day = dp.getDayOfMonth();
+			int month = dp.getMonth();
+			int year = dp.getYear();
+
+			String datum = day + "." + (month + 1) + "." + year + ".";
+
+			Transakcija transakcija = Transakcija.load(Transakcija.class, id);
+			transakcija.naziv = naziv;
+			transakcija.opis = opis;
+			transakcija.iznos = iznos;
+			transakcija.datum = datum;
+			transakcija.save();
+			pregledSve(g_mjesec);
+		}
+	}
+
+
