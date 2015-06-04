@@ -52,6 +52,9 @@
             android:name=".TecajActivity" >
             
         </activity>
+        
+        <service android:name=".services.NotifikacijaServis"></service>
+        
     </application>
 
 </manifest>

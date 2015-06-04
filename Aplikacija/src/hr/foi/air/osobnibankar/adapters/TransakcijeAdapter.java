@@ -57,7 +57,7 @@ public class TransakcijeAdapter extends ArrayAdapter<Transakcija> {
 		TextView naziv = (TextView) v.findViewById(R.id.txtNaziv);
 		naziv.setText(String.valueOf(transakcija.getNaziv()));
 		TextView kategorija = (TextView) v.findViewById(R.id.txtKategorija);
-		kategorija.setText(String.valueOf(transakcija.getKategorija()));
+		kategorija.setText(String.valueOf(transakcija.getOpis()));
 		TextView iznos = (TextView) v.findViewById(R.id.txtIznos);
 		iznos.setText(transakcija.getIznos().toString());
 		return v;

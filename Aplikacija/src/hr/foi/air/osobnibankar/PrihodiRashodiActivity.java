@@ -3,12 +3,15 @@ package hr.foi.air.osobnibankar;
 import hr.foi.air.osobnibankar.adapters.TransakcijeAdapter;
 import hr.foi.air.osobnibankar.core.Transakcije;
 import hr.foi.air.osobnibankar.db.Profil;
+import hr.foi.air.osobnibankar.db.Tip;
 import hr.foi.air.osobnibankar.db.Transakcija;
 import hr.foi.air.osobnibankar.dodatno.Datum;
 import hr.foi.air.osobnibankar.interfaces.ITransakcija;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -63,10 +66,13 @@ public class PrihodiRashodiActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.piractivity);
 
-		Date date = new Date(System.currentTimeMillis());
+		// Date date = new Date(System.currentTimeMillis());
 
-		@SuppressWarnings("deprecation")
-		int mjesec = date.getMonth() + 1;
+		// @SuppressWarnings("deprecation")
+		// int mjesec = date.getMonth() + 1;
+
+		Calendar calendar = new GregorianCalendar();
+		int mjesec = calendar.get(Calendar.MONTH) + 1;
 
 		String mj = d.nazivMj(mjesec);
 
@@ -83,7 +89,7 @@ public class PrihodiRashodiActivity extends Activity {
 				String trenutni = txtDatum.getText().toString();
 				int odabrani = d.brojMj(trenutni);
 				odabrani--;
-				g_mjesec=odabrani;
+				g_mjesec = odabrani;
 				String nazivMjeseca = d.nazivMj(odabrani);
 				txtDatum.setText(nazivMjeseca);
 				pregledZajedno(odabrani);
@@ -98,7 +104,7 @@ public class PrihodiRashodiActivity extends Activity {
 				int odabrani = d.brojMj(trenutni);
 				odabrani++;
 				String mjesec = d.nazivMj(odabrani);
-				g_mjesec=odabrani;
+				g_mjesec = odabrani;
 				txtDatum.setText(mjesec);
 				pregledZajedno(odabrani);
 
@@ -106,7 +112,7 @@ public class PrihodiRashodiActivity extends Activity {
 		});
 
 		pregledZajedno(mjesec);
-		g_mjesec=mjesec;
+		g_mjesec = mjesec;
 		izracunajTrenutni();
 
 		if (sumaRashoda > limit) {
@@ -117,8 +123,8 @@ public class PrihodiRashodiActivity extends Activity {
 			dialog.show();
 
 			TextView potrosnja = (TextView) dialog.findViewById(R.id.txtStanje);
-			String suma = Double.valueOf(sumaRashoda).toString();
-			potrosnja.setText(suma);
+			String sumaR = Double.valueOf(sumaRashoda).toString();
+			potrosnja.setText(sumaR);
 
 			TextView txtlimit = (TextView) dialog
 					.findViewById(R.id.txtTrenutniLimit);
@@ -162,10 +168,12 @@ public class PrihodiRashodiActivity extends Activity {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Date date = new Date(System.currentTimeMillis());
+		// Date date = new Date(System.currentTimeMillis());
+		Calendar calendar = new GregorianCalendar();
+		int mjesec = calendar.get(Calendar.MONTH) + 1;
 
-		@SuppressWarnings("deprecation")
-		int mjesec = date.getMonth()+1;
+		// @SuppressWarnings("deprecation")
+		// int mjesec = date.getMonth()+1;
 
 		switch (item.getItemId()) {
 		case R.id.itemPrihodi:
@@ -246,9 +254,6 @@ public class PrihodiRashodiActivity extends Activity {
 				Profil profil = new Profil(trenutniId, null, null, limit);
 				profil.save();
 
-				Toast.makeText(getApplicationContext(), "profil",
-						Toast.LENGTH_SHORT);
-
 				dialog.dismiss();
 
 			}
@@ -276,6 +281,9 @@ public class PrihodiRashodiActivity extends Activity {
 
 						case R.id.rbPrihod:
 							izbor = 0;
+							String nazivPrihod = "Prihod";
+							Tip tipPrihod = new Tip(izbor, nazivPrihod);
+							tipPrihod.save();
 							unos(izbor);
 							Toast.makeText(getApplicationContext(), "prihod",
 									Toast.LENGTH_SHORT).show();
@@ -284,6 +292,9 @@ public class PrihodiRashodiActivity extends Activity {
 
 						case R.id.rbRashod:
 							izbor = 1;
+							String nazivRashod = "Rashod";
+							Tip tipRashod = new Tip(izbor, nazivRashod);
+							tipRashod.save();
 							unos(izbor);
 							dialog.dismiss();
 							break;
@@ -330,86 +341,102 @@ public class PrihodiRashodiActivity extends Activity {
 				Toast.LENGTH_SHORT).show();
 	}
 
-	public void onItemClick(ListView list){
-			list.setOnItemClickListener(new OnItemClickListener() {
-			
+	public void onItemClick(ListView list) {
+		list.setOnItemClickListener(new OnItemClickListener() {
+
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int arg2,
-                    long arg3) {
+					long arg3) {
 
 				final String tagPosition = (v.getTag().toString());
-				
+
 				AlertDialog.Builder ad = new AlertDialog.Builder(c);
 				ad.setMessage(c.getResources().getString(R.string.poruka));
-				ad.setPositiveButton(c.getResources().getString(R.string.promijeni),
+				ad.setPositiveButton(
+						c.getResources().getString(R.string.promijeni),
 						new android.content.DialogInterface.OnClickListener() {
 
 							@Override
 							public void onClick(
 									android.content.DialogInterface dialog,
 									int odabir) {
-									
-									final Dialog dialog1 =new Dialog(c);
-									final Transakcija t;
-								
-									
-										t = new  Select().all().from(Transakcija.class).where("remote_id =? AND(tip_id=0 OR tip_id=1)",tagPosition).executeSingle();
-									
-										dialog1.setContentView(R.layout.dodajpir);
-										if(t.getTip()==0){
-											RadioButton r = (RadioButton)dialog1.findViewById(R.id.rbPrihod);
-											r.setChecked(true);
-										}
-										else{
-											RadioButton r = (RadioButton)dialog1.findViewById(R.id.rbRashod);
-											r.setChecked(false);
-										}
-									final int tip = t.getTip();
-									dialog1.setTitle(R.string.noviUnos);
-									dialog1.show();
-									EditText etNaziv = (EditText) dialog1.findViewById(R.id.etNaziv);
-									etNaziv.setText(t.getNaziv());
-									EditText etOpis = (EditText) dialog1.findViewById(R.id.etOpis);
-									etOpis.setText(t.getOpis());
-									EditText etIznos = (EditText) dialog1.findViewById(R.id.etIznos);
-									etIznos.setText(t.getIznos().toString());
-									Button btnSpremi = (Button) dialog1.findViewById(R.id.btnSpremi);
-									btnSpremi.setOnClickListener(new OnClickListener() {
-										@Override
-										public void onClick(View v) {
 
-											switch (tip) {
-											case 0:
-												unos(dialog1,0,null,1, t.getId());
-												break;
+								final Dialog dialog1 = new Dialog(c);
+								final Transakcija t;
 
-											case 1:
-												unos(dialog1,1,null,1, t.getId());
-												break;
+								t = new Select()
+										.all()
+										.from(Transakcija.class)
+										.where("remote_id =? AND(tip_id=0 OR tip_id=1)",
+												tagPosition).executeSingle();
+
+								dialog1.setContentView(R.layout.dodajpir);
+								if (t.getTip() == 0) {
+									RadioButton r = (RadioButton) dialog1
+											.findViewById(R.id.rbPrihod);
+									r.setChecked(true);
+								} else {
+									RadioButton r = (RadioButton) dialog1
+											.findViewById(R.id.rbRashod);
+									r.setChecked(false);
+								}
+								final int tip = t.getTip();
+								dialog1.setTitle(R.string.noviUnos);
+								dialog1.show();
+								EditText etNaziv = (EditText) dialog1
+										.findViewById(R.id.etNaziv);
+								etNaziv.setText(t.getNaziv());
+								EditText etOpis = (EditText) dialog1
+										.findViewById(R.id.etOpis);
+								etOpis.setText(t.getOpis());
+								EditText etIznos = (EditText) dialog1
+										.findViewById(R.id.etIznos);
+								etIznos.setText(t.getIznos().toString());
+								Button btnSpremi = (Button) dialog1
+										.findViewById(R.id.btnSpremi);
+								btnSpremi
+										.setOnClickListener(new OnClickListener() {
+											@Override
+											public void onClick(View v) {
+
+												switch (tip) {
+												case 0:
+													unos(dialog1, 0, null, 1,
+															t.getId());
+													break;
+
+												case 1:
+													unos(dialog1, 1, null, 1,
+															t.getId());
+													break;
+												}
+												dialog1.dismiss();
 											}
-											dialog1.dismiss();
-										}
-									});
+										});
 							}
 
 						});
-				ad.setNegativeButton(c.getResources().getString(R.string.izbrisi),
+				ad.setNegativeButton(
+						c.getResources().getString(R.string.izbrisi),
 						new android.content.DialogInterface.OnClickListener() {
 
-					@Override
-					public void onClick(
-							android.content.DialogInterface dialog,int odabir) {
-							new Delete().from(Transakcija.class).where("remote_id =?",tagPosition).execute();
-							pregledZajedno(g_mjesec);
-							izracunajTrenutni();
-					}
-				});
-		
+							@Override
+							public void onClick(
+									android.content.DialogInterface dialog,
+									int odabir) {
+								new Delete().from(Transakcija.class)
+										.where("remote_id =?", tagPosition)
+										.execute();
+								pregledZajedno(g_mjesec);
+								izracunajTrenutni();
+							}
+						});
+
 				ad.show();
 			}
 		});
 	}
-	
+
 	public void pregled(int iz, int brojMj) {
 		int t = iz;
 		int mjesec = brojMj;
@@ -422,7 +449,7 @@ public class PrihodiRashodiActivity extends Activity {
 
 		TransakcijeAdapter pirAdapter = new TransakcijeAdapter(this,
 				R.layout.item_transakcija, listaTransakcija);
-		
+
 		list.setAdapter(pirAdapter);
 		onItemClick(list);
 	}
@@ -441,8 +468,9 @@ public class PrihodiRashodiActivity extends Activity {
 		list.setAdapter(pirAdapter);
 
 		onItemClick(list);
-		
+
 	}
+
 	void unos(Dialog dialog, int unos, String danasnjiDatum, int mjesec, long id) {
 		EditText etNaziv = (EditText) dialog.findViewById(R.id.etNaziv);
 		String naziv = etNaziv.getText().toString();
@@ -464,8 +492,9 @@ public class PrihodiRashodiActivity extends Activity {
 		pregledZajedno(g_mjesec);
 		izracunajTrenutni();
 	}
+
 	public void izracunajTrenutni() {
-		
+
 		double sumaPrihoda = 0;
 		sumaRashoda = 0;
 		List<Transakcija> listaTransakcija = new Select().all()

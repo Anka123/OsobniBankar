@@ -2,12 +2,15 @@ package hr.foi.air.osobnibankar;
 
 import hr.foi.air.osobnibankar.adapters.TransakcijeAdapter;
 import hr.foi.air.osobnibankar.core.Transakcije;
+import hr.foi.air.osobnibankar.db.Tip;
 import hr.foi.air.osobnibankar.db.Transakcija;
 import hr.foi.air.osobnibankar.dodatno.Datum;
 import hr.foi.air.osobnibankar.interfaces.ITransakcija;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -55,13 +58,14 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		TransakcijeAdapter.tipTransakcije = true;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pidactivity);
-
-		//CalendarView kalendar = (CalendarView)findViewById(R.id.calendarView1);
 		
-		Date date = new Date(System.currentTimeMillis());
+		//Date date = new Date(System.currentTimeMillis());
 
-		@SuppressWarnings("deprecation")
-		int mjesec = date.getMonth() + 1;
+		Calendar calendar = new GregorianCalendar();
+		int mjesec = calendar.get(Calendar.MONTH) + 1;
+		
+		//@SuppressWarnings("deprecation")
+		//int mjesec = date.getMonth() + 1;
 
 		String mj = d.nazivMj(mjesec);
 		
@@ -111,10 +115,14 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Date date = new Date(System.currentTimeMillis());
+		//Date date = new Date(System.currentTimeMillis());
 
-		@SuppressWarnings("deprecation")
-		int mjesec = date.getMonth() + 1;
+		//@SuppressWarnings("deprecation")
+		//int mjesec = date.getMonth() + 1;
+		
+		Calendar calendar = new GregorianCalendar();
+		int mjesec = calendar.get(Calendar.MONTH) + 1;
+		
 		switch (item.getItemId()) {
 		case R.id.itemPotrazivanja:
 			if (item.isChecked()) {
@@ -171,8 +179,8 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		dialog.setTitle(R.string.noviUnos);
 		dialog.show();
 
-		RadioGroup rgPiR = (RadioGroup) dialog.findViewById(R.id.radioGroup3);
-		rgPiR.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		RadioGroup rgPiD = (RadioGroup) dialog.findViewById(R.id.radioGroup3);
+		rgPiD.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			int izbor;
 
 			@Override
@@ -186,6 +194,9 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 						switch (chkId) {
 						case R.id.rbPotrazivanje:
 							izbor = 2;
+							String nazivPotrazivanje = "Potrazivanje";
+							Tip tipPotrazivanje = new Tip(izbor, nazivPotrazivanje);
+							tipPotrazivanje.save();
 							unos(izbor);
 							Toast.makeText(getApplicationContext(),
 									"potraživanje", Toast.LENGTH_SHORT).show();
@@ -194,6 +205,9 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 
 						case R.id.rbDugovanje:
 							izbor = 3;
+							String nazivDugovanje = "Prihod";
+							Tip tipDugovanje = new Tip(izbor, nazivDugovanje);
+							tipDugovanje.save();
 							unos(izbor);
 							dialog.dismiss();
 							break;
