@@ -3,9 +3,14 @@ package hr.foi.air.osobnibankar;
 import hr.foi.air.osobnibankar.adapters.TecajeviAdapter;
 import hr.foi.air.osobnibankar.core.Tecajevi;
 import hr.foi.air.osobnibankar.db.Tecaj;
+import hr.foi.air.osobnibankar.interfaces.ITecaj;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -16,13 +21,14 @@ import android.widget.Toast;
 
 public class TecajActivity extends Activity {
 
-	@Override
+	@SuppressLint("SimpleDateFormat") @Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		Context c = this;
 		setContentView(R.layout.tecaj);
 		NetworkInfo[] ni = null;
+		
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
 		if (cm != null) {
@@ -48,8 +54,10 @@ public class TecajActivity extends Activity {
 	}
 
 	private void ispisTecaja() {
-		Tecajevi t = new Tecajevi();
-		List<Tecaj> listaTecajeva = t.dohvatiTecajeve();
+		
+		ITecaj t = new Tecajevi();
+		
+		List<Tecaj> listaTecajeva = t.dohvatiTecaj();
 		ListView listView = (ListView) findViewById(R.id.lvTecajevi);
 		TecajeviAdapter lwAdapter = new TecajeviAdapter(this,
 				R.layout.tecaj_entry, listaTecajeva);

@@ -2,7 +2,10 @@ package hr.foi.air.osobnibankar.core;
 
 import hr.foi.air.osobnibankar.db.Tecaj;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.apache.http.client.HttpClient;
@@ -22,10 +25,15 @@ public class TecajeviAsyncTask extends AsyncTask<String, Void, List<Tecaj>>{
 	protected List<Tecaj> doInBackground(String... params) {
 		// TODO Auto-generated method stub
 		
+		Calendar calendar = new GregorianCalendar();
+		int date = calendar.get(Calendar.DATE);
+		SimpleDateFormat datum = new SimpleDateFormat("yyyy-mm-dd");
+		String d = datum.format(date);		
+		
 		ResponseHandler<String> handler = new BasicResponseHandler();
 		HttpClient httpClient = new DefaultHttpClient();
 		List<Tecaj> tecajevi = new ArrayList<Tecaj>();
-		String link = "http://hnbex.eu/api/v1/rates/daily/";
+		String link = "http://hnbex.eu/api/v1/rates/daily/?date=" + d;
 		HttpGet request = new HttpGet(link);
 		
 		try {

@@ -4,14 +4,14 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import hr.foi.air.osobnibankar.db.Tecaj;
+import hr.foi.air.osobnibankar.interfaces.ITecaj;
 
 
 
-public class Tecajevi {
+public class Tecajevi implements ITecaj{
 
-	
-public List<Tecaj> dohvatiTecajeve() {
-	
+@Override
+public List<Tecaj> dohvatiTecaj() {
 	TecajeviAsyncTask tecajevi = new TecajeviAsyncTask();
 	tecajevi.execute();
 	
@@ -24,10 +24,7 @@ public List<Tecaj> dohvatiTecajeve() {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-
 	return null;
-	
-
 }
 
 		
