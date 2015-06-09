@@ -35,7 +35,6 @@ public class StednjaActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.stednje);
 		
-		
 		izracunajStednju();
 		
 		ImageButton btnProizvoljna = (ImageButton)findViewById(R.id.imgProizvoljna);
@@ -44,7 +43,6 @@ public class StednjaActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				
-			
 			dialog = new Dialog(c);
 			dialog.setContentView(R.layout.proizvoljna);
 			dialog.setTitle(R.string.proizvoljna);

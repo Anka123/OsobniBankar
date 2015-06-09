@@ -13,7 +13,7 @@ public class Profil extends Model{
 	@Column (name = "prezime")
 	public String prezime;
 	@Column (name = "ogranicenje")
-	public Double limit;
+	public Double ogranicenje;
 	
 	public Profil(){
 		super();
@@ -23,7 +23,7 @@ public class Profil extends Model{
 		this.remote_id = remote_id;
 		this.ime = ime;
 		this.prezime = prezime;
-		this.limit = limit;
+		this.ogranicenje = limit;
 	}
 	
 	public long getRemoteId(){
@@ -38,8 +38,8 @@ public class Profil extends Model{
 		return prezime;
 	}
 	
-	public Double getLimit() {
-		return limit;
+	public Double getOgranicenje() {
+		return ogranicenje;
 	}
 }
 

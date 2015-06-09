@@ -115,7 +115,19 @@ public class PrihodiRashodiActivity extends Activity {
 		g_mjesec = mjesec;
 		izracunajTrenutni();
 
-		if (sumaRashoda > limit) {
+		Double ogranicenje = null;
+		
+		List<Profil> listaOgranicenja = new Select().all().from(Profil.class).execute();
+
+		for (Profil ogranicenje1 : listaOgranicenja) {
+			
+				ogranicenje = ogranicenje1.getOgranicenje();
+				
+		}
+		
+		if (ogranicenje !=null) {
+		 
+		if (sumaRashoda > ogranicenje) {
 
 			dialog = new Dialog(c);
 			dialog.setContentView(R.layout.potrosnja);
@@ -128,7 +140,7 @@ public class PrihodiRashodiActivity extends Activity {
 
 			TextView txtlimit = (TextView) dialog
 					.findViewById(R.id.txtTrenutniLimit);
-			String postavljeni = Double.valueOf(limit).toString();
+			String postavljeni = Double.valueOf(ogranicenje).toString();
 			txtlimit.setText(postavljeni);
 
 			Button ok = (Button) dialog.findViewById(R.id.btnOK);
@@ -157,7 +169,7 @@ public class PrihodiRashodiActivity extends Activity {
 
 			});
 
-		}
+		}}
 
 	}
 
@@ -234,7 +246,49 @@ public class PrihodiRashodiActivity extends Activity {
 		dialog.show();
 
 		Button btnOk = (Button) dialog.findViewById(R.id.btnSpremi);
-		btnOk.setOnClickListener(new OnClickListener() {
+		
+		Double ogranicenje = null;
+		List<Profil> listaOgranicenja = new Select().all().from(Profil.class).execute();
+		for (Profil ogranicenje1 : listaOgranicenja) {
+			
+				ogranicenje = ogranicenje1.getOgranicenje();
+				
+		}
+		
+		if (ogranicenje !=null) {
+			EditText etLimit = (EditText) dialog.findViewById(R.id.etLimit);
+			etLimit.setText(ogranicenje.toString());
+			
+			btnOk.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				
+				EditText etLimit = (EditText) dialog.findViewById(R.id.etLimit);
+				Double limit1 = Double.valueOf(etLimit.getText().toString());
+
+				Profil prethodni = new Select().from(Profil.class)
+						.orderBy("remote_id DESC").executeSingle();
+				
+				long trenutniId;
+				try {
+					trenutniId = prethodni.getRemoteId();
+					trenutniId++;
+				} catch (Exception e) {
+					trenutniId = 0;
+				}
+
+				Profil profil = Profil.load(Profil.class,trenutniId);
+				profil.ogranicenje = limit1;
+				profil.save();
+
+				dialog.dismiss();
+			}
+			});
+			
+		}
+		
+		else {
+			btnOk.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -257,7 +311,7 @@ public class PrihodiRashodiActivity extends Activity {
 				dialog.dismiss();
 
 			}
-		});
+		});}
 	}
 
 	public void noviUnos() {
