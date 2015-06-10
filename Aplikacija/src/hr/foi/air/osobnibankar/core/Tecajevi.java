@@ -12,7 +12,7 @@ public class Tecajevi implements ITecaj{
 
 @Override
 public List<Tecaj> dohvatiTecaj() {
-	TecajeviAsyncTask tecajevi = new TecajeviAsyncTask();
+	TecajeviAsyncTask2 tecajevi = new TecajeviAsyncTask2();
 	tecajevi.execute();
 	
 	try {

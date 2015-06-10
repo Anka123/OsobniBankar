@@ -4,10 +4,6 @@ import hr.foi.air.osobnibankar.adapters.TecajeviAdapter;
 import hr.foi.air.osobnibankar.core.Tecajevi;
 import hr.foi.air.osobnibankar.db.Tecaj;
 import hr.foi.air.osobnibankar.interfaces.ITecaj;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import android.annotation.SuppressLint;
