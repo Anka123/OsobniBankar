@@ -368,7 +368,21 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 				@Override
 				public void onClick(
 						android.content.DialogInterface dialog,int odabir) {
-						
+					Transakcija t = null;
+					
+					
+					t = new  Select().all().from(Transakcija.class).where("remote_id =? AND(tip_id=2 OR tip_id=3)",tagPosition).executeSingle();
+				
+						if (t.getTip() == 2)
+						{
+							podmiriPotrazivanja(izbor, t.getId());
+							
+						}else 
+						{
+							podmiriDugovanja(izbor, t.getId());
+						}
+				
+					
 						pregledSve(g_mjesec);
 						
 				}
@@ -400,6 +414,28 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 			transakcija.datum = datum;
 			transakcija.save();
 			pregledSve(g_mjesec);
+		}
+		
+		public void podmiriPotrazivanja(int izbor, long id)
+		{
+			int tipPrihodi =0;
+				
+			Transakcija transakcija = Transakcija.load(Transakcija.class, id);
+			tipPrihodi = transakcija.tip_id ;
+			transakcija.tip_id = 0;
+			transakcija.save();
+			
+		}
+		
+		public void podmiriDugovanja(int izbor, long id)
+		{
+			int tipPrihodi =0;
+				
+			Transakcija transakcija = Transakcija.load(Transakcija.class, id);
+			tipPrihodi = transakcija.tip_id ;
+			transakcija.tip_id = 1;
+			transakcija.save();
+			
 		}
 	}
 
