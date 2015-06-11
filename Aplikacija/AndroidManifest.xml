@@ -52,6 +52,11 @@
             android:name=".TecajActivity" >
             
         </activity>
+
+         <activity
+            android:name=".NotifikacijaActivity" >
+            
+        </activity>
         
         <service android:name=".services.NotifikacijaServis"></service>
         

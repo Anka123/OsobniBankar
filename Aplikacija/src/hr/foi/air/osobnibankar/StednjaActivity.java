@@ -4,7 +4,9 @@ import hr.foi.air.osobnibankar.db.Transakcija;
 import hr.foi.air.osobnibankar.dodatno.Datum;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -69,8 +71,9 @@ public class StednjaActivity extends Activity{
 					}
 					
 					Date date = new Date(System.currentTimeMillis());
-					@SuppressWarnings("deprecation")
-					int mjesec = date.getMonth() + 1;
+					Calendar calendar = new GregorianCalendar();
+					
+					int mjesec = calendar.get(Calendar.MONTH)+1;
 					String danasnjiDatum = datum.format(date);
 					
 					int izbor = 4;
@@ -80,6 +83,7 @@ public class StednjaActivity extends Activity{
 					transakcija.save();
 					
 					dialog.dismiss();
+					izracunajStednju();
 				}	
 			});
 			}});
