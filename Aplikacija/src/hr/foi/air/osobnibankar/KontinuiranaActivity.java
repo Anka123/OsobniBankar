@@ -3,6 +3,7 @@ package hr.foi.air.osobnibankar;
 import java.util.Calendar;
 import java.util.List;
 
+import hr.foi.air.osobnibankar.db.Profil;
 import hr.foi.air.osobnibankar.db.Transakcija;
 import android.app.Activity;
 import android.app.Dialog;
@@ -109,8 +110,9 @@ public class KontinuiranaActivity extends Activity {
 				else{
 					new Delete().from(Transakcija.class).where("tip_id=6").execute();
 					Toast.makeText(getApplicationContext(), "Zaustavljeno", Toast.LENGTH_SHORT).show();
-				}
-			}
+					
+					promjena ();
+				}}
 		});	
 	}
 	
@@ -179,6 +181,34 @@ public class KontinuiranaActivity extends Activity {
 				dialog.dismiss();
 				
 			}});
+		
+		
 	}
+	
+	public void promjena () {
+		
+		List<Transakcija> lista = new Select().all().from(Transakcija.class).where("tip_id=0").execute();
+		
+		for (int i = 0; i<lista.size();i++){
+			
+			Double noviIznos = lista.get(i).iznos-100;
+			
+			Transakcija prethodni = new Select().from(Transakcija.class)
+					.orderBy("remote_id DESC").executeSingle();
+			long trenutniId;
+			try {
+				trenutniId = prethodni.getRemote_id();
+				trenutniId++;
+			} catch (Exception e) {
+				trenutniId = 0;
+			}
+			
+			
+			
+			Transakcija nova = Transakcija.load(Transakcija.class, trenutniId);
+			nova.iznos = noviIznos;
+			nova.save();
+			
+		}
 
-}
+}}

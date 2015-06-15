@@ -418,22 +418,20 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		
 		public void podmiriPotrazivanja(int izbor, long id)
 		{
-			int tipPrihodi =0;
+			int tipPrihodi = 0;
 				
 			Transakcija transakcija = Transakcija.load(Transakcija.class, id);
-			tipPrihodi = transakcija.tip_id ;
-			transakcija.tip_id = 0;
+			transakcija.tip_id = tipPrihodi;
 			transakcija.save();
 			
 		}
 		
 		public void podmiriDugovanja(int izbor, long id)
 		{
-			int tipPrihodi =0;
+			int tipRashodi = 1;
 				
 			Transakcija transakcija = Transakcija.load(Transakcija.class, id);
-			tipPrihodi = transakcija.tip_id ;
-			transakcija.tip_id = 1;
+			transakcija.tip_id = tipRashodi;
 			transakcija.save();
 			
 		}
