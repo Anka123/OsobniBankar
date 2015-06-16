@@ -121,5 +121,11 @@ public class StednjaActivity extends Activity{
 		
 		txtUstedeni.setText(iznosStednje);
 	}
+
+	@Override
+	protected void onResume() {
+		izracunajStednju();
+		super.onResume();
+	}
 	
 }

@@ -46,6 +46,9 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 	int grupa = 0;
 	int g_mjesec;
 	
+	Calendar calendar = new GregorianCalendar();
+	int mjesec = calendar.get(Calendar.MONTH) + 1;
+	
 	boolean potrazivanjaSelected = false;
 	boolean dugovanjaSelected = false;
 
@@ -58,14 +61,6 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		TransakcijeAdapter.tipTransakcije = true;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pidactivity);
-		
-		//Date date = new Date(System.currentTimeMillis());
-
-		Calendar calendar = new GregorianCalendar();
-		int mjesec = calendar.get(Calendar.MONTH) + 1;
-		
-		//@SuppressWarnings("deprecation")
-		//int mjesec = date.getMonth() + 1;
 
 		String mj = d.nazivMj(mjesec);
 		
@@ -228,10 +223,7 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		Double iznos = 0.0;
 		iznos = Double.valueOf(etIznos.getText().toString());
 		
-		Date date = new Date(System.currentTimeMillis());
-
-		@SuppressWarnings("deprecation")
-		int mjesec = date.getMonth() + 1;
+		
 
 		DatePicker dp = (DatePicker) dialog.findViewById(R.id.datePicker1);
 		int day = dp.getDayOfMonth();

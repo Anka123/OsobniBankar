@@ -266,18 +266,8 @@ public class PrihodiRashodiActivity extends Activity {
 				EditText etLimit = (EditText) dialog.findViewById(R.id.etLimit);
 				Double limit1 = Double.valueOf(etLimit.getText().toString());
 
-				Profil prethodni = new Select().from(Profil.class)
-						.orderBy("remote_id DESC").executeSingle();
-				
-				long trenutniId;
-				try {
-					trenutniId = prethodni.getRemoteId();
-					trenutniId++;
-				} catch (Exception e) {
-					trenutniId = 0;
-				}
+				Profil profil = new Select().all().from(Profil.class).executeSingle();
 
-				Profil profil = Profil.load(Profil.class,trenutniId);
 				profil.ogranicenje = limit1;
 				profil.save();
 
@@ -368,9 +358,11 @@ public class PrihodiRashodiActivity extends Activity {
 		EditText etIznos = (EditText) dialog.findViewById(R.id.etIznos);
 		Double iznos = 0.0;
 		iznos = Double.valueOf(etIznos.getText().toString());
+		
 		Date date = new Date(System.currentTimeMillis());
-		@SuppressWarnings("deprecation")
-		int mjesec = date.getMonth() + 1;
+		Calendar calendar = new GregorianCalendar();
+		int mjesec = calendar.get(Calendar.MONTH) + 1;
+		
 		String danasnjiDatum = datum.format(date);
 		Spinner sp = (Spinner) dialog.findViewById(R.id.spinKategorija);
 		String kategorija = sp.getSelectedItem().toString();
