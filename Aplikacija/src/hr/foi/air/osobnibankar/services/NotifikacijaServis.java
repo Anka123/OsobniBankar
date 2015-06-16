@@ -1,6 +1,6 @@
 package hr.foi.air.osobnibankar.services;
 
-import hr.foi.air.osobnibankar.NotifikacijaActivity;
+//import hr.foi.air.osobnibankar.NotifikacijaActivity;
 import hr.foi.air.osobnibankar.db.Transakcija;
 
 import java.util.Calendar;
@@ -56,8 +56,8 @@ public class NotifikacijaServis extends Service {
 
 			if (dani == trenutniDan && mjesec == trenutniMjesec
 					&& godine == trenutnaGodina) {
-				Intent i = new Intent(this, NotifikacijaActivity.class);
-				startActivity(i);
+				//Intent i = new Intent(this, NotifikacijaActivity.class);
+				//startActivity(i);
 			}
 
 		}

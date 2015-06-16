@@ -4,6 +4,8 @@ import hr.foi.air.osobnibankar.adapters.TecajeviAdapter;
 import hr.foi.air.osobnibankar.core.Tecajevi;
 import hr.foi.air.osobnibankar.db.Tecaj;
 import hr.foi.air.osobnibankar.interfaces.ITecaj;
+import hr.foi.air.tecajhnb.TecajHNB;
+
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -51,13 +53,18 @@ public class TecajActivity extends Activity {
 
 	private void ispisTecaja() {
 		
-		ITecaj t = new Tecajevi();
+		TecajHNB tecajHNB = new TecajHNB();
+		String url = "http://hnbex.eu/api/v1/rates/daily/?date=";
+		tecajHNB.execute(url);
+		
+		/*ITecaj t = new Tecajevi();
 		
 		List<Tecaj> listaTecajeva = t.dohvatiTecaj();
 		ListView listView = (ListView) findViewById(R.id.lvTecajevi);
 		TecajeviAdapter lwAdapter = new TecajeviAdapter(this,
 				R.layout.tecaj_entry, listaTecajeva);
 		listView.setAdapter(lwAdapter);
+		*/
 
 	}
 }
