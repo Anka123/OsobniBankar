@@ -7,5 +7,5 @@ public interface ITecaj {
 	List<Tecaj> tecajevi = null;
 	
 	public List<Tecaj> dohvatiTecaj(String webResult);
-	
+
 }

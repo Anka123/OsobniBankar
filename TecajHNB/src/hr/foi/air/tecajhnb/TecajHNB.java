@@ -16,18 +16,21 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import hr.foi.air.tecajinterface.ITecaj;
-import hr.foi.air.tecajhnb.Tecaj;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.view.Menu;
 
-public class TecajHNB extends AsyncTask<String, Void, List<hr.foi.air.tecajinterface.Tecaj>> implements ITecaj{
+public class TecajHNB extends AsyncTask<Object, Void, List<hr.foi.air.tecajinterface.Tecaj>> implements ITecaj{
 
 	@Override
-	protected List<hr.foi.air.tecajinterface.Tecaj> doInBackground(String... urls) {
-		String[] url = urls;
+	protected List<hr.foi.air.tecajinterface.Tecaj> doInBackground(Object... params) {
+		Object rezultat[] = new Object[]{"",null};
+		String url = (String) params[1];
+		Context context = (Context) params[0];
+		rezultat[1] = (ITecaj) params[2];
 		
 		List<hr.foi.air.tecajinterface.Tecaj> result= new ArrayList<hr.foi.air.tecajinterface.Tecaj>();
 		
@@ -41,7 +44,7 @@ public class TecajHNB extends AsyncTask<String, Void, List<hr.foi.air.tecajinter
 		}
 		
 
-	public String callHNB(String[] url) {
+	public String callHNB(String url) {
 		
 		Calendar calendar = new GregorianCalendar();
 		int date = calendar.get(Calendar.DATE);
@@ -50,7 +53,6 @@ public class TecajHNB extends AsyncTask<String, Void, List<hr.foi.air.tecajinter
 		
 		ResponseHandler<String> handler = new BasicResponseHandler();
 		HttpClient httpClient = new DefaultHttpClient();
-		List<TecajHNB> tecajevi = new ArrayList<TecajHNB>();
 		String link = url + d;
 		HttpGet request = new HttpGet(link);
 		
@@ -70,8 +72,8 @@ public class TecajHNB extends AsyncTask<String, Void, List<hr.foi.air.tecajinter
 		
 	}
 
-   protected void onPostExecute(Object[] result) {
-	
+   protected void onPostExecute(List<hr.foi.air.tecajinterface.Tecaj> result) {
+	List<hr.foi.air.tecajinterface.Tecaj> resTecajevi = result;
 }
 
 
@@ -79,25 +81,8 @@ public class TecajHNB extends AsyncTask<String, Void, List<hr.foi.air.tecajinter
 public List<hr.foi.air.tecajinterface.Tecaj> dohvatiTecaj(String result) {
 	// TODO Auto-generated method stub
 	String webResult = result;
-	List<hr.foi.air.tecajinterface.Tecaj> tecajevi = new ArrayList<hr.foi.air.tecajinterface.Tecaj>();
-	try{
-		JSONArray jsonArray = new JSONArray(webResult);
-		   
-	    for(int i=0;i<jsonArray.length();i++){
-	     JSONObject jsonObject = jsonArray.getJSONObject(i);
-	     
-	     String naziv = jsonObject.getString("currency_code");
-	     String prodajniTecaj = jsonObject.getString("selling_rate");
-	     String srednjiTecaj = jsonObject.getString("median_rate");
-	     String kupovniTecaj = jsonObject.getString("buying_rate");
-	    
-	     hr.foi.air.tecajinterface.Tecaj tecaj = new hr.foi.air.tecajinterface.Tecaj(naziv, kupovniTecaj, srednjiTecaj, prodajniTecaj);
-	     tecajevi.add(tecaj);
-	    }
-	    return tecajevi;
-		}catch (Exception e){
-	    	e.printStackTrace();
-	    }
+	JsonHNB jhnb = new JsonHNB();
+	List<hr.foi.air.tecajinterface.Tecaj> tecajevi = jhnb.listaTecajeva(webResult);
 	return tecajevi;		    	
 }
     
