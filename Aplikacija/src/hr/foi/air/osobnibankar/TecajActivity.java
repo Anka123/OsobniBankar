@@ -57,6 +57,7 @@ public class TecajActivity extends Activity {
 		String url = "http://hnbex.eu/api/v1/rates/daily/?date=";
 		tecajHNB.execute(url);
 		
+		
 		/*ITecaj t = new Tecajevi();
 		
 		List<Tecaj> listaTecajeva = t.dohvatiTecaj();
