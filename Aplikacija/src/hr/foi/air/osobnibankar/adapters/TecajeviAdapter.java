@@ -13,12 +13,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class TecajeviAdapter extends ArrayAdapter<Tecaj>{
+public class TecajeviAdapter extends ArrayAdapter<hr.foi.air.tecajinterface.Tecaj>{
 
 	private final Context context;
-	private final List<Tecaj> values; 
+	private final List<hr.foi.air.tecajinterface.Tecaj> values; 
 	
-	public TecajeviAdapter(Context context, int textViewResourceId, List<Tecaj> values) {
+	public TecajeviAdapter(Context context, int textViewResourceId, List<hr.foi.air.tecajinterface.Tecaj> values) {
 		super(context, textViewResourceId, values);
 		this.context = context;
 		this.values = values;
@@ -31,7 +31,7 @@ public class TecajeviAdapter extends ArrayAdapter<Tecaj>{
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 		View v = inflater.inflate (R.layout.tecaj_entry, parent, false);
 		
-		Tecaj tecaj = values.get(position);
+		hr.foi.air.tecajinterface.Tecaj tecaj = values.get(position);
 		TextView valuta = (TextView) v.findViewById(R.id.entry_tecaj_valuta);
 		valuta.setText(String.valueOf(tecaj.getValuta()));
 		TextView prodajni = (TextView) v.findViewById(R.id.entry_tecaj_prodajni);

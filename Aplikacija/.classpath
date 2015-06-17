@@ -6,7 +6,5 @@
 	<classpathentry exported="true" kind="lib" path="jars/ActiveAndroid.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/TecajHNB"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/TecajInterface"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
