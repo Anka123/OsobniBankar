@@ -66,7 +66,14 @@ public class KontinuiranaActivity extends Activity {
 		maksimalna = (int) Math.round(sumaPrivremene);
 		progCilj.setMax(maksimalna);
 		progCilj.setProgress(i);
-
+		
+		TextView txtNapredak = (TextView)findViewById(R.id.txtNapredak);
+		
+		String napredak = String.valueOf(i);
+		String cilj = String.valueOf(maksimalna);
+		String cijniIznos = napredak + "/" + cilj;
+		
+		txtNapredak.setText(cijniIznos);
 	}
 
 	private void provjeriStanje() {
@@ -127,7 +134,7 @@ public class KontinuiranaActivity extends Activity {
 	}
 
 	private void zapocniStednju() {
-
+		
 		Double iznos = null;
 
 		NumberPicker nmbMjesec = (NumberPicker) findViewById(R.id.nmbMjesec);
@@ -135,24 +142,30 @@ public class KontinuiranaActivity extends Activity {
 
 		EditText iznosKontinuirane = (EditText) findViewById(R.id.etIznosKontinuirane);
 
-		iznos = Double.valueOf(iznosKontinuirane.getText().toString());
-
-		int izbor = 6;
-
-		Transakcija prethodni = new Select().from(Transakcija.class)
-				.orderBy("remote_id DESC").executeSingle();
-		long trenutniId;
-		try {
-			trenutniId = prethodni.getRemote_id();
-			trenutniId++;
-		} catch (Exception e) {
-			trenutniId = 0;
+		if (iznosKontinuirane.getText().toString().isEmpty()){
+			Toast.makeText(c, "Unesite iznos!", Toast.LENGTH_SHORT).show();
+			
 		}
+		
+		else {
+			
+			iznos = Double.valueOf(iznosKontinuirane.getText().toString());
+			int izbor = 6;
 
-		Transakcija privremena = new Transakcija(trenutniId, null, null, iznos,
-				false, null, null, null, mjesec, izbor);
-		privremena.save();
+			Transakcija prethodni = new Select().from(Transakcija.class)
+					.orderBy("remote_id DESC").executeSingle();
+			long trenutniId;
+			try {
+				trenutniId = prethodni.getRemote_id();
+				trenutniId++;
+			} catch (Exception e) {
+				trenutniId = 0;
+			}
 
+			Transakcija privremena = new Transakcija(trenutniId, null, null, iznos,
+					false, null, null, null, mjesec, izbor);
+			privremena.save();
+		}
 	}
 
 	public void zaustaviStednju() {
@@ -166,9 +179,7 @@ public class KontinuiranaActivity extends Activity {
 
 			listaKontinuiranih.get(i).zatvoreno = true;
 			listaKontinuiranih.get(i).save();
-
 		}
-
 	}
 	
 	private void izracunajStednju() {
@@ -214,22 +225,19 @@ public class KontinuiranaActivity extends Activity {
 						.from(Transakcija.class).where("tip_id=6")
 						.executeSingle();
 
-				Double stariIznos = dohvatPrivremene.getIznos();
-				Double noviIznos = stariIznos - iznosMjesecne;
 				int stariMjeseci = dohvatPrivremene.getMjesec();
-				int noviMjeseci = stariMjeseci - 1;
 
-				if (noviMjeseci == 0)
+				List<Transakcija> listaKontinuiranih = new Select().all().from(Transakcija.class).where("tip_id = 5 AND zatvoreno = 0").execute();
+				
+				if (listaKontinuiranih.size() > stariMjeseci)
 					zaustaviStednju();
-
-				dohvatPrivremene.iznos = noviIznos;
-				dohvatPrivremene.mjesec = noviMjeseci;
-				dohvatPrivremene.save();
 
 				dialog.dismiss();
 
 			}
+			
 		});
+		progressBar();
 
 	}
 }

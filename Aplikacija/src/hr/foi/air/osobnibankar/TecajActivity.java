@@ -1,10 +1,6 @@
 package hr.foi.air.osobnibankar;
 
 import hr.foi.air.osobnibankar.adapters.TecajeviAdapter;
-import hr.foi.air.osobnibankar.core.Tecajevi;
-import hr.foi.air.osobnibankar.db.Tecaj;
-import hr.foi.air.osobnibankar.interfaces.ITecaj;
-import hr.foi.air.osobnibankar.interfaces.ResultHandler;
 import hr.foi.air.tecajhnb.TecajHNB;
 
 import java.util.List;
