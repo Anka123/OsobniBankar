@@ -6,5 +6,7 @@
 	<classpathentry exported="true" kind="lib" path="jars/ActiveAndroid.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry exported="true" kind="lib" path="jars/afreechart.jar"/>
+	<classpathentry exported="true" kind="lib" path="jars/afreegraphics.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

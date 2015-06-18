@@ -233,11 +233,7 @@ public class KontinuiranaActivity extends Activity {
 					zaustaviStednju();
 
 				dialog.dismiss();
-
 			}
-			
 		});
-		progressBar();
-
 	}
 }

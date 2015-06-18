@@ -3,11 +3,11 @@
     package="hr.foi.air.osobnibankar"
     android:versionCode="1"
     android:versionName="1.0" >
-    
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
@@ -17,10 +17,13 @@
         android:icon="@drawable/ikona"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
-        <meta-data android:name="AA_DB_NAME"  android:value="ob.db" />
-        <meta-data android:name="AA_DB_VERSION"  android:value="1" />
-        
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="ob.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+
         <activity
             android:name="hr.foi.air.osobnibankar.LoginActivity"
             android:label="@string/app_name" >
@@ -30,36 +33,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity 
-            android:name=".RegistracijaActivity" >
+        <activity android:name=".RegistracijaActivity" >
         </activity>
-         <activity 
-            android:name=".GlavniIzbornikActivity" >
+        <activity android:name=".GlavniIzbornikActivity" >
         </activity>
-        <activity 
-            android:name=".PrihodiRashodiActivity" >
+        <activity android:name=".PrihodiRashodiActivity" >
         </activity>
-        <activity 
-            android:name=".PotrazivanjaDugovanjaActivity" >
+        <activity android:name=".PotrazivanjaDugovanjaActivity" >
         </activity>
-        <activity 
-            android:name=".StednjaActivity" >
+        <activity android:name=".StednjaActivity" >
         </activity>
-        <activity 
-            android:name=".KontinuiranaActivity" >
+        <activity android:name=".KontinuiranaActivity" >
         </activity>
-        <activity
-            android:name=".TecajActivity" >
-            
+        <activity android:name=".TecajActivity" >
         </activity>
-
-         <activity
-            android:name=".NotifikacijaActivity" >
-            
+        <activity android:name=".NotifikacijaActivity" >
+        </activity>
+        <activity android:name=".PieChartActivity" >
+        </activity>
+        <activity android:name=".TimeSeriesGrafActivity" >
+        </activity>
+        <activity android:name=".BarChartActivity" >
+        </activity>
+		<activity android:name=".GrafikoniActivity" >
         </activity>
         
-        <service android:name=".services.NotifikacijaServis"></service>
-        
+        <service android:name=".services.NotifikacijaServis" >
+        </service>
     </application>
 
 </manifest>

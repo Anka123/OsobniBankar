@@ -78,7 +78,8 @@ public class StednjaActivity extends Activity{
 					
 					int izbor = 4;
 					
-					Transakcija transakcija = new Transakcija(trenutniId, null, null,
+					String naziv = datum.format(date);
+					Transakcija transakcija = new Transakcija(trenutniId, naziv, null,
 							iznosProizvoljne, false, null, null, danasnjiDatum, mjesec, izbor);
 					transakcija.save();
 					
