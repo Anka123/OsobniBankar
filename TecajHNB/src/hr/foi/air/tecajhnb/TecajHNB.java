@@ -16,6 +16,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import hr.foi.air.tecajinterface.ITecaj;
+import hr.foi.air.tecajinterface.ResultHandler;
+import hr.foi.air.tecajinterface.Tecaj;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,24 +25,26 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
 
-public class TecajHNB extends AsyncTask<Object, Void, List<hr.foi.air.tecajinterface.Tecaj>> implements ITecaj{
+public class TecajHNB extends AsyncTask<Object, Void, Object[]> implements ITecaj{
 
 	@Override
-	protected List<hr.foi.air.tecajinterface.Tecaj> doInBackground(Object... params) {
-		Object rezultat[] = new Object[]{"",null};
-		String url = (String) params[1];
-		Context context = (Context) params[0];
-		rezultat[1] = (ITecaj) params[2];
+	protected Object[] doInBackground(Object... params) {
+		Object rezultat[] = new Object[]{null,null};
+		String url = (String) params[0];
+		rezultat[0] = (ResultHandler) params[1];
 		
 		List<hr.foi.air.tecajinterface.Tecaj> result= new ArrayList<hr.foi.air.tecajinterface.Tecaj>();
 		
 		String webResult = callHNB(url);
 		
 		if (webResult !=null && webResult != "") {
-			dohvatiTecaj(webResult);
+			
+			result = dohvatiTecaj(webResult);
+			rezultat[1] = result;
 		}
 		
-		return null;
+		
+		return rezultat;
 		}
 		
 
@@ -72,8 +76,11 @@ public class TecajHNB extends AsyncTask<Object, Void, List<hr.foi.air.tecajinter
 		
 	}
 
-   protected void onPostExecute(List<hr.foi.air.tecajinterface.Tecaj> result) {
-	List<hr.foi.air.tecajinterface.Tecaj> resTecajevi = result;
+   @SuppressWarnings("unchecked")
+protected void onPostExecute(Object[] result) {
+	if (result[0]!=null) {
+		((ResultHandler) result[0]).handleResult((List<Tecaj>) result[1]);
+	}
 }
 
 

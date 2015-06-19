@@ -2,6 +2,8 @@ package hr.foi.air.osobnibankar;
 
 import hr.foi.air.osobnibankar.adapters.TecajeviAdapter;
 import hr.foi.air.tecajhnb.TecajHNB;
+import hr.foi.air.tecajinterface.ResultHandler;
+import hr.foi.air.tecajinterface.Tecaj;
 
 import java.util.List;
 
@@ -50,27 +52,25 @@ public class TecajActivity extends Activity {
 	}
 
 	private void ispisTecaja() {
-		List<hr.foi.air.tecajinterface.Tecaj> listaTecajeva = null;
 		TecajHNB tecajHNB = new TecajHNB();
 		String url = "http://hnbex.eu/api/v1/rates/daily/?date=";
-		Object pTecajevi[] = new Object[]{c, url, listaTecajeva};
+		Object pTecajevi[] = new Object[]{ url, listaTecajeva};
 		tecajHNB.execute(pTecajevi);
 				
-				List<hr.foi.air.tecajinterface.Tecaj> listTecajevi = listaTecajeva;
-				ListView listView = (ListView) findViewById(R.id.lvTecajevi);
-				TecajeviAdapter lwAdapter = new TecajeviAdapter(c,
-				R.layout.tecaj_entry, listTecajevi);
-				listView.setAdapter(lwAdapter);
 				
-		
-		/*ITecaj t = new Tecajevi();
-		
-		List<Tecaj> listaTecajeva = t.dohvatiTecaj();
-		ListView listView = (ListView) findViewById(R.id.lvTecajevi);
-		TecajeviAdapter lwAdapter = new TecajeviAdapter(this,
-				R.layout.tecaj_entry, listaTecajeva);
-		listView.setAdapter(lwAdapter);
-		*/
 
 	}
+	
+	ResultHandler listaTecajeva = new ResultHandler() {
+		
+		@Override
+		public void handleResult(List<Tecaj> tecajResult) {
+			List<hr.foi.air.tecajinterface.Tecaj> lista = tecajResult;
+			ListView listView = (ListView) findViewById(R.id.lvTecajevi);
+			TecajeviAdapter lwAdapter = new TecajeviAdapter(c,
+			R.layout.tecaj_entry, lista);
+			listView.setAdapter(lwAdapter);
+			
+		}
+	};
 }
