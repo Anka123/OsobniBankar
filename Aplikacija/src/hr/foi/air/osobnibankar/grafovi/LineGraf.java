@@ -15,6 +15,7 @@ import org.afree.data.time.Month;
 import org.afree.data.time.TimeSeries;
 import org.afree.data.time.TimeSeriesCollection;
 import org.afree.data.xy.XYDataset;
+import org.afree.graphics.GradientColor;
 import org.afree.graphics.SolidColor;
 import org.afree.ui.RectangleInsets;
 
@@ -55,13 +56,23 @@ public class LineGraf extends GrafView {
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
-
+        plot.setWeight(5);
+        
         XYItemRenderer r = plot.getRenderer();
         if (r instanceof XYLineAndShapeRenderer) {
             XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
             renderer.setBaseShapesVisible(true);
             renderer.setBaseShapesFilled(true);
             renderer.setDrawSeriesLineAsPath(true);
+            
+            GradientColor gp0 = new GradientColor(Color.BLUE, Color.rgb(0, 0, 64));
+            GradientColor gp1 = new GradientColor(Color.BLACK, Color.rgb(0, 64, 0));
+            GradientColor gp2 = new GradientColor(Color.RED, Color.rgb(64, 0, 0));
+            
+            renderer.setSeriesPaintType(0, gp0);
+            renderer.setSeriesPaintType(1, gp1);
+            renderer.setSeriesPaintType(2, gp2);
+            
         }
 
         DateAxis axis = (DateAxis) plot.getDomainAxis();
@@ -74,6 +85,7 @@ public class LineGraf extends GrafView {
     private static XYDataset createDataset() {
     	TimeSeries s1 = new TimeSeries("Iznos prihoda");
     	TimeSeries s2 = new TimeSeries("Iznos rashoda");
+    	TimeSeries s3 = new TimeSeries("Iznos štednje");
     	
     	TimeSeriesCollection dataset = new TimeSeriesCollection();
 
@@ -121,8 +133,32 @@ public class LineGraf extends GrafView {
         
         }
         
-        dataset.addSeries(s2);
+        List<Transakcija> listaStednje = new Select().all().from(Transakcija.class).where("tip_id=4").execute();
+        
+        for (int i =0;i<listaStednje.size();i++) {
+        
+   
+        Double iznos = listaStednje.get(i).iznos;
+            
+        String datum = listaStednje.get(i).datum;
+		
+
+		String[] dohvatiMjesec = datum.split("\\.");
+		String mjeseci = dohvatiMjesec[1];
+		int mjesec = Integer.parseInt(mjeseci);
+
+		String[] dohvatiGodinu = datum.split("\\.");
+		String godina = dohvatiGodinu[2];
+		int godine = Integer.parseInt(godina);
+        
+        s3.addOrUpdate(new Month(mjesec, godine), iznos);
+        }
+        
+        
         dataset.addSeries(s1);
+        dataset.addSeries(s2);
+        dataset.addSeries(s3);
+        
         return dataset;
 
     }

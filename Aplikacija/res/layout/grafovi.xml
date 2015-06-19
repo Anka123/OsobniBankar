@@ -1,90 +1,105 @@
-<?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/RelativeLayout1"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_bright"
-    android:columnCount="1" >
+    android:orientation="vertical" >
 
-    <ImageButton
-        android:id="@+id/btnLine"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/LinearLayout2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnBar"
-        android:layout_below="@+id/btnBar"
-        android:layout_marginTop="33dp"
-        android:background="@drawable/linechart"
-        android:src="@drawable/linechart" />
+        android:orientation="horizontal" >
 
-    <ImageButton
-        android:id="@+id/btnPiePrihodi"
-        android:layout_width="wrap_content"
+        <ImageButton
+            android:id="@+id/btnBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bargraf"
+            android:src="@drawable/bargraf" />
+
+        <TextView
+            android:id="@+id/txtBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:minLines="2"
+            android:text="@string/bar" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout3"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnLine"
-        android:layout_below="@+id/btnLine"
-        android:layout_marginTop="27dp"
-        android:background="@drawable/piegraf"
-        android:src="@drawable/piegraf" />
+        android:orientation="horizontal" >
 
-    <ImageButton
-        android:id="@+id/btnPieRashodi"
-        android:layout_width="wrap_content"
+        <ImageButton
+            android:id="@+id/btnLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="33dp"
+            android:background="@drawable/linechart"
+            android:src="@drawable/linechart" />
+
+        <TextView
+            android:id="@+id/txtLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:minLines="2"
+            android:text="@string/line" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout4"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnPiePrihodi"
-        android:layout_below="@+id/btnPiePrihodi"
-        android:layout_marginTop="37dp"
-        android:background="@drawable/piegraf"
-        android:src="@drawable/piegraf" />
+        android:orientation="horizontal" >
 
-    <ImageButton
-        android:id="@+id/btnBar"
-        android:layout_width="wrap_content"
+        <ImageButton
+            android:id="@+id/btnPiePrihodi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:background="@drawable/piegraf"
+            
+            android:src="@drawable/piegraf" />
+
+        <TextView
+            android:id="@+id/txtPiePrihodi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            
+            android:text="@string/piePrihodi" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout5"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/bargraf"
-        android:src="@drawable/bargraf" />
+        android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/txtBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/btnBar"
-        android:layout_alignLeft="@+id/txtPieRashodi"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="17dp"
-        android:minLines="2"
-        android:text="@string/bar" />
+        <ImageButton
+            android:id="@+id/btnPieRashodi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="37dp"
+            android:background="@drawable/piegraf"
+            android:src="@drawable/piegraf" />
 
-    <TextView
-        android:id="@+id/txtLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/btnLine"
-        android:layout_alignLeft="@+id/txtBar"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="8dp"
-        android:minLines="2"
-        android:text="@string/line" />
+        <TextView
+            android:id="@+id/txtPieRashodi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="right"
+            
+            android:text="@string/pieRashodi" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtPiePrihodi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/btnPiePrihodi"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="11dp"
-        android:minLines="2"
-        android:text="@string/piePrihodi" />
-
-    <TextView
-        android:id="@+id/txtPieRashodi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/btnPieRashodi"
-        android:layout_alignRight="@+id/txtPiePrihodi"
-        android:minLines="2"
-        android:text="@string/pieRashodi" />
-
-</RelativeLayout>
+</LinearLayout>

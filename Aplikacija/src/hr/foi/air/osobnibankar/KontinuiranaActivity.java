@@ -162,6 +162,7 @@ public class KontinuiranaActivity extends Activity {
 				trenutniId = 0;
 			}
 
+			
 			Transakcija privremena = new Transakcija(trenutniId, null, null, iznos,
 					false, null, null, null, mjesec, izbor);
 			privremena.save();
@@ -217,7 +218,8 @@ public class KontinuiranaActivity extends Activity {
 					trenutniId = 0;
 				}
 
-				Transakcija kontinuirana = new Transakcija(trenutniId, null,
+				String naziv = "Kontinuirana";
+				Transakcija kontinuirana = new Transakcija(trenutniId, naziv,
 						null, iznosMjesecne, false, null, null, null, 0, izbor);
 				kontinuirana.save();
 
@@ -229,10 +231,14 @@ public class KontinuiranaActivity extends Activity {
 
 				List<Transakcija> listaKontinuiranih = new Select().all().from(Transakcija.class).where("tip_id = 5 AND zatvoreno = 0").execute();
 				
-				if (listaKontinuiranih.size() > stariMjeseci)
+				progressBar();
+				
+				if (listaKontinuiranih.size() >= stariMjeseci)
 					zaustaviStednju();
-
+				
 				dialog.dismiss();
+				
+				
 			}
 		});
 	}

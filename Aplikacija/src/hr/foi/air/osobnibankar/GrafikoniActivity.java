@@ -9,12 +9,12 @@ import android.widget.ImageButton;
 
 public class GrafikoniActivity extends Activity {
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.grafovi);
-		
-		
+
 	ImageButton imgBar = (ImageButton)findViewById(R.id.btnBar);
 	imgBar.setOnClickListener(new OnClickListener (){
 
@@ -23,7 +23,6 @@ public class GrafikoniActivity extends Activity {
 
 			Intent i = new Intent(getApplicationContext(),BarGrafActivity.class);
 			startActivity(i);
-			
 		}
 		
 		

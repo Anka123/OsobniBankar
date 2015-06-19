@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.afree.chart.AFreeChart;
 import org.afree.chart.ChartFactory;
+import org.afree.chart.axis.NumberAxis;
+import org.afree.chart.plot.CategoryPlot;
 import org.afree.chart.plot.PlotOrientation;
 import org.afree.data.category.CategoryDataset;
 import org.afree.data.category.DefaultCategoryDataset;
@@ -48,15 +50,23 @@ public class BarGraf extends GrafView {
         	dataset.addValue(iznos, series2, category);
         	}
     	
-    	List<Transakcija> listaStednji = new Select().all().from(Transakcija.class).where("tip_id = 4").execute();
+    	List<Transakcija> listaStednji = new Select().all().from(Transakcija.class).where("tip_id = 4 ").execute();
     	for(int i =0;i<listaStednji.size();i++){
-        	String series1 = "Stednje";	
+        	String series3 = "Proizvoljne štendnje";	
         	Double iznos = listaStednji.get(i).iznos;
         	String category = listaStednji.get(i).naziv;
         	
-        	dataset.addValue(iznos, series1, category);
+        	dataset.addValue(iznos, series3, category);
         	}
 
+    	List<Transakcija> listaKontinuiranih = new Select().all().from(Transakcija.class).where(" tip_id=5").execute();
+    	for(int i =0;i<listaKontinuiranih.size();i++){
+        	String series4 = "Kontinuirane stednje";	
+        	Double iznos = listaKontinuiranih.get(i).iznos;
+        	String category = listaKontinuiranih.get(i).naziv;
+        	
+        	dataset.addValue(iznos, series4, category);
+        	}
         return dataset;
 
     }
@@ -75,10 +85,5 @@ public class BarGraf extends GrafView {
             true,                     // tooltips?
             false                     // URLs?
         );
-
-        
-        return chart;
-
-   
-
+      return chart;
 }}

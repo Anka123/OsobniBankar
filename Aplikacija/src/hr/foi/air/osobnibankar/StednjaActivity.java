@@ -27,6 +27,7 @@ import com.activeandroid.query.Select;
 public class StednjaActivity extends Activity{
 	Dialog dialog = null;
 	Context c = this;
+	Calendar cal = Calendar.getInstance();
 	
 	@SuppressLint("SimpleDateFormat")
 	SimpleDateFormat datum = new SimpleDateFormat("dd/mm/yyyy");
@@ -70,17 +71,17 @@ public class StednjaActivity extends Activity{
 						trenutniId = 0;
 					}
 					
-					Date date = new Date(System.currentTimeMillis());
-					Calendar calendar = new GregorianCalendar();
+					int mjesec = cal.get(Calendar.MONTH)+1;
+					int day = cal.get(Calendar.DAY_OF_MONTH);
+					int year = cal.get(Calendar.YEAR);
 					
-					int mjesec = calendar.get(Calendar.MONTH)+1;
-					String danasnjiDatum = datum.format(date);
+					String datum = day + "." + mjesec + "." + year + ".";
 					
 					int izbor = 4;
 					
-					String naziv = datum.format(date);
+					String naziv = "Proizvoljna";
 					Transakcija transakcija = new Transakcija(trenutniId, naziv, null,
-							iznosProizvoljne, false, null, null, danasnjiDatum, mjesec, izbor);
+							iznosProizvoljne, false, null, null, datum, mjesec, izbor);
 					transakcija.save();
 					
 					dialog.dismiss();

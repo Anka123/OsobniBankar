@@ -60,7 +60,7 @@ return dataset;}
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setLabelFont(new Font("SansSerif", Typeface.NORMAL, 12));
         plot.setNoDataMessage("No data available");
-        plot.setCircular(true);
+        plot.setCircular(false);
         plot.setLabelGap(0.02);
         return chart;
 

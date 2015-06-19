@@ -11,10 +11,10 @@ import android.view.View;
 
 public class GrafView extends View {
 
-	public static final int DEFAULT_MINIMUM_DRAW_WIDTH = 10;
+	public static final int DEFAULT_MINIMUM_DRAW_WIDTH = 0;
 	public static final int DEFAULT_MINIMUM_DRAW_HEIGHT = 0;
-	public static final int DEFAULT_MAXIMUM_DRAW_WIDTH = 1024;
-	public static final int DEFAULT_MAXIMUM_DRAW_HEIGHT = 1000;
+	public static final int DEFAULT_MAXIMUM_DRAW_WIDTH = 2000;
+	public static final int DEFAULT_MAXIMUM_DRAW_HEIGHT = 2000;
 	Dimension size = null;
 	private AFreeChart chart;
 	
