@@ -89,6 +89,11 @@
     <string name="connected">Connected</string>
     <string name="disconnected">Disconnected</string>
     
+    <string name="bar">Pregled Prihoda, Rashoda i Štednje prema iznosu</string>
+    <string name="line">Pregled Prihoda, Rashoda i Štednje prema datumu</string>
+    <string name="piePrihodi">Pregled Prihoda prema kategoriji</string>
+    <string name="pieRashodi">Pregled Rashoda prema kategoriji</string>
+    
     <string-array name="pitanje">
         <item>Ime kućnog ljubimca?</item>
         <item>Omiljeni okus sladoleda?</item>

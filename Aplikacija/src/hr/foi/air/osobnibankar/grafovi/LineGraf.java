@@ -24,9 +24,9 @@ import android.content.Context;
 import android.graphics.Color;
 
 
-public class TimeSeriesGraf extends GrafView {
+public class LineGraf extends GrafView {
 
-	public TimeSeriesGraf(Context context) {
+	public LineGraf(Context context) {
         super(context);
 
         final AFreeChart chart = createChart(createDataset());
@@ -37,9 +37,9 @@ public class TimeSeriesGraf extends GrafView {
     private static AFreeChart createChart(XYDataset dataset) {
 
         AFreeChart chart = ChartFactory.createTimeSeriesChart(
-            "Legal & General Unit Trust Prices",  // title
-            "Date",             // x-axis label
-            "Price Per Unit",   // y-axis label
+            "Vremenski pregled prihoda, rashoda i štednje",  // title
+            "Datum",             // x-axis label
+            "Iznos",   // y-axis label
             dataset,            // data
             true,               // create legend?
             true,               // generate tooltips?
@@ -71,13 +71,10 @@ public class TimeSeriesGraf extends GrafView {
 
     }
 
-    /**
-     * Creates a dataset, consisting of two series of monthly data.
-     *
-     * @return The dataset.
-     */
     private static XYDataset createDataset() {
     	TimeSeries s1 = new TimeSeries("Iznos prihoda");
+    	TimeSeries s2 = new TimeSeries("Iznos rashoda");
+    	
     	TimeSeriesCollection dataset = new TimeSeriesCollection();
 
         List<Transakcija> listaPrihoda = new Select().all().from(Transakcija.class).where("tip_id=0").execute();
@@ -90,19 +87,41 @@ public class TimeSeriesGraf extends GrafView {
         String datum = listaPrihoda.get(i).datum;
 		
 
-		String[] dohvatiMjesec = datum.split("\\/");
-		String mjeseci = dohvatiMjesec[0];
+		String[] dohvatiMjesec = datum.split("\\.");
+		String mjeseci = dohvatiMjesec[1];
 		int mjesec = Integer.parseInt(mjeseci);
 
-		String[] dohvatiGodinu = datum.split("\\/");
+		String[] dohvatiGodinu = datum.split("\\.");
 		String godina = dohvatiGodinu[2];
 		int godine = Integer.parseInt(godina);
         
-        s1.add(new Month(mjesec, godine), iznos);
-        
+        s1.addOrUpdate(new Month(mjesec, godine), iznos);
         
         }
         
+        List<Transakcija> listaRashoda = new Select().all().from(Transakcija.class).where("tip_id=1").execute();
+        
+        for (int i =0;i<listaRashoda.size();i++) {
+        
+   
+        Double iznos = listaRashoda.get(i).iznos;
+            
+        String datum = listaRashoda.get(i).datum;
+		
+
+		String[] dohvatiMjesec = datum.split("\\.");
+		String mjeseci = dohvatiMjesec[1];
+		int mjesec = Integer.parseInt(mjeseci);
+
+		String[] dohvatiGodinu = datum.split("\\.");
+		String godina = dohvatiGodinu[2];
+		int godine = Integer.parseInt(godina);
+        
+        s2.addOrUpdate(new Month(mjesec, godine), iznos);
+        
+        }
+        
+        dataset.addSeries(s2);
         dataset.addSeries(s1);
         return dataset;
 

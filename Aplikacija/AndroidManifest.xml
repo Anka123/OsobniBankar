@@ -49,11 +49,11 @@
         </activity>
         <activity android:name=".NotifikacijaActivity" >
         </activity>
-        <activity android:name=".PieChartActivity" >
+        <activity android:name=".PieGrafActivity" >
         </activity>
-        <activity android:name=".TimeSeriesGrafActivity" >
+        <activity android:name=".LineGrafActivity" >
         </activity>
-        <activity android:name=".BarChartActivity" >
+        <activity android:name=".BarGrafActivity" >
         </activity>
 		<activity android:name=".GrafikoniActivity" >
         </activity>

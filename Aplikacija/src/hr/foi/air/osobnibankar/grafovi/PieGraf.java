@@ -18,13 +18,9 @@ import android.content.Context;
 import android.graphics.Typeface;
 
 
-public class PieChart extends GrafView {
+public class PieGraf extends GrafView {
 
-    /**
-     * constructor
-     * @param context
-     */
-    public PieChart(Context context) {
+    public PieGraf(Context context) {
         super(context);
 
         final PieDataset dataset = createDataset();
@@ -50,13 +46,6 @@ public class PieChart extends GrafView {
     }
 return dataset;}
     
-    
-
-    /**
-     * Creates a chart.
-     * @param dataset the dataset.
-     * @return a chart.
-     */
     private static AFreeChart createChart(PieDataset dataset) {
 
         AFreeChart chart = ChartFactory.createPieChart(
@@ -71,7 +60,7 @@ return dataset;}
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setLabelFont(new Font("SansSerif", Typeface.NORMAL, 12));
         plot.setNoDataMessage("No data available");
-        plot.setCircular(false);
+        plot.setCircular(true);
         plot.setLabelGap(0.02);
         return chart;
 

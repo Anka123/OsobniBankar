@@ -5,7 +5,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 
-public class BarChartActivity extends Activity {
+public class BarGrafActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

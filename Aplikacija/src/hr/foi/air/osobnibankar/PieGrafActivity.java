@@ -1,18 +1,18 @@
 package hr.foi.air.osobnibankar;
 
-import hr.foi.air.osobnibankar.grafovi.PieChart;
+import hr.foi.air.osobnibankar.grafovi.PieGraf;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 
-public class PieChartActivity extends Activity {
+public class PieGrafActivity extends Activity {
 	
 	
    @Override
    public void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
 
-       PieChart mView = new PieChart(this);
+       PieGraf mView = new PieGraf(this);
        requestWindowFeature(Window.FEATURE_NO_TITLE);
        setContentView(mView);
    }

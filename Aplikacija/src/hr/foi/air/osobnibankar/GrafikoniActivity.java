@@ -21,7 +21,7 @@ public class GrafikoniActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 
-			Intent i = new Intent(getApplicationContext(),BarChartActivity.class);
+			Intent i = new Intent(getApplicationContext(),BarGrafActivity.class);
 			startActivity(i);
 			
 		}
@@ -36,7 +36,7 @@ public class GrafikoniActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 
-			Intent i = new Intent(getApplicationContext(),TimeSeriesGrafActivity.class);
+			Intent i = new Intent(getApplicationContext(),LineGrafActivity.class);
 			startActivity(i);
 			
 		}
@@ -51,7 +51,7 @@ ImageButton imgPieRashodi = (ImageButton)findViewById(R.id.btnPieRashodi);
 		@Override
 		public void onClick(View v) {
 
-			Intent i = new Intent(getApplicationContext(),PieChartActivity.class);
+			Intent i = new Intent(getApplicationContext(),PieGrafActivity.class);
 			startActivity(i);
 			
 		}
@@ -66,7 +66,7 @@ ImageButton imgPiePrihodi = (ImageButton)findViewById(R.id.btnPiePrihodi);
 		@Override
 		public void onClick(View v) {
 
-			Intent i = new Intent(getApplicationContext(),PieChartActivity.class);
+			Intent i = new Intent(getApplicationContext(),PieGrafActivity.class);
 			startActivity(i);
 			
 		}

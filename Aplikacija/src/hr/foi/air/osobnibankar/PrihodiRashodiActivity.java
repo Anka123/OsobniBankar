@@ -359,11 +359,16 @@ public class PrihodiRashodiActivity extends Activity {
 		Double iznos = 0.0;
 		iznos = Double.valueOf(etIznos.getText().toString());
 		
-		Date date = new Date(System.currentTimeMillis());
+		//Date date = new Date(System.currentTimeMillis());
 		Calendar calendar = new GregorianCalendar();
-		int mjesec = calendar.get(Calendar.MONTH) + 1;
 		
-		String danasnjiDatum = datum.format(date);
+		int dan = calendar.get(Calendar.DAY_OF_MONTH);
+		int mjesec = calendar.get(Calendar.MONTH) + 1;
+		int godina = calendar.get(Calendar.YEAR);
+		
+		String danasnjiDatum = dan + "." + mjesec + "." + godina + ".";
+		
+		//String danasnjiDatum = datum.format(date);
 		Spinner sp = (Spinner) dialog.findViewById(R.id.spinKategorija);
 		String kategorija = sp.getSelectedItem().toString();
 
