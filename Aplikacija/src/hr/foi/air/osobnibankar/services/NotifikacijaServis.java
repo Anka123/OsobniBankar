@@ -1,6 +1,4 @@
 package hr.foi.air.osobnibankar.services;
-
-//import hr.foi.air.osobnibankar.NotifikacijaActivity;
 import hr.foi.air.osobnibankar.db.Transakcija;
 
 import java.util.Calendar;
@@ -9,6 +7,7 @@ import java.util.List;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 
 import com.activeandroid.query.Select;
@@ -16,21 +15,16 @@ import com.activeandroid.query.Select;
 public class NotifikacijaServis extends Service {
 	Context c = this;
 	Calendar calendar = Calendar.getInstance();
+	Notifikacija notifikacija;
 
-	@Override
-	public IBinder onBind(Intent intent) {
-		// TODO Auto-generated method stub
-		return null;
+	public class NotifikacijaBinder extends Binder {
+		NotifikacijaServis getService() {
+		return NotifikacijaServis.this;
+		}
 	}
 
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
-		super.onCreate();
-	}
-
-	@Override
-	public int onStartCommand(Intent intent, int flags, int startId) {
 
 		List<Transakcija> pid = new Select().all().from(Transakcija.class)
 				.where("tip_id=2 OR tip_id=3").execute();
@@ -51,23 +45,25 @@ public class NotifikacijaServis extends Service {
 			int godine = Integer.parseInt(godina);
 
 			int trenutniDan = calendar.get(Calendar.DAY_OF_MONTH);
-			int trenutniMjesec = calendar.get(Calendar.MONTH)+1;
+			int trenutniMjesec = calendar.get(Calendar.MONTH) + 1;
 			int trenutnaGodina = calendar.get(Calendar.YEAR);
 
 			if (dani == trenutniDan && mjesec == trenutniMjesec
 					&& godine == trenutnaGodina) {
-				//Intent i = new Intent(this, NotifikacijaActivity.class);
-				//startActivity(i);
+				notifikacija.notifikacija();
 			}
-
 		}
-		return super.onStartCommand(intent, flags, startId);
+	}
+
+	
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		return Service.START_STICKY;
 	}
 
 	@Override
-	public void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
+	public IBinder onBind(Intent intent) {
+		return null;
 	}
 
 }

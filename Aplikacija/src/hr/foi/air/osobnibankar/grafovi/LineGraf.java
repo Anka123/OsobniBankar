@@ -93,55 +93,41 @@ public class LineGraf extends GrafView {
         
         for (int i =0;i<listaPrihoda.size();i++) {
         
-   
-        Double iznos = listaPrihoda.get(i).iznos;
-            
+        Double iznos = listaPrihoda.get(i).iznos;  
         String datum = listaPrihoda.get(i).datum;
-		
-
-		String[] dohvatiMjesec = datum.split("\\.");
-		String mjeseci = dohvatiMjesec[1];
-		int mjesec = Integer.parseInt(mjeseci);
-
-		String[] dohvatiGodinu = datum.split("\\.");
-		String godina = dohvatiGodinu[2];
-		int godine = Integer.parseInt(godina);
-        
-        s1.addOrUpdate(new Month(mjesec, godine), iznos);
-        
+		parsiranje(iznos,datum,s1);
         }
         
         List<Transakcija> listaRashoda = new Select().all().from(Transakcija.class).where("tip_id=1").execute();
         
         for (int i =0;i<listaRashoda.size();i++) {
         
-   
         Double iznos = listaRashoda.get(i).iznos;
-            
         String datum = listaRashoda.get(i).datum;
-		
-
-		String[] dohvatiMjesec = datum.split("\\.");
-		String mjeseci = dohvatiMjesec[1];
-		int mjesec = Integer.parseInt(mjeseci);
-
-		String[] dohvatiGodinu = datum.split("\\.");
-		String godina = dohvatiGodinu[2];
-		int godine = Integer.parseInt(godina);
-        
-        s2.addOrUpdate(new Month(mjesec, godine), iznos);
-        
+        parsiranje(iznos,datum,s2);
         }
         
         List<Transakcija> listaStednje = new Select().all().from(Transakcija.class).where("tip_id=4").execute();
         
         for (int i =0;i<listaStednje.size();i++) {
-        
-   
-        Double iznos = listaStednje.get(i).iznos;
-            
+    
+        Double iznos = listaStednje.get(i).iznos;  
         String datum = listaStednje.get(i).datum;
-		
+        parsiranje(iznos,datum,s3);
+        }
+     
+        dataset.addSeries(s1);
+        dataset.addSeries(s2);
+        dataset.addSeries(s3);
+        
+        return dataset;
+    }
+    
+    public static void parsiranje(Double iznosi, String datumi, TimeSeries t) {
+
+		Double iznos = iznosi;
+		String datum = datumi;
+		TimeSeries s = t;
 
 		String[] dohvatiMjesec = datum.split("\\.");
 		String mjeseci = dohvatiMjesec[1];
@@ -150,17 +136,7 @@ public class LineGraf extends GrafView {
 		String[] dohvatiGodinu = datum.split("\\.");
 		String godina = dohvatiGodinu[2];
 		int godine = Integer.parseInt(godina);
-        
-        s3.addOrUpdate(new Month(mjesec, godine), iznos);
-        }
-        
-        
-        dataset.addSeries(s1);
-        dataset.addSeries(s2);
-        dataset.addSeries(s3);
-        
-        return dataset;
 
-    }
-
+		s.addOrUpdate(new Month(mjesec, godine), iznos);
+	}
 }
