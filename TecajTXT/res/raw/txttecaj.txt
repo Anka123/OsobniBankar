@@ -1,0 +1,83 @@
+{
+  "currency": {
+    "1": {
+      "name": "AUD",
+      "buyRate": "5,296607",
+      "meanRate": "5,312545",
+      "sellRate": "5,328483"
+    },
+    "2": {
+      "name": "CAD",
+      "buyRate": "5,455995",
+      "meanRate": "5,472412",
+      "sellRate": "5,488829"
+    },
+    "3": {
+      "name": "CZK",
+      "buyRate": "0,277346",
+      "meanRate": "0,278181",
+      "sellRate": "0,279016"
+    },
+    "4": {
+      "name": "DKK",
+      "buyRate": "1,032641",
+      "meanRate": "1,035748",
+      "sellRate": "1,038855"
+
+    },
+    "5": {
+      "name": "HUF",
+      "buyRate": "2,479678",
+      "meanRate": "2,487139",
+      "sellRate": "2,494600"
+    },
+    "6": {
+      "name": "JPY",
+      "buyRate": "5,730523",
+      "meanRate": "5,747766",
+      "sellRate": "5,765009"
+    },
+    "7": {
+      "name": "NOK",
+      "buyRate": "0,896721",
+      "meanRate": "0,899419",
+      "sellRate": "0,902117"
+    },
+    "8": {
+      "name": "SEK",
+      "buyRate": "0,814129",
+      "meanRate": "0,816579",
+      "sellRate": "0,819029"
+    },
+    "9": {
+      "name": "CHF",
+      "buyRate": "6.02164",
+      "meanRate": "6.176041",
+      "sellRate": "6.330442"      
+    },
+    "10": {
+      "name": "GBP",
+      "buyRate": "10,38009",
+      "meanRate": "10,41132",
+      "sellRate": "10,44256"      
+    },
+    "11": {
+      "name": "USD",
+      "buyRate": "6,814552",
+      "meanRate": "6,835057",
+      "sellRate": "6,855562"
+    },
+    "12": {
+      "name": "EUR",
+      "buyRate": "7,687496",
+      "meanRate": "7,710628",
+      "sellRate": "7,733760"
+    },
+    "13": {
+      "name": "PLN",
+      "buyRate": "1,830182",
+      "meanRate": "1,835689",
+      "sellRate": "1,841196"
+    }
+  }
+}
