@@ -2,10 +2,8 @@ package hr.foi.air.tecajinterface;
 
 import java.util.List;
 
+import android.content.Context;
+
 public interface ITecaj {
-
-	List<Tecaj> tecajevi = null;
-	
-	public List<Tecaj> dohvatiTecaj(String webResult);
-
+	public List<Tecaj> dohvatiTecaj(Context c);
 }

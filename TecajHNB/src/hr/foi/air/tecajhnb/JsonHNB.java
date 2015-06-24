@@ -26,12 +26,12 @@ public class JsonHNB {
 		     hr.foi.air.tecajinterface.Tecaj tecaj = new hr.foi.air.tecajinterface.Tecaj(naziv, kupovniTecaj, srednjiTecaj, prodajniTecaj);
 		     tecajevi.add(tecaj);
 		    }
-		    return tecajevi;
+		    
 			}catch (Exception e){
 		    	e.printStackTrace();
 		    }
 		
-		return null;
+		return tecajevi;
 		
 	}
 }

@@ -1,77 +1,65 @@
 package ht.foi.air.tecajtxt;
 
-import hr.foi.air.tecajinterface.ITecaj;
+import hr.foi.air.tecajinterface.ResultHandler;
 import hr.foi.air.tecajinterface.Tecaj;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONObject;
-
-import android.os.Bundle;
-import android.app.Activity;
 import android.content.Context;
-import android.view.Menu;
 
-public class TecajeviTXT implements ITecaj {
+public class TecajeviTXT implements hr.foi.air.tecajinterface.ITecaj {
+	
+	@Override
+	public List<Tecaj> dohvatiTecaj(Context c) {
+		Context ctx = c;
+		int resId = R.raw.txttecaj;
+		Object rezultat[] = new Object[]{null, ""};
+		rezultat[0] = (ResultHandler) result;
 
-	public void citajDatoteku(Context ctx, int resId){
-		
 		InputStream is = ctx.getResources().openRawResource(resId);
 		InputStreamReader ir = new InputStreamReader(is);
 		BufferedReader br = new BufferedReader(ir);
 		String line;
-		
+
 		StringBuilder sb = new StringBuilder();
-		
+
 		try {
-			while ((line = br.readLine()) != null)
-					{
-					sb.append(line);
-					sb.append('\n');
-					}
-			
+			while ((line = br.readLine()) != null) {
+				sb.append(line);
+				sb.append('\n');
+			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		String result = sb.toString();
-		dohvatiTecaj(result);
-		
-		
-	}
 
-	@Override
-	public List<Tecaj> dohvatiTecaj(String webResult) {
+		String result = sb.toString();
+		rezultat[1] = result;
+		List<Tecaj> tecajevi = null;
 		
-		String podaci = webResult;
-		
-		List<Tecaj> tecajevi = new ArrayList<Tecaj>();
-		JSONObject jsonObject;
-		try {
-			jsonObject = new JSONObject(podaci);
-			JSONObject jsonObject2 = jsonObject.getJSONObject("currency");
-			for (int i = 0; i < jsonObject2.length(); i++) {
-				JSONObject currency = jsonObject2.getJSONObject(String.valueOf(i+1));
-				String naziv = currency.getString("name");
-				String prodajniTecaj = currency.getString("sellRate");
-				String srednjiTecaj = currency.getString("meanRate");
-				String kupovniTecaj = currency.getString("buyRate");
-				
-				Tecaj noviTecaj = new Tecaj(naziv, prodajniTecaj,srednjiTecaj, kupovniTecaj);
-				tecajevi.add(noviTecaj);
-			}
+		if (rezultat[0] != null) {
 			
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			tecajevi = ((ResultHandler) rezultat[0]).handleResult((String) rezultat[1]);
 		}
 		
 		return tecajevi;
+		
+
 	}
-    
-    
+	
+	ResultHandler result = new ResultHandler() {
+		
+		@Override
+		public List<Tecaj> handleResult(String rezultat) {
+			String result = rezultat;
+			JSONtxt jtxt = new JSONtxt();
+			List<Tecaj> tecajevi = jtxt.listaTecajeva(result);
+			return tecajevi;
+		}
+	};
+
 }

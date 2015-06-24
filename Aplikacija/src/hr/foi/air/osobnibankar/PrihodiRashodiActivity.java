@@ -10,7 +10,6 @@ import hr.foi.air.osobnibankar.interfaces.ITransakcija;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -116,60 +115,63 @@ public class PrihodiRashodiActivity extends Activity {
 		izracunajTrenutni();
 
 		Double ogranicenje = null;
-		
-		List<Profil> listaOgranicenja = new Select().all().from(Profil.class).execute();
+
+		List<Profil> listaOgranicenja = new Select().all().from(Profil.class)
+				.execute();
 
 		for (Profil ogranicenje1 : listaOgranicenja) {
-			
-				ogranicenje = ogranicenje1.getOgranicenje();
-				
+
+			ogranicenje = ogranicenje1.getOgranicenje();
+
 		}
-		
-		if (ogranicenje !=null) {
-		 
-		if (sumaRashoda > ogranicenje) {
 
-			dialog = new Dialog(c);
-			dialog.setContentView(R.layout.potrosnja);
-			dialog.setTitle(R.string.prekoracena);
-			dialog.show();
+		if (ogranicenje != null) {
 
-			TextView potrosnja = (TextView) dialog.findViewById(R.id.txtStanje);
-			String sumaR = Double.valueOf(sumaRashoda).toString();
-			potrosnja.setText(sumaR);
+			if (sumaRashoda > ogranicenje) {
 
-			TextView txtlimit = (TextView) dialog
-					.findViewById(R.id.txtTrenutniLimit);
-			String postavljeni = Double.valueOf(ogranicenje).toString();
-			txtlimit.setText(postavljeni);
+				dialog = new Dialog(c);
+				dialog.setContentView(R.layout.potrosnja);
+				dialog.setTitle(R.string.prekoracena);
+				dialog.show();
 
-			Button ok = (Button) dialog.findViewById(R.id.btnOK);
+				TextView potrosnja = (TextView) dialog
+						.findViewById(R.id.txtStanje);
+				String sumaR = Double.valueOf(sumaRashoda).toString();
+				potrosnja.setText(sumaR);
 
-			ok.setOnClickListener(new OnClickListener() {
+				TextView txtlimit = (TextView) dialog
+						.findViewById(R.id.txtTrenutniLimit);
+				String postavljeni = Double.valueOf(ogranicenje).toString();
+				txtlimit.setText(postavljeni);
 
-				@Override
-				public void onClick(View v) {
-					dialog.dismiss();
+				Button ok = (Button) dialog.findViewById(R.id.btnOK);
 
-				}
+				ok.setOnClickListener(new OnClickListener() {
 
-			});
+					@Override
+					public void onClick(View v) {
+						dialog.dismiss();
 
-			Button limit = (Button) dialog.findViewById(R.id.btnLimit);
+					}
 
-			limit.setOnClickListener(new OnClickListener() {
+				});
 
-				@Override
-				public void onClick(View v) {
+				Button limit = (Button) dialog.findViewById(R.id.btnLimit);
 
-					dialog.dismiss();
-					odrediLimit();
+				limit.setOnClickListener(new OnClickListener() {
 
-				}
+					@Override
+					public void onClick(View v) {
 
-			});
+						dialog.dismiss();
+						odrediLimit();
 
-		}}
+					}
+
+				});
+
+			}
+		}
 
 	}
 
@@ -246,62 +248,68 @@ public class PrihodiRashodiActivity extends Activity {
 		dialog.show();
 
 		Button btnOk = (Button) dialog.findViewById(R.id.btnSpremi);
-		
+
 		Double ogranicenje = null;
-		List<Profil> listaOgranicenja = new Select().all().from(Profil.class).execute();
+		List<Profil> listaOgranicenja = new Select().all().from(Profil.class)
+				.execute();
 		for (Profil ogranicenje1 : listaOgranicenja) {
-			
-				ogranicenje = ogranicenje1.getOgranicenje();
-				
+
+			ogranicenje = ogranicenje1.getOgranicenje();
+
 		}
-		
-		if (ogranicenje !=null) {
+
+		if (ogranicenje != null) {
 			EditText etLimit = (EditText) dialog.findViewById(R.id.etLimit);
 			etLimit.setText(ogranicenje.toString());
-			
-			btnOk.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				
-				EditText etLimit = (EditText) dialog.findViewById(R.id.etLimit);
-				Double limit1 = Double.valueOf(etLimit.getText().toString());
 
-				Profil profil = new Select().all().from(Profil.class).executeSingle();
+			btnOk.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
 
-				profil.ogranicenje = limit1;
-				profil.save();
+					EditText etLimit = (EditText) dialog
+							.findViewById(R.id.etLimit);
+					Double limit1 = Double
+							.valueOf(etLimit.getText().toString());
 
-				dialog.dismiss();
-			}
+					Profil profil = new Select().all().from(Profil.class)
+							.executeSingle();
+
+					profil.ogranicenje = limit1;
+					profil.save();
+
+					dialog.dismiss();
+				}
 			});
-			
+
 		}
-		
+
 		else {
 			btnOk.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				EditText etLimit = (EditText) dialog.findViewById(R.id.etLimit);
-				limit = Double.valueOf(etLimit.getText().toString());
+				@Override
+				public void onClick(View v) {
+					EditText etLimit = (EditText) dialog
+							.findViewById(R.id.etLimit);
+					limit = Double.valueOf(etLimit.getText().toString());
 
-				Profil prethodni = new Select().from(Profil.class)
-						.orderBy("remote_id DESC").executeSingle();
-				long trenutniId;
-				try {
-					trenutniId = prethodni.getRemoteId();
-					trenutniId++;
-				} catch (Exception e) {
-					trenutniId = 0;
+					Profil prethodni = new Select().from(Profil.class)
+							.orderBy("remote_id DESC").executeSingle();
+					long trenutniId;
+					try {
+						trenutniId = prethodni.getRemoteId();
+						trenutniId++;
+					} catch (Exception e) {
+						trenutniId = 0;
+					}
+
+					Profil profil = new Profil(trenutniId, null, null, limit);
+					profil.save();
+
+					dialog.dismiss();
+
 				}
-
-				Profil profil = new Profil(trenutniId, null, null, limit);
-				profil.save();
-
-				dialog.dismiss();
-
-			}
-		});}
+			});
+		}
 	}
 
 	public void noviUnos() {
@@ -358,17 +366,17 @@ public class PrihodiRashodiActivity extends Activity {
 		EditText etIznos = (EditText) dialog.findViewById(R.id.etIznos);
 		Double iznos = 0.0;
 		iznos = Double.valueOf(etIznos.getText().toString());
-		
-		//Date date = new Date(System.currentTimeMillis());
+
+		// Date date = new Date(System.currentTimeMillis());
 		Calendar calendar = new GregorianCalendar();
-		
+
 		int dan = calendar.get(Calendar.DAY_OF_MONTH);
 		int mjesec = calendar.get(Calendar.MONTH) + 1;
 		int godina = calendar.get(Calendar.YEAR);
-		
+
 		String danasnjiDatum = dan + "." + mjesec + "." + godina + ".";
-		
-		//String danasnjiDatum = datum.format(date);
+
+		// String danasnjiDatum = datum.format(date);
 		Spinner sp = (Spinner) dialog.findViewById(R.id.spinKategorija);
 		String kategorija = sp.getSelectedItem().toString();
 
