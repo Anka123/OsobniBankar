@@ -19,7 +19,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_alignLeft="@+id/txtNapredak"
+        android:layout_alignLeft="@+id/txtMjeseci"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/etIznosKontinuirane"
         android:layout_marginBottom="19dp" />
@@ -45,14 +45,6 @@
         android:textOn="@string/zaustavi" 
     	android:textOff="@string/zapocni" />
 
-    <TextView
-        android:id="@+id/txtNapredak"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/progCilj"
-        android:layout_alignLeft="@+id/txtMjeseci"
-        android:text="@string/napredak" />
-
     <NumberPicker
         android:id="@+id/nmbMjesec"
         android:layout_width="wrap_content"
@@ -69,5 +61,13 @@
         android:layout_alignBottom="@+id/txtMjeseci"
         android:layout_toRightOf="@+id/togZapocni"
         android:text="@string/iznosKontinuirane" />
+
+    <TextView
+        android:id="@+id/txtNapredak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/progCilj"
+        android:layout_centerHorizontal="true"
+        android:text="@string/napredak" />
 
 </RelativeLayout>

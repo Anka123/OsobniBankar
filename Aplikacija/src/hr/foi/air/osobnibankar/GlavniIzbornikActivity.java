@@ -1,18 +1,25 @@
 package hr.foi.air.osobnibankar;
 
+import hr.foi.air.osobnibankar.db.Transakcija;
+
+import java.util.List;
+
+import com.activeandroid.query.Select;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class GlavniIzbornikActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.glavni_izbornik);
-		
+		izracunajTrenutni();
 		
 		ImageButton btnPiR = (ImageButton)findViewById(R.id.imgPiR);
 		btnPiR.setOnClickListener(new OnClickListener() {
@@ -80,5 +87,31 @@ public class GlavniIzbornikActivity extends Activity {
 			}
 		});
 	}
+	public void izracunajTrenutni() {
 
+		double sumaPrihoda = 0;
+		double sumaRashoda = 0;
+		List<Transakcija> listaTransakcija = new Select().all()
+				.from(Transakcija.class).where("tip_id=0 OR tip_id=1")
+				.execute();
+
+		for (Transakcija transakcija : listaTransakcija) {
+			if (transakcija.getTip() == 0) {
+				sumaPrihoda += transakcija.getIznos();
+			} else if (transakcija.getTip() == 1) {
+				sumaRashoda += transakcija.getIznos();
+			}
+		}
+
+		double ukupno = sumaPrihoda - sumaRashoda;
+
+		TextView txtUkupno = (TextView) findViewById(R.id.txtTrenutni);
+		txtUkupno.setText("Trenutni iznos: " + String.valueOf(ukupno));
+	}
+
+	@Override
+	public void onResume() {
+		izracunajTrenutni();
+		super.onResume();
+	}
 }

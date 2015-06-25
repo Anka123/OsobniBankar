@@ -45,7 +45,8 @@ public class PrihodiRashodiActivity extends Activity {
 	Dialog dialog = null;
 	int izbor;
 	int grupa = 1;
-
+	Calendar calendar = new GregorianCalendar();
+	int mjesec = calendar.get(Calendar.MONTH) + 1;
 	public static View v;
 	boolean prihodiSelected = false;
 	boolean rashodiSelected = false;
@@ -70,9 +71,6 @@ public class PrihodiRashodiActivity extends Activity {
 		// @SuppressWarnings("deprecation")
 		// int mjesec = date.getMonth() + 1;
 
-		Calendar calendar = new GregorianCalendar();
-		int mjesec = calendar.get(Calendar.MONTH) + 1;
-
 		String mj = d.nazivMj(mjesec);
 
 		final TextView txtDatum = (TextView) findViewById(R.id.textMjesec);
@@ -92,6 +90,7 @@ public class PrihodiRashodiActivity extends Activity {
 				String nazivMjeseca = d.nazivMj(odabrani);
 				txtDatum.setText(nazivMjeseca);
 				pregledZajedno(odabrani);
+				izracunajMjesecni(odabrani);
 			}
 		});
 
@@ -106,13 +105,13 @@ public class PrihodiRashodiActivity extends Activity {
 				g_mjesec = odabrani;
 				txtDatum.setText(mjesec);
 				pregledZajedno(odabrani);
-
+				izracunajMjesecni(odabrani);
 			}
 		});
 
 		pregledZajedno(mjesec);
 		g_mjesec = mjesec;
-		izracunajTrenutni();
+		izracunajMjesecni(mjesec);
 
 		Double ogranicenje = null;
 
@@ -368,10 +367,10 @@ public class PrihodiRashodiActivity extends Activity {
 		iznos = Double.valueOf(etIznos.getText().toString());
 
 		// Date date = new Date(System.currentTimeMillis());
-		Calendar calendar = new GregorianCalendar();
+		
 
 		int dan = calendar.get(Calendar.DAY_OF_MONTH);
-		int mjesec = calendar.get(Calendar.MONTH) + 1;
+		
 		int godina = calendar.get(Calendar.YEAR);
 
 		String danasnjiDatum = dan + "." + mjesec + "." + godina + ".";
@@ -395,7 +394,7 @@ public class PrihodiRashodiActivity extends Activity {
 		transakcija.save();
 
 		pregledZajedno(g_mjesec);
-		izracunajTrenutni();
+		izracunajMjesecni(mjesec);
 		Toast.makeText(getApplicationContext(), "Transakcija spremljena",
 				Toast.LENGTH_SHORT).show();
 	}
@@ -487,7 +486,7 @@ public class PrihodiRashodiActivity extends Activity {
 										.where("remote_id =?", tagPosition)
 										.execute();
 								pregledZajedno(g_mjesec);
-								izracunajTrenutni();
+								izracunajMjesecni(mjesec);
 							}
 						});
 
@@ -549,15 +548,15 @@ public class PrihodiRashodiActivity extends Activity {
 		transakcija.save();
 
 		pregledZajedno(g_mjesec);
-		izracunajTrenutni();
+		izracunajMjesecni(mjesec);
 	}
 
-	public void izracunajTrenutni() {
-
+	public void izracunajMjesecni(int trenutni) {
+		int mj = trenutni; 
 		double sumaPrihoda = 0;
 		sumaRashoda = 0;
 		List<Transakcija> listaTransakcija = new Select().all()
-				.from(Transakcija.class).where("tip_id=0 OR tip_id=1")
+				.from(Transakcija.class).where("mjesec == ? AND (tip_id = 0 OR tip_id=1)", mj)
 				.execute();
 
 		for (Transakcija transakcija : listaTransakcija) {
@@ -576,7 +575,7 @@ public class PrihodiRashodiActivity extends Activity {
 
 	@Override
 	public void onResume() {
-		izracunajTrenutni();
+		izracunajMjesecni(mjesec);
 		super.onResume();
 	}
 
