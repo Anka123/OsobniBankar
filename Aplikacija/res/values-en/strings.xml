@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Osobni Bankar</string>
+    <string name="action_settings">Settings</string>
+    
+    <string name="hrvatski">HR</string>
+    <string name="engleski">ENG</string>
+	<string name="dobrodosli">Welcome!</string>
+	<string name="lozinkaUnos">Enter your password:</string>
+	<string name="lozinkaPotvrda">Confirm your password:</string>
+	<string name="lozinkaHint">*****</string>
+	<string name="sigurnosnoPitanje">Choose your security question:</string>
+    <string name="odgovor">Answer:</string>
+    <string name="prijava">Log in:</string>
+    <string name="zaboravljena">Forgot your password?</string>
+    <string name="btnRegistracija">Register:</string>
+    <string name="btnLogin">Log in</string>
+    
+    <string name="btnPiR">Revenues and expenditures</string>
+    <string name="btnPiD">Claims and debts </string>
+    <string name="btnTecaj">Exchange rates</string>
+    <string name="btnStednja">Savings</string>
+    <string name="btnGrafikoni">Charts</string>
+    <string name="btnIzvjestaji">Reports</string>
+    <string name="btnDodajPiR">Add new</string>
+    <string name="rbPrihod">Revenue</string>
+    <string name="rbRashod">Expenditures</string>
+    <string name="txtNaziv">Name</string>
+    <string name="txtOpis">Description</string>
+    <string name="txtIznos">Amount</string>
+    <string name="txtDatum">Date</string>
+    <string name="btnSpremi">Save</string>
+    <string name="btnDodajPiD">Add new</string>
+    <string name="podmiri">Settle the debt</string>
+    <string name="rbPotrazivanje">Claims</string>
+    <string name="rbDugovanje">Debts</string>
+    <string name="datum">Date</string>
+    <string name="kategorija">Category</string>
+    
+    <string name="noviUnos">New entry</string>
+    <string name="txtSigpitanje">Security question:</string>
+    <string name="txtPitanje">Question</string>
+    <string name="txtOdgovor">Answer:</string>
+    <string name="btnProvjeri">Check</string>
+    <string name="zabLozinka">forgoten password</string>
+    
+    <string name="prihodi">Revenues</string>
+    <string name="rashodi">Expenditures</string>
+    <string name="potrazivanja">Claims</string>
+    <string name="dugovanja">Debts</string>
+    
+    <string name="plus">Plus</string>
+    <string name="minus">Minus</string>
+    <string name="kvacica">Tick</string>
+    <string name="x">X</string>
+    <string name="btnLijevo">Left</string>
+    <string name="btnDesno">Right</string>
+    <string name="limit">Limit</string>
+    <string name="txtTrenutni">The current amount</string>
+    
+    <string name="poruka">Choose</string>
+    <string name="promijeni">Change</string>
+    <string name="izbrisi">Delete</string>
+    <string name="ok">OK</string>
+    <string name="odustani">Cancel</string>
+	
+    <string name="potrosnja">Your current consumption is: </string>
+    <string name="stanje">Consumption</string>
+    <string name="vasLimit">Defined limit:</string>
+    <string name="trenutniLimit">Current limit</string>
+    
+    <string name="prekoracena">You have exceeded the limit!</string>
+    
+    <string name="ustedeno">By now you saved total:</string>
+    <string name="ustedeniIznos">Saved amount: </string>
+    <string name="iznosProizvoljne">Amount you want to save:</string>
+    <string name="iznosUstede">This month you want to save: </string>
+    <string name="proizvoljna">arbitrary savings</string>
+    <string name="mjeseci">Months of savings</string>
+    <string name="iznosKontinuirane">Amount of savings: </string>
+    <string name="napredak">Progress</string>
+    <string name="zapocni">Start saving</string>
+    <string name="zaustavi">Stop saving</string>
+    <string name="valuta">Currency</string>
+    <string name="kupovni">Buying rate</string>
+    <string name="srednji">Mean rate</string>
+    <string name="prodajni">Selling rate</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    
+    <string name="bar">Overview revenues, expenitures and savings by amount</string>
+    <string name="line">Overview revenues, expenitures and savings by date</string>
+    <string name="piePrihodi">Overview revenues by category</string>
+    <string name="pieRashodi">Overview expenitures by category</string>
+    
+    <string-array name="pitanje">
+        <item>Your pet name?</item>
+        <item>Favorite ice cream flavour?</item>
+        <item>Best friend?</item>
+        <item>Favorite colour?</item>
+        <item>Favorite agile method?</item>
+        
+    </string-array>
+    
+    <string-array name="kategorija">
+        <item icon="@drawable/ikona">Paycheck</item>
+        <item>Allowance</item>
+        <item>Scolarship</item>
+        <item>Car</item>
+        <item>Food</item>
+        <item>Fun</item>
+        <item>Others</item>
+        
+    </string-array>
+    
+    
+</resources>

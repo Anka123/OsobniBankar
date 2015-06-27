@@ -34,6 +34,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegistracijaActivity" >
+             	android:configurationChanges="locale"
         </activity>
         <activity android:name=".GlavniIzbornikActivity" >
         </activity>

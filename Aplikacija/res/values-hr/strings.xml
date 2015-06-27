@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Osobni Bankar</string>
+    <string name="action_settings">Settings</string>
+    
+    <string name="hrvatski">HR</string>
+    <string name="engleski">ENG</string>
+	<string name="dobrodosli">Dobrodošli!</string>
+	<string name="lozinkaUnos">Unesite lozinku:</string>
+	<string name="lozinkaPotvrda">Potvrdite lozinku:</string>
+	<string name="lozinkaHint">*****</string>
+	<string name="sigurnosnoPitanje">Odaberite sigurnosno pitanje:</string>
+    <string name="odgovor">Odgovor:</string>
+    <string name="prijava">Prijava</string>
+    <string name="zaboravljena">Zaboravili ste lozinku?</string>
+    <string name="btnRegistracija">Registracija:</string>
+    <string name="btnLogin">Prijava</string>
+    
+    <string name="btnPiR">Prihodi i Rashodi</string>
+    <string name="btnPiD">Potraživanja i Dugovanja</string>
+    <string name="btnTecaj">Tečajne liste</string>
+    <string name="btnStednja">Štednja</string>
+    <string name="btnGrafikoni">Grafikoni</string>
+    <string name="btnIzvjestaji">Izvjestaji</string>
+    <string name="btnDodajPiR">Dodaj novi</string>
+    <string name="rbPrihod">Prihod</string>
+    <string name="rbRashod">Rashod</string>
+    <string name="txtNaziv">Naziv</string>
+    <string name="txtOpis">Opis</string>
+    <string name="txtIznos">Iznos</string>
+    <string name="txtDatum">Datum</string>
+    <string name="btnSpremi">Spremi</string>
+    <string name="btnDodajPiD">Dodaj novi</string>
+    <string name="podmiri">Podmiri</string>
+    <string name="rbPotrazivanje">Potrazivanje</string>
+    <string name="rbDugovanje">Dugovanje</string>
+    <string name="datum">Datum</string>
+    <string name="kategorija">Kategorija</string>
+    
+    <string name="noviUnos">Novi unos</string>
+    <string name="txtSigpitanje">Sigurnosno pitanje:</string>
+    <string name="txtPitanje">Pitanje</string>
+    <string name="txtOdgovor">Odgovor:</string>
+    <string name="btnProvjeri">Provjeri</string>
+    <string name="zabLozinka">Zaboravljena lozinka</string>
+    
+    <string name="prihodi">Prihodi</string>
+    <string name="rashodi">Rashodi</string>
+    <string name="potrazivanja">Potraživanja</string>
+    <string name="dugovanja">Dugovanja</string>
+    
+    <string name="plus">Plus</string>
+    <string name="minus">Minus</string>
+    <string name="kvacica">Kvacica</string>
+    <string name="x">X</string>
+    <string name="btnLijevo">Lijevo</string>
+    <string name="btnDesno">Desno</string>
+    <string name="limit">Limit</string>
+    <string name="txtTrenutni">Trenutni iznos: </string>
+    
+    <string name="poruka">Odaberite</string>
+    <string name="promijeni">Promijeni</string>
+    <string name="izbrisi">Izbriši</string>
+    <string name="ok">OK</string>
+    <string name="odustani">Odustani</string>
+	
+    <string name="potrosnja">Vaša trenutna potrošnja iznosi: </string>
+    <string name="stanje">Potrošnja</string>
+    <string name="vasLimit">Postavljeni limit:</string>
+    <string name="trenutniLimit">Trenutni limit</string>
+    
+    <string name="prekoracena">Prekoračili ste limit!</string>
+    
+    <string name="ustedeno">Do sada ste ukupno uštedjeli:</string>
+    <string name="ustedeniIznos">Ušteđeni iznos</string>
+    <string name="iznosProizvoljne">Iznos koji želite uštediti:</string>
+    <string name="iznosUstede">Ovaj mjesec trebate uštediti: </string>
+    <string name="proizvoljna">Proizvoljna štednja</string>
+    <string name="mjeseci">Mjeseci štednje</string>
+    <string name="iznosKontinuirane">Iznos štednje</string>
+    <string name="napredak">Napredak</string>
+    <string name="zapocni">Započni štednju</string>
+    <string name="zaustavi">Zaustavi štednju</string>
+    <string name="valuta">Valuta</string>
+    <string name="kupovni">Kupovni</string>
+    <string name="srednji">Srednji</string>
+    <string name="prodajni">Prodajni</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    
+    <string name="bar">Pregled Prihoda, Rashoda i Štednje prema iznosu</string>
+    <string name="line">Pregled Prihoda, Rashoda i Štednje prema datumu</string>
+    <string name="piePrihodi">Pregled Prihoda prema kategoriji</string>
+    <string name="pieRashodi">Pregled Rashoda prema kategoriji</string>
+    
+    <string-array name="pitanje">
+        <item>Ime kućnog ljubimca?</item>
+        <item>Omiljeni okus sladoleda?</item>
+        <item>Najbolji prijatelj?</item>
+        <item>Najdraža boja?</item>
+        <item>Omiljena agilna metodika?</item>
+        
+    </string-array>
+    
+    <string-array name="kategorija">
+        <item icon="@drawable/ikona">Plaća</item>
+        <item>Džeparac</item>
+        <item>Stipendija</item>
+        <item>Automobil</item>
+        <item>Hrana</item>
+        <item>Zabava</item>
+        <item>Ostalo</item>
+        
+    </string-array>
+    
+    
+</resources>

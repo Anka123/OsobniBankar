@@ -26,7 +26,7 @@ import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 
 public class KontinuiranaActivity extends Activity {
-
+	public static int jezik;
 	int brojMjeseci = 0;
 	Double sumaPrivremene = null;
 	Dialog dialog = null;
@@ -96,8 +96,6 @@ public class KontinuiranaActivity extends Activity {
 			EditText iznosKontinuirane = (EditText) findViewById(R.id.etIznosKontinuirane);
 			iznosKontinuirane.setFocusable(false);
 
-			Toast.makeText(getApplicationContext(), "Nije prazno",
-					Toast.LENGTH_SHORT).show();
 			togCilj.setChecked(true);
 
 			Calendar cal = Calendar.getInstance();
@@ -110,8 +108,6 @@ public class KontinuiranaActivity extends Activity {
 			} else
 				zaustaviStednju();
 		} else {
-			Toast.makeText(getApplicationContext(), "Prazno",
-					Toast.LENGTH_SHORT).show();
 			togCilj.setChecked(false);
 		}
 	}
@@ -143,8 +139,13 @@ public class KontinuiranaActivity extends Activity {
 		EditText iznosKontinuirane = (EditText) findViewById(R.id.etIznosKontinuirane);
 
 		if (iznosKontinuirane.getText().toString().isEmpty()){
-			Toast.makeText(c, "Unesite iznos!", Toast.LENGTH_SHORT).show();
-			
+			if(jezik ==2)
+			{
+				Toast.makeText(c, "Unesite iznos!", Toast.LENGTH_SHORT).show();
+			} else
+			{
+				Toast.makeText(c, "Enter the amount!", Toast.LENGTH_SHORT).show();
+			}
 		}
 		
 		else {
@@ -191,12 +192,20 @@ public class KontinuiranaActivity extends Activity {
 		dialog = new Dialog(c);
 		dialog.setContentView(R.layout.mjesecnakontinuirana);
 		dialog.show();
-
-		TextView txtIznos = (TextView) dialog
-				.findViewById(R.id.txtIznosMjesecne);
-		String iznos = Double.valueOf(iznosMjesecne).toString();
-		txtIznos.setText(iznos);
-
+		
+		if (jezik == 2)
+		{
+			TextView txtIznos = (TextView) dialog
+					.findViewById(R.id.txtIznosMjesecne);
+			String iznos = Double.valueOf(iznosMjesecne).toString();
+			txtIznos.setText(iznos);
+		}
+		else {
+			TextView txtAmount = (TextView) dialog
+					.findViewById(R.id.txtIznosMjesecne);
+			String iznos = Double.valueOf(iznosMjesecne).toString();
+			txtAmount.setText(iznos);
+		}
 		Button btnSpremi = (Button) dialog.findViewById(R.id.btnSpremi);
 		btnSpremi.setOnClickListener(new OnClickListener() {
 
