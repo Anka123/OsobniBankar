@@ -1,12 +1,16 @@
 package hr.foi.air.osobnibankar;
  
 import hr.foi.air.osobnibankar.db.Registracija;
+import hr.foi.air.osobnibankar.services.NotifikacijaServis;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -39,6 +43,7 @@ public class LoginActivity extends Activity{
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.login);
         		Context c = this;
+        		prikaziNotifikaciju();
         		ActiveAndroid.initialize(c);	
 
 				
@@ -161,6 +166,23 @@ public class LoginActivity extends Activity{
 			}
 			return a;
 					
+		}
+		
+		public void prikaziNotifikaciju() {
+			AlarmManager alarmMgr;
+			PendingIntent alarmIntent;
+			
+			alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+			Intent intent = new Intent(context, NotifikacijaServis.class);
+			alarmIntent = PendingIntent.getService(context, 0, intent, 0);
+
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTimeInMillis(System.currentTimeMillis());
+			calendar.set(Calendar.HOUR_OF_DAY, 8);
+			calendar.set(Calendar.MINUTE, 30);
+
+			alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+			        1000 * 60, alarmIntent);
 		}
 		
        @Override
