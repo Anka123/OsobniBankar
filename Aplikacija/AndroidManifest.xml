@@ -63,6 +63,7 @@
         
         <service android:name=".services.NotifikacijaServis" >
         </service>
+        
     </application>
 
 </manifest>

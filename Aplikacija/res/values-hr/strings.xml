@@ -17,6 +17,7 @@
     <string name="btnRegistracija">Registracija:</string>
     <string name="btnLogin">Prijava</string>
     
+     
     <string name="btnPiR">Prihodi i Rashodi</string>
     <string name="btnPiD">Potraživanja i Dugovanja</string>
     <string name="btnTecaj">Tečajne liste</string>

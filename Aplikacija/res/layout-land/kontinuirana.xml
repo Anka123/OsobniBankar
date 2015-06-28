@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_bright" >
+
+    <NumberPicker
+        android:id="@+id/nmbMjesec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/txtMjeseci"
+        android:layout_below="@+id/txtMjeseci"
+        android:layout_marginTop="14dp" />
+
+    <TextView
+        android:id="@+id/txtMjeseci"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/mjeseci" />
+
+    <EditText
+        android:id="@+id/etIznosKontinuirane"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtIznosKontinuirane"
+        android:layout_alignTop="@+id/nmbMjesec"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="number" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/txtIznosKontinuirane"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/nmbMjesec"
+        android:layout_marginLeft="91dp"
+        android:layout_toRightOf="@+id/togZapocni"
+        android:text="@string/iznosKontinuirane" />
+
+    <TextView
+        android:id="@+id/txtNapredak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/txtIznosKontinuirane"
+        android:layout_centerVertical="true"
+        android:text="@string/napredak" />
+
+    <ProgressBar
+        android:id="@+id/progCilj"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/etIznosKontinuirane"
+        android:layout_alignRight="@+id/etIznosKontinuirane"
+        android:layout_below="@+id/txtNapredak" />
+
+    <ToggleButton
+        android:id="@+id/togZapocni"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/nmbMjesec"
+        android:layout_alignParentBottom="true"
+        android:textOff="@string/zapocni"
+        android:textOn="@string/zaustavi" />
+
+</RelativeLayout>

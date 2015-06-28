@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    
     android:background="@drawable/background2"
     android:columnCount="1"
     android:orientation="vertical"
@@ -69,13 +68,13 @@
         android:background="@drawable/izvjestaj"
         android:contentDescription="@string/btnIzvjestaji" />
 
-    <TextView 
+    <TextView
         android:id="@+id/txtTrenutni"
-        android:gravity="center"
         android:layout_gravity="center"
+        android:layout_row="5"
+        android:gravity="center"
         android:paddingBottom="5dp"
-        android:textSize="20sp"
         android:text="@string/txtTrenutni"
-        />
+        android:textSize="20sp" />
 
 </GridLayout>

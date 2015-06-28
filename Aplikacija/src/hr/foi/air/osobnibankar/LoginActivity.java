@@ -33,6 +33,7 @@ public class LoginActivity extends Activity{
      
         @Override
         protected void onCreate(Bundle savedInstanceState) {
+        	          
         	RegistracijaActivity.jezik = 2;
         	Locale locale = new Locale("hr");
 			Locale.setDefault(locale);

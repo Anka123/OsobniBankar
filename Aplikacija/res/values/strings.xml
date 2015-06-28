@@ -16,7 +16,7 @@
     <string name="zaboravljena">Zaboravili ste lozinku?</string>
     <string name="btnRegistracija">Registracija:</string>
     <string name="btnLogin">Prijava</string>
-    
+
     <string name="btnPiR">Prihodi i Rashodi</string>
     <string name="btnPiD">Potraživanja i Dugovanja</string>
     <string name="btnTecaj">Tečajne liste</string>
@@ -57,7 +57,7 @@
     <string name="btnLijevo">Lijevo</string>
     <string name="btnDesno">Desno</string>
     <string name="limit">Limit</string>
-    <string name="txtTrenutni">Trenutni iznos: </string>
+    <string name="txtTrenutni">Trenutni iznos:  </string>
     
     <string name="poruka">Odaberite</string>
     <string name="promijeni">Promijeni</string>

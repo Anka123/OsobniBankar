@@ -57,7 +57,7 @@
     <string name="btnLijevo">Left</string>
     <string name="btnDesno">Right</string>
     <string name="limit">Limit</string>
-    <string name="txtTrenutni">The current amount</string>
+    <string name="txtTrenutni">The current amount:  </string>
     
     <string name="poruka">Choose</string>
     <string name="promijeni">Change</string>

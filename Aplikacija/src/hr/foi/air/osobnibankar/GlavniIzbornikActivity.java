@@ -102,7 +102,10 @@ public class GlavniIzbornikActivity extends Activity {
 		}
 	
 			double ukupno = sumaPrihoda - sumaRashoda;
-			TextView txtUkupno = (TextView) findViewById(R.id.txtTrenutni);
-			txtUkupno.setText("Trenutni iznos:" + String.valueOf(ukupno));
+			
+			String iznos = getResources().getString(R.string.txtTrenutni);
+			TextView tv = (TextView) findViewById(R.id.txtTrenutni);
+			
+			tv.setText(iznos + String.valueOf(ukupno));
 	}
 }
