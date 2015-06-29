@@ -71,7 +71,7 @@ public class PrihodiRashodiActivity extends Activity {
 		// @SuppressWarnings("deprecation")
 		// int mjesec = date.getMonth() + 1;
 
-		String mj = d.nazivMj(mjesec);
+		int mj = d.nazivMj(mjesec);
 
 		final TextView txtDatum = (TextView) findViewById(R.id.textMjesec);
 		txtDatum.setText(mj);
@@ -87,7 +87,7 @@ public class PrihodiRashodiActivity extends Activity {
 				int odabrani = d.brojMj(trenutni);
 				odabrani--;
 				g_mjesec = odabrani;
-				String nazivMjeseca = d.nazivMj(odabrani);
+				int nazivMjeseca = d.nazivMj(odabrani);
 				txtDatum.setText(nazivMjeseca);
 				pregledZajedno(odabrani);
 				izracunajMjesecni(odabrani);
@@ -101,7 +101,7 @@ public class PrihodiRashodiActivity extends Activity {
 				String trenutni = txtDatum.getText().toString();
 				int odabrani = d.brojMj(trenutni);
 				odabrani++;
-				String mjesec = d.nazivMj(odabrani);
+				int mjesec = d.nazivMj(odabrani);
 				g_mjesec = odabrani;
 				txtDatum.setText(mjesec);
 				pregledZajedno(odabrani);

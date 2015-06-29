@@ -63,7 +63,7 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pidactivity);
 
-		String mj = d.nazivMj(mjesec);
+		int mj = d.nazivMj(mjesec);
 
 		final TextView txtDatum = (TextView) findViewById(R.id.textMjesec);
 		txtDatum.setText(mj);
@@ -79,7 +79,7 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 				int odabrani = d.brojMj(trenutni);
 				odabrani--;
 				g_mjesec = odabrani;
-				String nazivMjeseca = d.nazivMj(odabrani);
+				int nazivMjeseca = d.nazivMj(odabrani);
 				txtDatum.setText(nazivMjeseca);
 				pregledSve(odabrani);
 			}
@@ -93,7 +93,7 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 				int odabrani = d.brojMj(trenutni);
 				odabrani++;
 				g_mjesec = odabrani;
-				String mjesec = d.nazivMj(odabrani);
+				int mjesec = d.nazivMj(odabrani);
 				txtDatum.setText(mjesec);
 				pregledSve(odabrani);
 

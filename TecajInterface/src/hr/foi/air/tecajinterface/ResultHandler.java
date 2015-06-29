@@ -5,5 +5,5 @@ import java.util.List;
 
 
 public interface ResultHandler {
-	public List<Tecaj> handleResult(String rezultat);
+	public void handleResult(List<Tecaj> rezultat);
 }

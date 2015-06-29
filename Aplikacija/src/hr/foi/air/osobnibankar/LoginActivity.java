@@ -44,7 +44,7 @@ public class LoginActivity extends Activity{
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.login);
         		Context c = this;
-        		prikaziNotifikaciju();
+        		//prikaziNotifikaciju();
         		ActiveAndroid.initialize(c);	
 
 				

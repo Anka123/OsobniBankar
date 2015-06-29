@@ -1,11 +1,13 @@
 package hr.foi.air.tecajhnb;
 
 import hr.foi.air.tecajinterface.ResultHandler;
+import hr.foi.air.tecajinterface.Tecaj;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
 
 import org.apache.http.client.ClientProtocolException;
@@ -20,17 +22,17 @@ import android.os.AsyncTask;
 public class TecajHNBAsyncTask extends AsyncTask<Object, Void, Object[]> {
 	@Override
 	protected Object[] doInBackground(Object... params) {
-		Object rezultat[] = new Object[] { null, "" };
+		Object rezultat[] = new Object[] { null, null };
 		String url = (String) params[0];
 		rezultat[0] = (ResultHandler) params[1];
 
-		String webResult = callHNB(url);
-		rezultat[1] = webResult;
+		List<Tecaj> tecaji = callHNB(url);
+		rezultat[1] = tecaji;
 
 		return rezultat;
 	}
 
-	public String callHNB(String url) {
+	public List<Tecaj> callHNB(String url) {
 
 		Calendar calendar = new GregorianCalendar();
 		int date = calendar.get(Calendar.DATE);
@@ -43,8 +45,13 @@ public class TecajHNBAsyncTask extends AsyncTask<Object, Void, Object[]> {
 		String link = url + d;
 		HttpGet request = new HttpGet(link);
 		String result = "";
+		List<Tecaj> tecaj = null;
+
 		try {
 			result = httpClient.execute(request, handler);
+
+			JsonHNB jhnb = new JsonHNB();
+			tecaj = jhnb.listaTecajeva(result);
 			httpClient.getConnectionManager().shutdown();
 
 		} catch (ClientProtocolException e) {
@@ -55,13 +62,13 @@ public class TecajHNBAsyncTask extends AsyncTask<Object, Void, Object[]> {
 			e.printStackTrace();
 		}
 
-		return result;
-
+		return tecaj;
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void onPostExecute(Object[] res) {
 		if ((ResultHandler) res[0] != null) {
-			((ResultHandler) res[0]).handleResult((String) res[1]);
+			((ResultHandler) res[0]).handleResult((List<Tecaj>) res[1]);
 		}
 	}
 
