@@ -95,11 +95,11 @@
     <string name="pieRashodi">Pregled Rashoda prema kategoriji</string>
     
     <string-array name="pitanje">
-        <item>Ime kućnog ljubimca?</item>
-        <item>Omiljeni okus sladoleda?</item>
-        <item>Najbolji prijatelj?</item>
-        <item>Najdraža boja?</item>
-        <item>Omiljena agilna metodika?</item>
+        <item name = "ljubimac">Ime kućnog ljubimca?</item>
+        <item name = "sladoled">Omiljeni okus sladoleda?</item>
+        <item name = "prijatelj">Najbolji prijatelj?</item>
+        <item name = "boja">Najdraža boja?</item>
+        <item name = "metodika">Omiljena agilna metodika?</item>
         
     </string-array>
     
