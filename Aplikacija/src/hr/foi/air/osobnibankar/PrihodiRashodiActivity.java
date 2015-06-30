@@ -51,8 +51,11 @@ public class PrihodiRashodiActivity extends Activity {
 	boolean prihodiSelected = false;
 	boolean rashodiSelected = false;
 	Double limit = 0.0;
-	double sumaRashoda = 0;
+	// double sumaRashoda = 0;
 	int g_mjesec;
+	Double ogranicenje = null;
+	List<Profil> listaOgranicenja = new Select().all().from(Profil.class)
+			.execute();
 
 	@SuppressLint("SimpleDateFormat")
 	SimpleDateFormat datum = new SimpleDateFormat("dd/mm/yyyy");
@@ -60,7 +63,7 @@ public class PrihodiRashodiActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		sumaRashoda = 0;
+		
 		ActiveAndroid.initialize(this);
 		TransakcijeAdapter.tipTransakcije = false;
 		super.onCreate(savedInstanceState);
@@ -76,6 +79,7 @@ public class PrihodiRashodiActivity extends Activity {
 		final TextView txtDatum = (TextView) findViewById(R.id.textMjesec);
 		txtDatum.setText(mj);
 
+		provjeriLimit();
 		ImageButton lijevo = (ImageButton) findViewById(R.id.imgBtnLijevo);
 		ImageButton desno = (ImageButton) findViewById(R.id.imgBtnDesno);
 
@@ -112,65 +116,6 @@ public class PrihodiRashodiActivity extends Activity {
 		pregledZajedno(mjesec);
 		g_mjesec = mjesec;
 		izracunajMjesecni(mjesec);
-
-		Double ogranicenje = null;
-
-		List<Profil> listaOgranicenja = new Select().all().from(Profil.class)
-				.execute();
-
-		for (Profil ogranicenje1 : listaOgranicenja) {
-
-			ogranicenje = ogranicenje1.getOgranicenje();
-
-		}
-
-		if (ogranicenje != null) {
-
-			if (sumaRashoda > ogranicenje) {
-
-				dialog = new Dialog(c);
-				dialog.setContentView(R.layout.potrosnja);
-				dialog.setTitle(R.string.prekoracena);
-				dialog.show();
-
-				TextView potrosnja = (TextView) dialog
-						.findViewById(R.id.txtStanje);
-				String sumaR = Double.valueOf(sumaRashoda).toString();
-				potrosnja.setText(sumaR);
-
-				TextView txtlimit = (TextView) dialog
-						.findViewById(R.id.txtTrenutniLimit);
-				String postavljeni = Double.valueOf(ogranicenje).toString();
-				txtlimit.setText(postavljeni);
-
-				Button ok = (Button) dialog.findViewById(R.id.btnOK);
-
-				ok.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						dialog.dismiss();
-
-					}
-
-				});
-
-				Button limit = (Button) dialog.findViewById(R.id.btnLimit);
-
-				limit.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-
-						dialog.dismiss();
-						odrediLimit();
-
-					}
-
-				});
-
-			}
-		}
 
 	}
 
@@ -248,9 +193,6 @@ public class PrihodiRashodiActivity extends Activity {
 
 		Button btnOk = (Button) dialog.findViewById(R.id.btnSpremi);
 
-		Double ogranicenje = null;
-		List<Profil> listaOgranicenja = new Select().all().from(Profil.class)
-				.execute();
 		for (Profil ogranicenje1 : listaOgranicenja) {
 
 			ogranicenje = ogranicenje1.getOgranicenje();
@@ -367,10 +309,9 @@ public class PrihodiRashodiActivity extends Activity {
 		iznos = Double.valueOf(etIznos.getText().toString());
 
 		// Date date = new Date(System.currentTimeMillis());
-		
 
 		int dan = calendar.get(Calendar.DAY_OF_MONTH);
-		
+
 		int godina = calendar.get(Calendar.YEAR);
 
 		String danasnjiDatum = dan + "." + mjesec + "." + godina + ".";
@@ -552,11 +493,12 @@ public class PrihodiRashodiActivity extends Activity {
 	}
 
 	public void izracunajMjesecni(int trenutni) {
-		int mj = trenutni; 
+		int mj = trenutni;
 		double sumaPrihoda = 0;
-		sumaRashoda = 0;
+		double sumaRashoda = 0;
 		List<Transakcija> listaTransakcija = new Select().all()
-				.from(Transakcija.class).where("mjesec == ? AND (tip_id = 0 OR tip_id=1)", mj)
+				.from(Transakcija.class)
+				.where("mjesec == ? AND (tip_id = 0 OR tip_id=1)", mj)
 				.execute();
 
 		for (Transakcija transakcija : listaTransakcija) {
@@ -570,8 +512,76 @@ public class PrihodiRashodiActivity extends Activity {
 		double ukupno = sumaPrihoda - sumaRashoda;
 		String iznos = getResources().getString(R.string.txtTrenutni);
 		TextView tv = (TextView) findViewById(R.id.txtTrenutni);
-		
+
 		tv.setText(iznos + String.valueOf(ukupno));
+	}
+
+	public void provjeriLimit() {
+		List<Profil> listaOgranicenja = new Select().all().from(Profil.class)
+				.execute();
+
+		for (Profil ogranicenje1 : listaOgranicenja) {
+
+			ogranicenje = ogranicenje1.getOgranicenje();
+
+		}
+
+		if (ogranicenje != null) {
+
+			double sumaMjesecne = 0.0;
+
+			List<Transakcija> listaMjesecne = new Select().all()
+					.from(Transakcija.class)
+					.where("mjesec == ? AND tip_id=1", mjesec).execute();
+			for (int i = 0; i < listaMjesecne.size(); i++) {
+				sumaMjesecne += listaMjesecne.get(i).getIznos();
+			}
+
+			if (sumaMjesecne > ogranicenje) {
+
+				dialog = new Dialog(c);
+				dialog.setContentView(R.layout.potrosnja);
+				dialog.setTitle(R.string.prekoracena);
+				dialog.show();
+
+				TextView potrosnja = (TextView) dialog
+						.findViewById(R.id.txtStanje);
+				String sumaR = Double.valueOf(sumaMjesecne).toString();
+				potrosnja.setText(sumaR);
+
+				TextView txtlimit = (TextView) dialog
+						.findViewById(R.id.txtTrenutniLimit);
+				String postavljeni = Double.valueOf(ogranicenje).toString();
+				txtlimit.setText(postavljeni);
+
+				Button ok = (Button) dialog.findViewById(R.id.btnOK);
+
+				ok.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						dialog.dismiss();
+
+					}
+
+				});
+
+				Button limit = (Button) dialog.findViewById(R.id.btnLimit);
+
+				limit.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+
+						dialog.dismiss();
+						odrediLimit();
+
+					}
+
+				});
+
+			}
+		}
 	}
 
 	@Override

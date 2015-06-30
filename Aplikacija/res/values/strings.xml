@@ -72,7 +72,7 @@
     
     <string name="prekoracena">Prekoračili ste limit!</string>
     
-    <string name="ustedeno">Do sada ste ukupno uštedjeli:</string>
+    <string name="ustedeno">Ušteđeno:</string>
     <string name="ustedeniIznos">Ušteđeni iznos</string>
     <string name="iznosProizvoljne">Iznos koji želite uštediti:</string>
     <string name="iznosUstede">Ovaj mjesec trebate uštediti: </string>

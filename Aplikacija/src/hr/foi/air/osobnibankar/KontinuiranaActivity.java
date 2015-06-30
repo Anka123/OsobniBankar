@@ -31,12 +31,14 @@ public class KontinuiranaActivity extends Activity {
 	Double sumaPrivremene = null;
 	Dialog dialog = null;
 	Context c = this;
-
+	Double iznos = null;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.kontinuirana);
-
+		
 		NumberPicker nmbMjesec = (NumberPicker) findViewById(R.id.nmbMjesec);
 		nmbMjesec.setMaxValue(100);
 		nmbMjesec.setMinValue(1);
@@ -66,13 +68,13 @@ public class KontinuiranaActivity extends Activity {
 		maksimalna = (int) Math.round(sumaPrivremene);
 		progCilj.setMax(maksimalna);
 		progCilj.setProgress(i);
-		
-		TextView txtNapredak = (TextView)findViewById(R.id.txtNapredak);
-		
+
+		TextView txtNapredak = (TextView) findViewById(R.id.txtNapredak);
+
 		String napredak = String.valueOf(i);
 		String cilj = String.valueOf(maksimalna);
 		String cijniIznos = napredak + "/" + cilj;
-		
+
 		txtNapredak.setText(cijniIznos);
 	}
 
@@ -100,12 +102,28 @@ public class KontinuiranaActivity extends Activity {
 
 			Calendar cal = Calendar.getInstance();
 			int dan = cal.get(Calendar.DAY_OF_MONTH);
+			int mjesec = cal.get(Calendar.MONTH) + 1;
 
-			if (dan == 1) {
+			List<Transakcija> provjeraMjeseci = new Select().all()
+					.from(Transakcija.class)
+					.where("mjesec=? AND (tip_id=5 AND zatvoreno=0)", mjesec)
+					.execute();
+			
+			for (int i = 0; i < provjeraMjeseci.size(); i++) {
+				iznos = provjeraMjeseci.get(i).iznos;
+			}
+
+			if (dan == 1 && iznos == null) {
 
 				izracunajStednju();
-
-			} else
+			} 
+			else if (dan==1 && iznos !=null){
+				progressBar();
+			}
+			else if (dan !=1 && iznos !=null) {
+				progressBar();
+			}
+			else
 				zaustaviStednju();
 		} else {
 			togCilj.setChecked(false);
@@ -130,7 +148,7 @@ public class KontinuiranaActivity extends Activity {
 	}
 
 	private void zapocniStednju() {
-		
+
 		Double iznos = null;
 
 		NumberPicker nmbMjesec = (NumberPicker) findViewById(R.id.nmbMjesec);
@@ -138,18 +156,19 @@ public class KontinuiranaActivity extends Activity {
 
 		EditText iznosKontinuirane = (EditText) findViewById(R.id.etIznosKontinuirane);
 
-		if (iznosKontinuirane.getText().toString().isEmpty()){
-			if(jezik ==2)
-			{
+		ToggleButton togCilj = (ToggleButton) findViewById(R.id.togZapocni);
+		if (iznosKontinuirane.getText().toString().isEmpty()) {
+			togCilj.setChecked(false);
+			if (jezik == 2) {
 				Toast.makeText(c, "Unesite iznos!", Toast.LENGTH_SHORT).show();
-			} else
-			{
-				Toast.makeText(c, "Enter the amount!", Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(c, "Enter the amount!", Toast.LENGTH_SHORT)
+						.show();
 			}
 		}
-		
+
 		else {
-			
+
 			iznos = Double.valueOf(iznosKontinuirane.getText().toString());
 			int izbor = 6;
 
@@ -163,9 +182,8 @@ public class KontinuiranaActivity extends Activity {
 				trenutniId = 0;
 			}
 
-			
-			Transakcija privremena = new Transakcija(trenutniId, null, null, iznos,
-					false, null, null, null, mjesec, izbor);
+			Transakcija privremena = new Transakcija(trenutniId, null, null,
+					iznos, false, null, null, null, mjesec, izbor);
 			privremena.save();
 		}
 	}
@@ -182,8 +200,9 @@ public class KontinuiranaActivity extends Activity {
 			listaKontinuiranih.get(i).zatvoreno = true;
 			listaKontinuiranih.get(i).save();
 		}
+		provjeriStanje();
 	}
-	
+
 	private void izracunajStednju() {
 
 		Double iznosMjesecne = 0.0;
@@ -192,15 +211,13 @@ public class KontinuiranaActivity extends Activity {
 		dialog = new Dialog(c);
 		dialog.setContentView(R.layout.mjesecnakontinuirana);
 		dialog.show();
-		
-		if (jezik == 2)
-		{
+
+		if (jezik == 2) {
 			TextView txtIznos = (TextView) dialog
 					.findViewById(R.id.txtIznosMjesecne);
 			String iznos = Double.valueOf(iznosMjesecne).toString();
 			txtIznos.setText(iznos);
-		}
-		else {
+		} else {
 			TextView txtAmount = (TextView) dialog
 					.findViewById(R.id.txtIznosMjesecne);
 			String iznos = Double.valueOf(iznosMjesecne).toString();
@@ -227,9 +244,11 @@ public class KontinuiranaActivity extends Activity {
 					trenutniId = 0;
 				}
 
+				Calendar cal = Calendar.getInstance();
+				int trenutno = cal.get(Calendar.MONTH)+1;
 				String naziv = "Kontinuirana";
 				Transakcija kontinuirana = new Transakcija(trenutniId, naziv,
-						null, iznosMjesecne, false, null, null, null, 0, izbor);
+						null, iznosMjesecne, false, null, null, null, trenutno, izbor);
 				kontinuirana.save();
 
 				Transakcija dohvatPrivremene = new Select().all()
@@ -238,16 +257,18 @@ public class KontinuiranaActivity extends Activity {
 
 				int stariMjeseci = dohvatPrivremene.getMjesec();
 
-				List<Transakcija> listaKontinuiranih = new Select().all().from(Transakcija.class).where("tip_id = 5 AND zatvoreno = 0").execute();
-				
+				List<Transakcija> listaKontinuiranih = new Select().all()
+						.from(Transakcija.class)
+						.where("tip_id = 5 AND zatvoreno = 0").execute();
+
 				progressBar();
-				
+
 				if (listaKontinuiranih.size() >= stariMjeseci)
 					zaustaviStednju();
-				
+
 				dialog.dismiss();
 				
-				
+
 			}
 		});
 	}
