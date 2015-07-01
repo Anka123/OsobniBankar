@@ -9,6 +9,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class JsonHNB {
+	/**Metoda koja rezultat zapisan u String formatu pretvara u listu, odnosno separira json objekte i polja, 
+	 * kako bi se dobio jedan zapis i kao takav se pohranio u listu.
+	 * @param Jsonresult
+	 * @return tecajevi
+	 */
 	public List<Tecaj> listaTecajeva(String Jsonresult){
 		String webResult = Jsonresult;
 		List<hr.foi.air.tecajinterface.Tecaj> tecajevi = new ArrayList<hr.foi.air.tecajinterface.Tecaj>();

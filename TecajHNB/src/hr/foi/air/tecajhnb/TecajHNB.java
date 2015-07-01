@@ -4,6 +4,7 @@ import hr.foi.air.tecajinterface.ResultHandler;
 import android.content.Context;
 
 public class TecajHNB implements hr.foi.air.tecajinterface.ITecaj {
+	
 	@Override
 	public void dohvatiTecaj(Context c, ResultHandler h) {
 		TecajHNBAsyncTask tecajHnb = new TecajHNBAsyncTask();

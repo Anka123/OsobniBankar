@@ -432,6 +432,7 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 
 		Transakcija transakcija = Transakcija.load(Transakcija.class, id);
 		transakcija.tip_id = tipPrihodi;
+		transakcija.kategorija = "Podmireno";
 		transakcija.save();
 
 	}
@@ -441,8 +442,15 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 
 		Transakcija transakcija = Transakcija.load(Transakcija.class, id);
 		transakcija.tip_id = tipRashodi;
+		transakcija.kategorija = "Podmireno";
 		transakcija.save();
 
+	}
+	
+	@Override
+	protected void onResume() {
+		pregledSve(mjesec);
+		super.onResume();
 	}
 
 	

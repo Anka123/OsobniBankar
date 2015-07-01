@@ -25,6 +25,11 @@ public class TecajeviTXTAsyncTask extends AsyncTask<Object, Void, Object[]> {
 		return rezultat;
 	}
 
+	/**Metoda dohvaæa txt datoteku iz resursa te ju èita i sprema u rezultat tipa String. 
+	 * Nakon toga se poziva metoda JsonTXT kako bi se iz String formata dobila lista teèaja.
+	 * @param c
+	 * @return tecaj
+	 */
 	public List<Tecaj> callHNB(Context c) {
 		int resId = R.raw.txttecaj;
 		InputStream is = c.getResources().openRawResource(resId);

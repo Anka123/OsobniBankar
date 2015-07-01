@@ -20,6 +20,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.os.AsyncTask;
 
 public class TecajHNBAsyncTask extends AsyncTask<Object, Void, Object[]> {
+	/* (non-Javadoc)
+	 * @see android.os.AsyncTask#doInBackground(Params[])
+	 */
 	@Override
 	protected Object[] doInBackground(Object... params) {
 		Object rezultat[] = new Object[] { null, null };
@@ -32,6 +35,11 @@ public class TecajHNBAsyncTask extends AsyncTask<Object, Void, Object[]> {
 		return rezultat;
 	}
 
+	/**Ova metoda prima url kao odredište s kojeg dohvaæa teèajnu listu, spaja se na mrežu i dohvaæa podatke sa
+	 * zadane adrese. Podaci se pohranjuju u String format te se koristi JsonHNB kako bi se iz Stringa dobila Lista.
+	 * @param url
+	 * @return tecaj
+	 */
 	public List<Tecaj> callHNB(String url) {
 
 		Calendar calendar = new GregorianCalendar();
@@ -65,6 +73,9 @@ public class TecajHNBAsyncTask extends AsyncTask<Object, Void, Object[]> {
 		return tecaj;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+	 */
 	@SuppressWarnings("unchecked")
 	protected void onPostExecute(Object[] res) {
 		if ((ResultHandler) res[0] != null) {

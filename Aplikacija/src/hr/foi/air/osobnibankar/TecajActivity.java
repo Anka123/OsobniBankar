@@ -81,6 +81,9 @@ public class TecajActivity extends Activity {
 
 	}
 
+	/**Metoda koja listi teèajeva postavlja adapter potreban za ispis liste na zaslon.
+	 * @param tecajevi
+	 */
 	public void ispis(List<Tecaj> tecajevi) {
 		dialog.dismiss();
 		List<hr.foi.air.tecajinterface.Tecaj> lista = tecajevi;

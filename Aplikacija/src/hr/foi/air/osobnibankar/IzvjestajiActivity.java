@@ -1,16 +1,18 @@
 package hr.foi.air.osobnibankar;
 
-import hr.foi.air.osobnibankar.adapters.TransakcijeAdapter;
+import hr.foi.air.osobnibankar.adapters.IzvjestajiAdapter;
 import hr.foi.air.osobnibankar.db.Transakcija;
 
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.Spinner;
 
 import com.activeandroid.query.Select;
@@ -21,8 +23,8 @@ public class IzvjestajiActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.izvjestaji);
-
-		final ListView lista = (ListView) findViewById(R.id.izvjestaj);
+		final Context c = this;
+		final ExpandableListView lista = (ExpandableListView) findViewById(R.id.izvjestaj);
 
 		final Spinner spin = (Spinner) findViewById(R.id.izbornik);
 		spin.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -35,10 +37,18 @@ public class IzvjestajiActivity extends Activity {
 						.from(Transakcija.class)
 						.where("kategorija == ?", kategorija_odabir).execute();
 
-				TransakcijeAdapter izvjestaj_adapter = new TransakcijeAdapter(
-						getApplicationContext(), R.layout.item_transakcija,
+				IzvjestajiAdapter izvjestaj_adapter = new IzvjestajiAdapter(c,
 						trans);
 				lista.setAdapter(izvjestaj_adapter);
+				lista.setOnGroupClickListener(new OnGroupClickListener() {
+
+					@Override
+					public boolean onGroupClick(ExpandableListView parent,
+							View v, int groupPosition, long id) {
+
+						return false;
+					}
+				});
 
 			}
 
