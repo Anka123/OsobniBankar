@@ -107,7 +107,9 @@ public class StednjaActivity extends Activity {
 		});
 
 	}
-
+/**
+ * metoda koja izracunava stednju
+ */
 	public void izracunajStednju() {
 
 		double sumaStednje = 0;

@@ -10,7 +10,7 @@ import android.widget.Spinner;
 
 import com.robotium.solo.Solo;
 
-public class RegistracijaActivityUnitTest extends
+public class RegistracijaActivityJunitTest extends
 		ActivityInstrumentationTestCase2<RegistracijaActivity> {
 
 	private Solo solo;
@@ -20,7 +20,7 @@ public class RegistracijaActivityUnitTest extends
 	public RadioGroup radiogrp;
 	public RadioButton radioBtn;
 
-	public RegistracijaActivityUnitTest() {
+	public RegistracijaActivityJunitTest() {
 		super(RegistracijaActivity.class);
 	}
 

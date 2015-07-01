@@ -52,7 +52,7 @@ public class BarGraf extends GrafView {
 		List<Transakcija> listaStednji = new Select().all()
 				.from(Transakcija.class).where("tip_id = 4 ").execute();
 		for (int i = 0; i < listaStednji.size(); i++) {
-			String series3 = "Proizvoljne štendnje";
+			String series3 = "Proizvoljne stednje";
 			Double iznos = listaStednji.get(i).iznos;
 			String category = listaStednji.get(i).naziv;
 

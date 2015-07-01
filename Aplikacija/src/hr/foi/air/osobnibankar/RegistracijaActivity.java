@@ -43,7 +43,6 @@ public class RegistracijaActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Locale locale = new Locale("hr");
 				Locale.setDefault(locale);
 				Configuration configuration = new Configuration();
@@ -61,7 +60,6 @@ public class RegistracijaActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Locale locale1 = new Locale("en");
 				Locale.setDefault(locale1);
 				Configuration configuration1 = new Configuration();
@@ -74,6 +72,7 @@ public class RegistracijaActivity extends Activity {
 				startActivity(getIntent());
 			}
 		});
+		
 		ImageButton btnRegistracija = (ImageButton) findViewById(R.id.btnRegistracija);
 		btnRegistracija.setOnClickListener(new OnClickListener() {
 
@@ -82,7 +81,7 @@ public class RegistracijaActivity extends Activity {
 
 				if (registracija.size() > 0) {
 					Toast.makeText(getApplicationContext(),
-							"Veæ ste registrirani!", Toast.LENGTH_SHORT).show();
+							"Vec ste registrirani!", Toast.LENGTH_SHORT).show();
 				}
 
 				else {

@@ -67,7 +67,6 @@ public class TecajActivity extends Activity {
 
 					Toast.makeText(c, R.string.connected, Toast.LENGTH_LONG)
 							.show();
-					//dialog.dismiss();
 				}
 
 			} else {

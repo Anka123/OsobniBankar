@@ -78,6 +78,12 @@ public class KontinuiranaActivity extends Activity {
 		txtNapredak.setText(cijniIznos);
 	}
 
+	
+	/**
+	 * metoda provjerava da li postoji stednja koja je zapoceta ili ne postoji,
+	 * ako u tom mjesecu ne postoji nikakav zapis i ako je prvi u mjesecu onda
+	 * izracunava stednju
+	 */
 	private void provjeriStanje() {
 
 		List<Transakcija> listaStednje = new Select().all()
@@ -130,6 +136,10 @@ public class KontinuiranaActivity extends Activity {
 		}
 	}
 
+	/**
+	 * definira se sto ce se dogoditi s  obzirom na to u kojem stanju
+	 * je gumb
+	 */
 	private void toggleButton() {
 
 		ToggleButton togCilj = (ToggleButton) findViewById(R.id.togZapocni);
@@ -147,6 +157,10 @@ public class KontinuiranaActivity extends Activity {
 		});
 	}
 
+	/**
+	 * zapocni stednju na nacin da se unese broj mjeseci i iznos zeljene stednje
+	 * te se na temelju toga racuna svaka buduca mjesecna stednja
+	 */
 	private void zapocniStednju() {
 
 		Double iznos = null;
@@ -188,6 +202,10 @@ public class KontinuiranaActivity extends Activity {
 		}
 	}
 
+	/**
+	 * metoda koja brise privremenu stednju iz transakacije, 
+	 * a svim kontinuiranima postavlja vrijednost zatvoreno na true
+	 */
 	public void zaustaviStednju() {
 
 		new Delete().from(Transakcija.class).where("tip_id=6").execute();
@@ -203,6 +221,10 @@ public class KontinuiranaActivity extends Activity {
 		provjeriStanje();
 	}
 
+	/**
+	 * metoda koja izracunava mjesecnu stednju na temelju privremene stednje,
+	 * metoda se izvrsava onoliko puta koliki je broj mjeseci u bazi
+	 */
 	private void izracunajStednju() {
 
 		Double iznosMjesecne = 0.0;
@@ -272,4 +294,5 @@ public class KontinuiranaActivity extends Activity {
 			}
 		});
 	}
+
 }

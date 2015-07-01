@@ -95,14 +95,11 @@ public class LoginActivity extends Activity{
 							dialog.setContentView(R.layout.zaboravljena);
 							dialog.setTitle(R.string.zabLozinka);
 							dialog.show();
-						
-							
+													
 							String p = pitanje();
 							TextView txtPitanje =(TextView)dialog.findViewById(R.id.txtPitanje);
 							txtPitanje.setText(p);
-							
-							
-							
+																	
 							Button btnProvjeri = (Button)dialog.findViewById(R.id.btnProvjeri);
 							btnProvjeri.setOnClickListener(new OnClickListener() {
 							
@@ -119,7 +116,7 @@ public class LoginActivity extends Activity{
 		                            }
 		                            else
 		                            {
-		                                    Toast.makeText(getApplicationContext(), "Nije dobro!", Toast.LENGTH_SHORT).show();                                            
+		                                    Toast.makeText(getApplicationContext(), "Odgovor na tajno pitanje je netocno!", Toast.LENGTH_SHORT).show();                                            
 		                            }     
 								}
 							});                                    							
@@ -128,6 +125,12 @@ public class LoginActivity extends Activity{
                 
                 
 }
+        /**
+         * Ova metoda provjerava lozinku sa postojecom lozinkom zapisanom u bazi
+         * i ako je istina vraca true, a ako nije vraca false
+         * @param lozinka1
+         * @return
+         */
 		private boolean provjeraLogina(String lozinka1){ 
                List<Registracija> registracija;
                registracija = new Select().all().from(Registracija.class).execute();
@@ -141,6 +144,12 @@ public class LoginActivity extends Activity{
                return false;
                }
 		
+		/**
+		 * Metoda provjerava da li je odgovor jednak zapisanom odgovoru u bazi
+		 * i ako je istina vraca true, ako nije vraca false
+		 * @param odg
+		 * @return
+		 */
 		private boolean provjeraOdgovora (String odg){
 			List<Registracija> registracija;
 			registracija = new Select().all().from(Registracija.class).execute();
@@ -163,8 +172,7 @@ public class LoginActivity extends Activity{
 				a = registracija.get(i).pitanje;
 
 			}
-			return a;
-					
+			return a;					
 		}
 		
        @Override
@@ -183,8 +191,7 @@ public class LoginActivity extends Activity{
 			Locale.setDefault(locale1);
 			Configuration configuration1 = new Configuration();
 			configuration1.locale = locale1;
-			getBaseContext().getResources().updateConfiguration(configuration1, getBaseContext().getResources().getDisplayMetrics());
-	
+			getBaseContext().getResources().updateConfiguration(configuration1, getBaseContext().getResources().getDisplayMetrics());	
     	}
     }
 }

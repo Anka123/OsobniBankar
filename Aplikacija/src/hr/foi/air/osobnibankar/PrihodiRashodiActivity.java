@@ -34,7 +34,6 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Delete;
@@ -51,7 +50,6 @@ public class PrihodiRashodiActivity extends Activity {
 	boolean prihodiSelected = false;
 	boolean rashodiSelected = false;
 	Double limit = 0.0;
-	// double sumaRashoda = 0;
 	int g_mjesec;
 	Double ogranicenje = null;
 	List<Profil> listaOgranicenja = new Select().all().from(Profil.class)
@@ -68,11 +66,6 @@ public class PrihodiRashodiActivity extends Activity {
 		TransakcijeAdapter.tipTransakcije = false;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.piractivity);
-
-		// Date date = new Date(System.currentTimeMillis());
-
-		// @SuppressWarnings("deprecation")
-		// int mjesec = date.getMonth() + 1;
 
 		int mj = d.nazivMj(mjesec);
 
@@ -126,12 +119,8 @@ public class PrihodiRashodiActivity extends Activity {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Date date = new Date(System.currentTimeMillis());
 		Calendar calendar = new GregorianCalendar();
 		int mjesec = calendar.get(Calendar.MONTH) + 1;
-
-		// @SuppressWarnings("deprecation")
-		// int mjesec = date.getMonth()+1;
 
 		switch (item.getItemId()) {
 		case R.id.itemPrihodi:
@@ -185,6 +174,9 @@ public class PrihodiRashodiActivity extends Activity {
 		}
 	}
 
+	/**
+	 * metoda koja odredjuje limit mjesecne potrosnje 
+	 */
 	public void odrediLimit() {
 		dialog = new Dialog(c);
 		dialog.setContentView(R.layout.odredilimit);
@@ -278,8 +270,6 @@ public class PrihodiRashodiActivity extends Activity {
 							Tip tipPrihod = new Tip(izbor, nazivPrihod);
 							tipPrihod.save();
 							unos(izbor);
-							Toast.makeText(getApplicationContext(), "prihod",
-									Toast.LENGTH_SHORT).show();
 							dialog.dismiss();
 							break;
 
@@ -308,15 +298,12 @@ public class PrihodiRashodiActivity extends Activity {
 		Double iznos = 0.0;
 		iznos = Double.valueOf(etIznos.getText().toString());
 
-		// Date date = new Date(System.currentTimeMillis());
-
 		int dan = calendar.get(Calendar.DAY_OF_MONTH);
 
 		int godina = calendar.get(Calendar.YEAR);
 
 		String danasnjiDatum = dan + "." + mjesec + "." + godina + ".";
 
-		// String danasnjiDatum = datum.format(date);
 		Spinner sp = (Spinner) dialog.findViewById(R.id.spinKategorija);
 		String kategorija = sp.getSelectedItem().toString();
 
@@ -336,8 +323,6 @@ public class PrihodiRashodiActivity extends Activity {
 
 		pregledZajedno(g_mjesec);
 		izracunajMjesecni(mjesec);
-		Toast.makeText(getApplicationContext(), "Transakcija spremljena",
-				Toast.LENGTH_SHORT).show();
 	}
 
 	public void onItemClick(ListView list) {
@@ -400,12 +385,12 @@ public class PrihodiRashodiActivity extends Activity {
 
 												switch (tip) {
 												case 0:
-													unos(dialog1, 0, null, 1,
+													promjena(dialog1, 0, null, 1,
 															t.getId());
 													break;
 
 												case 1:
-													unos(dialog1, 1, null, 1,
+													promjena(dialog1, 1, null, 1,
 															t.getId());
 													break;
 												}
@@ -436,6 +421,11 @@ public class PrihodiRashodiActivity extends Activity {
 		});
 	}
 
+	/**
+	 * metoda koja sluzi za pregled prihoda i rashoda po mjesecima
+	 * @param iz
+	 * @param brojMj
+	 */
 	public void pregled(int iz, int brojMj) {
 		int t = iz;
 		int mjesec = brojMj;
@@ -453,6 +443,10 @@ public class PrihodiRashodiActivity extends Activity {
 		onItemClick(list);
 	}
 
+	/**
+	 * metoda koja sluzi za pregled prihoda i rashoda zajedno
+	 * @param brojMj
+	 */
 	public void pregledZajedno(int brojMj) {
 		int mjesec = brojMj;
 
@@ -470,7 +464,15 @@ public class PrihodiRashodiActivity extends Activity {
 
 	}
 
-	void unos(Dialog dialog, int unos, String danasnjiDatum, int mjesec, long id) {
+	/**
+	 * metoda koja sluzi prilikom promjene postojeceg prihoda ili rashoda
+	 * @param dialog
+	 * @param unos
+	 * @param danasnjiDatum
+	 * @param mjesec
+	 * @param id
+	 */
+	void promjena(Dialog dialog, int unos, String danasnjiDatum, int mjesec, long id) {
 		EditText etNaziv = (EditText) dialog.findViewById(R.id.etNaziv);
 		String naziv = etNaziv.getText().toString();
 		EditText etOpis = (EditText) dialog.findViewById(R.id.etOpis);
@@ -492,6 +494,10 @@ public class PrihodiRashodiActivity extends Activity {
 		izracunajMjesecni(mjesec);
 	}
 
+	/**
+	 * metoda koja izracunava trenutni mjesecni iznos
+	 * @param trenutni
+	 */
 	public void izracunajMjesecni(int trenutni) {
 		int mj = trenutni;
 		double sumaPrihoda = 0;
@@ -508,14 +514,29 @@ public class PrihodiRashodiActivity extends Activity {
 				sumaRashoda += transakcija.getIznos();
 			}
 		}
+		
+		double sumaStednje = 0;
 
-		double ukupno = sumaPrihoda - sumaRashoda;
+		List<Transakcija> listaStednje = new Select().all()
+				.from(Transakcija.class).where("tip_id=4 OR tip_id=5")
+				.execute();
+
+		for (Transakcija transakcija : listaStednje) {
+
+			sumaStednje += transakcija.getIznos();
+
+		}
+
+		double ukupno = sumaPrihoda - (sumaRashoda + sumaStednje);
 		String iznos = getResources().getString(R.string.txtTrenutni);
 		TextView tv = (TextView) findViewById(R.id.txtTrenutni);
 
 		tv.setText(iznos + String.valueOf(ukupno));
 	}
 
+	/**
+	 * metoda koja provjerava da li je potrosnja veca od zadanog limita
+	 */
 	public void provjeriLimit() {
 		List<Profil> listaOgranicenja = new Select().all().from(Profil.class)
 				.execute();

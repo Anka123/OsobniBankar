@@ -85,6 +85,10 @@ public class GlavniIzbornikActivity extends Activity {
 			}
 		});
 	}
+	
+	/**
+	 * metoda koja izracunava trenutni iznos 
+	 */
 	public void izracunajTrenutni() {
 
 		double sumaPrihoda = 0;
@@ -101,11 +105,29 @@ public class GlavniIzbornikActivity extends Activity {
 			}
 		}
 	
-			double ukupno = sumaPrihoda - sumaRashoda;
+		double sumaStednje = 0;
+
+		List<Transakcija> listaStednje = new Select().all()
+				.from(Transakcija.class).where("tip_id=4 OR tip_id=5")
+				.execute();
+
+		for (Transakcija transakcija : listaStednje) {
+
+			sumaStednje += transakcija.getIznos();
+
+		}
+
+			double ukupno = sumaPrihoda - (sumaRashoda + sumaStednje);
 			
 			String iznos = getResources().getString(R.string.txtTrenutni);
 			TextView tv = (TextView) findViewById(R.id.txtTrenutni);
 			
 			tv.setText(iznos + String.valueOf(ukupno));
+	}
+	
+	@Override
+	protected void onResume() {
+		izracunajTrenutni();
+		super.onResume();
 	}
 }

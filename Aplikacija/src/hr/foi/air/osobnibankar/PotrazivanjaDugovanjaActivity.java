@@ -34,7 +34,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
@@ -111,10 +110,6 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Date date = new Date(System.currentTimeMillis());
-
-		// @SuppressWarnings("deprecation")
-		// int mjesec = date.getMonth() + 1;
 
 		Calendar calendar = new GregorianCalendar();
 		int mjesec = calendar.get(Calendar.MONTH) + 1;
@@ -195,8 +190,6 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 									nazivPotrazivanje);
 							tipPotrazivanje.save();
 							unos(izbor);
-							Toast.makeText(getApplicationContext(),
-									"potraživanje", Toast.LENGTH_SHORT).show();
 							dialog.dismiss();
 							break;
 
@@ -216,6 +209,10 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		});
 	}
 
+	/**
+	 * metoda u kojoj su definirani stringovi unos podataka u bazu
+	 * @param izbor
+	 */
 	public void unos(int izbor) {
 		EditText etNaziv = (EditText) dialog.findViewById(R.id.etNaziv);
 		String naziv = etNaziv.getText().toString();
@@ -246,10 +243,13 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 				iznos, false, null, null, datum, mjesec, izbor);
 		transakcija.save();
 
-		Toast.makeText(getApplicationContext(), "Transakcija spremljena",
-				Toast.LENGTH_SHORT).show();
 	}
 
+	/**
+	 * metoda u kojoj se dohvacaju prihodi i rashodi iz transakcije za pregled po mjesecima
+	 * @param iz
+	 * @param brojMj
+	 */
 	public void pregled(int iz, int brojMj) {
 		int t = iz;
 		int mjesec = brojMj;
@@ -266,6 +266,10 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		onItemClick(list);
 	}
 
+	/**
+	 * metoda u kojoj se dohvacaju podaci iz transakcije za pregled potrazivanja i dugovanja
+	 * @param brojMj
+	 */
 	public void pregledSve(int brojMj) {
 		int mjesec = brojMj;
 
@@ -280,6 +284,7 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		list.setAdapter(pidAdapter);
 		onItemClick(list);
 	}
+
 
 	public void onItemClick(ListView list) {
 		list.setOnItemClickListener(new OnItemClickListener() {
@@ -402,6 +407,12 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		});
 	}
 
+	/**
+	 * metoda koja sluzi za promjenu postojecih potrazivanja ili dugovanja
+	 * @param dialog
+	 * @param izbor
+	 * @param id
+	 */
 	public void unos(Dialog dialog, int izbor, long id) {
 		EditText etNaziv = (EditText) dialog.findViewById(R.id.etNaziv);
 		String naziv = etNaziv.getText().toString();
@@ -427,6 +438,11 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		pregledSve(g_mjesec);
 	}
 
+	/**
+	 * metoda koja sluzi za podmirivanje potrazivanja
+	 * @param izbor
+	 * @param id
+	 */
 	public void podmiriPotrazivanja(int izbor, long id) {
 		int tipPrihodi = 0;
 
@@ -437,6 +453,11 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 
 	}
 
+	/**
+	 * metoda koja sluzi za podmirivanje dugovanja
+	 * @param izbor
+	 * @param id
+	 */
 	public void podmiriDugovanja(int izbor, long id) {
 		int tipRashodi = 1;
 
