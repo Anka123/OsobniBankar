@@ -103,7 +103,7 @@ public class RegistracijaActivity extends Activity {
 						if (lozinka.isEmpty() || potvrda.isEmpty()
 								|| odgovor.isEmpty()) {
 							Toast.makeText(getApplicationContext(),
-									"Popunite sva polja!", Toast.LENGTH_SHORT)
+									R.string.popunaPolja, Toast.LENGTH_SHORT)
 									.show();
 						}
 

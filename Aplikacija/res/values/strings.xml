@@ -77,6 +77,7 @@
     <string name="iznosProizvoljne">Iznos koji želite uštediti:</string>
     <string name="iznosUstede">Ovaj mjesec trebate uštediti: </string>
     <string name="proizvoljna">Proizvoljna štednja</string>
+    <string name="kontinuirana">Kontinuirana štednja</string>
     <string name="mjeseci">Mjeseci štednje</string>
     <string name="iznosKontinuirane">Iznos štednje</string>
     <string name="napredak">Napredak</string>
@@ -88,6 +89,9 @@
     <string name="prodajni">Prodajni</string>
     <string name="connected">Connected</string>
     <string name="disconnected">Disconnected</string>
+    <string name="pokrenutaStednja">Štednja je pokrenuta! Uplata će se izvršiti 1. u mjesecu!</string>
+    <string name="popunaPolja">Molimo popunite sva polja!</string>
+    <string name="kontinuiranaIznos">Iznos za štednju</string>
     
     <string name="bar">Pregled Prihoda, Rashoda i Štednje prema iznosu</string>
     <string name="line">Pregled Prihoda, Rashoda i Štednje prema datumu</string>

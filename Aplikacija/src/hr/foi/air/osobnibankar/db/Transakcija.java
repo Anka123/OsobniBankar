@@ -18,8 +18,6 @@ public class Transakcija extends Model{
 	public boolean zatvoreno;
 	@Column (name = "kategorija")
 	public String kategorija;
-	@Column (name = "partner_id")
-	public Partner partner_id;
 	@Column(name = "datum")
 	public String datum;
 	@Column(name = "tip_id")
@@ -31,13 +29,12 @@ public class Transakcija extends Model{
 		super();
 	}
 
-	public Transakcija (long remote_id, String naziv, String opis, Double iznos, boolean zatvoreno, String kategorija, Partner partner_id, String datum, int mjesec, int tip) {
+	public Transakcija (long remote_id, String naziv, String opis, Double iznos, boolean zatvoreno, String kategorija, String datum, int mjesec, int tip) {
 		this.remote_id = remote_id;
 		this.naziv = naziv;
 		this.iznos = iznos;
 		this.zatvoreno = zatvoreno;
 		this.kategorija = kategorija;
-		this.partner_id = partner_id;
 		this.datum = datum;
 		this.tip_id = tip;
 		this.opis=opis;
@@ -70,10 +67,6 @@ public class Transakcija extends Model{
 	
 	public String getKategorija() {
 		return kategorija;
-	}
-	
-	public Partner getPartner_id() {
-		return partner_id;
 	}
 	
 	public int getTip(){

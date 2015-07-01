@@ -46,7 +46,7 @@ public class StednjaActivity extends Activity {
 
 				dialog = new Dialog(c);
 				dialog.setContentView(R.layout.proizvoljna);
-				dialog.setTitle(R.string.proizvoljna);
+				dialog.setTitle(R.string.kontinuiranaIznos);
 				dialog.show();
 
 				Button btnOk = (Button) dialog.findViewById(R.id.btnOK);
@@ -83,7 +83,7 @@ public class StednjaActivity extends Activity {
 						String naziv = "Proizvoljna";
 						Transakcija transakcija = new Transakcija(trenutniId,
 								naziv, null, iznosProizvoljne, false, null,
-								null, datum, mjesec, izbor);
+								datum, mjesec, izbor);
 						transakcija.save();
 
 						dialog.dismiss();
@@ -107,9 +107,10 @@ public class StednjaActivity extends Activity {
 		});
 
 	}
-/**
- * metoda koja izracunava stednju
- */
+
+	/**
+	 * metoda koja izracunava stednju
+	 */
 	public void izracunajStednju() {
 
 		double sumaStednje = 0;

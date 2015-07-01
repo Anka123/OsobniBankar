@@ -11,8 +11,10 @@ public class PieGrafActivity extends Activity {
    @Override
    public void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
-
-       PieGraf mView = new PieGraf(this);
+       
+       Bundle bundle = getIntent().getExtras();
+       int izborPrihod = bundle.getInt("iz");
+       PieGraf mView = new PieGraf(this, izborPrihod);
        requestWindowFeature(Window.FEATURE_NO_TITLE);
        setContentView(mView);
    }

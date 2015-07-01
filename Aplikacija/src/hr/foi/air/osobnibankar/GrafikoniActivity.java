@@ -8,68 +8,70 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 
 public class GrafikoniActivity extends Activity {
-	
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.grafovi);
 
-	ImageButton imgBar = (ImageButton)findViewById(R.id.btnBar);
-	imgBar.setOnClickListener(new OnClickListener (){
+		ImageButton imgBar = (ImageButton) findViewById(R.id.btnBar);
+		imgBar.setOnClickListener(new OnClickListener() {
 
-		@Override
-		public void onClick(View v) {
+			@Override
+			public void onClick(View v) {
 
-			Intent i = new Intent(getApplicationContext(),BarGrafActivity.class);
-			startActivity(i);
-		}
-		
-		
-	});
+				Intent i = new Intent(getApplicationContext(),
+						BarGrafActivity.class);
+				startActivity(i);
+			}
 
-	ImageButton imgLine = (ImageButton)findViewById(R.id.btnLine);
-	
-	imgLine.setOnClickListener(new OnClickListener (){
+		});
 
-		@Override
-		public void onClick(View v) {
+		ImageButton imgLine = (ImageButton) findViewById(R.id.btnLine);
 
-			Intent i = new Intent(getApplicationContext(),LineGrafActivity.class);
-			startActivity(i);
-			
-		}
-		
-		
-	});
+		imgLine.setOnClickListener(new OnClickListener() {
 
-ImageButton imgPieRashodi = (ImageButton)findViewById(R.id.btnPieRashodi);
-	
-	imgPieRashodi.setOnClickListener(new OnClickListener (){
+			@Override
+			public void onClick(View v) {
 
-		@Override
-		public void onClick(View v) {
+				Intent i = new Intent(getApplicationContext(),
+						LineGrafActivity.class);
+				startActivity(i);
 
-			Intent i = new Intent(getApplicationContext(),PieGrafActivity.class);
-			startActivity(i);
-			
-		}
-		
-		
-	});
-	
-ImageButton imgPiePrihodi = (ImageButton)findViewById(R.id.btnPiePrihodi);
-	
-	imgPiePrihodi.setOnClickListener(new OnClickListener (){
+			}
 
-		@Override
-		public void onClick(View v) {
+		});
 
-			Intent i = new Intent(getApplicationContext(),PieGrafActivity.class);
-			startActivity(i);
-			
-		}
-		
-		
-	});
-}}
+		ImageButton imgPieRashodi = (ImageButton) findViewById(R.id.btnPieRashodi);
+
+		imgPieRashodi.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				int izbor = 1;
+				Intent i = new Intent(getApplicationContext(),
+						PieGrafActivity.class);
+				i.putExtra("iz", izbor);
+				startActivity(i);
+
+			}
+
+		});
+
+		ImageButton imgPiePrihodi = (ImageButton) findViewById(R.id.btnPiePrihodi);
+
+		imgPiePrihodi.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				int izbor = 0;
+				Intent i = new Intent(getApplicationContext(),
+						PieGrafActivity.class);
+				i.putExtra("iz", izbor);
+				startActivity(i);
+
+			}
+
+		});
+	}
+}

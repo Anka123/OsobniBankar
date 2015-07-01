@@ -7,13 +7,11 @@ import hr.foi.air.osobnibankar.db.Transakcija;
 import hr.foi.air.osobnibankar.dodatno.Datum;
 import hr.foi.air.osobnibankar.interfaces.ITransakcija;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -34,6 +32,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
@@ -52,8 +51,6 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 	boolean dugovanjaSelected = false;
 
 	Date date = new Date(System.currentTimeMillis());
-	@SuppressLint("SimpleDateFormat")
-	SimpleDateFormat datum = new SimpleDateFormat("dd/mm/yyyy");
 	final Datum d = new Datum();
 
 	@Override
@@ -211,6 +208,7 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 
 	/**
 	 * metoda u kojoj su definirani stringovi unos podataka u bazu
+	 * 
 	 * @param izbor
 	 */
 	public void unos(int izbor) {
@@ -239,14 +237,20 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 			trenutniId = 0;
 		}
 
-		Transakcija transakcija = new Transakcija(trenutniId, naziv, opis,
-				iznos, false, null, null, datum, mjesec, izbor);
-		transakcija.save();
-
+		if (naziv.isEmpty() | opis.isEmpty())
+			Toast.makeText(c, R.string.popunaPolja, Toast.LENGTH_SHORT).show();
+		else {
+			Transakcija transakcija = new Transakcija(trenutniId, naziv, opis,
+					iznos, false, null, datum, mjesec, izbor);
+			transakcija.save();
+		}
+		pregledSve(g_mjesec);
 	}
 
 	/**
-	 * metoda u kojoj se dohvacaju prihodi i rashodi iz transakcije za pregled po mjesecima
+	 * metoda u kojoj se dohvacaju prihodi i rashodi iz transakcije za pregled
+	 * po mjesecima
+	 * 
 	 * @param iz
 	 * @param brojMj
 	 */
@@ -267,7 +271,9 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 	}
 
 	/**
-	 * metoda u kojoj se dohvacaju podaci iz transakcije za pregled potrazivanja i dugovanja
+	 * metoda u kojoj se dohvacaju podaci iz transakcije za pregled potrazivanja
+	 * i dugovanja
+	 * 
 	 * @param brojMj
 	 */
 	public void pregledSve(int brojMj) {
@@ -284,7 +290,6 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		list.setAdapter(pidAdapter);
 		onItemClick(list);
 	}
-
 
 	public void onItemClick(ListView list) {
 		list.setOnItemClickListener(new OnItemClickListener() {
@@ -409,6 +414,7 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 
 	/**
 	 * metoda koja sluzi za promjenu postojecih potrazivanja ili dugovanja
+	 * 
 	 * @param dialog
 	 * @param izbor
 	 * @param id
@@ -440,6 +446,7 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 
 	/**
 	 * metoda koja sluzi za podmirivanje potrazivanja
+	 * 
 	 * @param izbor
 	 * @param id
 	 */
@@ -455,6 +462,7 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 
 	/**
 	 * metoda koja sluzi za podmirivanje dugovanja
+	 * 
 	 * @param izbor
 	 * @param id
 	 */
@@ -467,12 +475,11 @@ public class PotrazivanjaDugovanjaActivity extends Activity {
 		transakcija.save();
 
 	}
-	
+
 	@Override
 	protected void onResume() {
 		pregledSve(mjesec);
 		super.onResume();
 	}
 
-	
 }

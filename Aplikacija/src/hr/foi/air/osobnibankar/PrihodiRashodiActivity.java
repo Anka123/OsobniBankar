@@ -8,12 +8,10 @@ import hr.foi.air.osobnibankar.db.Transakcija;
 import hr.foi.air.osobnibankar.dodatno.Datum;
 import hr.foi.air.osobnibankar.interfaces.ITransakcija;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -34,6 +32,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Delete;
@@ -55,13 +54,11 @@ public class PrihodiRashodiActivity extends Activity {
 	List<Profil> listaOgranicenja = new Select().all().from(Profil.class)
 			.execute();
 
-	@SuppressLint("SimpleDateFormat")
-	SimpleDateFormat datum = new SimpleDateFormat("dd/mm/yyyy");
 	final Datum d = new Datum();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
+
 		ActiveAndroid.initialize(this);
 		TransakcijeAdapter.tipTransakcije = false;
 		super.onCreate(savedInstanceState);
@@ -175,7 +172,7 @@ public class PrihodiRashodiActivity extends Activity {
 	}
 
 	/**
-	 * metoda koja odredjuje limit mjesecne potrosnje 
+	 * metoda koja odredjuje limit mjesecne potrosnje
 	 */
 	public void odrediLimit() {
 		dialog = new Dialog(c);
@@ -295,7 +292,7 @@ public class PrihodiRashodiActivity extends Activity {
 		EditText etOpis = (EditText) dialog.findViewById(R.id.etOpis);
 		String opis = etOpis.getText().toString();
 		EditText etIznos = (EditText) dialog.findViewById(R.id.etIznos);
-		Double iznos = 0.0;
+		Double iznos = 0.00;
 		iznos = Double.valueOf(etIznos.getText().toString());
 
 		int dan = calendar.get(Calendar.DAY_OF_MONTH);
@@ -317,9 +314,16 @@ public class PrihodiRashodiActivity extends Activity {
 			trenutniId = 0;
 		}
 
-		Transakcija transakcija = new Transakcija(trenutniId, naziv, opis,
-				iznos, false, kategorija, null, danasnjiDatum, mjesec, izbor);
-		transakcija.save();
+		
+		
+		if (naziv.isEmpty() | opis.isEmpty())
+			Toast.makeText(c, R.string.popunaPolja, Toast.LENGTH_SHORT).show();
+		else {
+			Transakcija transakcija = new Transakcija(trenutniId, naziv, opis,
+					iznos, false, kategorija, danasnjiDatum, mjesec, izbor);
+			transakcija.save();
+		}
+			
 
 		pregledZajedno(g_mjesec);
 		izracunajMjesecni(mjesec);
@@ -385,13 +389,13 @@ public class PrihodiRashodiActivity extends Activity {
 
 												switch (tip) {
 												case 0:
-													promjena(dialog1, 0, null, 1,
-															t.getId());
+													promjena(dialog1, 0, null,
+															1, t.getId());
 													break;
 
 												case 1:
-													promjena(dialog1, 1, null, 1,
-															t.getId());
+													promjena(dialog1, 1, null,
+															1, t.getId());
 													break;
 												}
 												dialog1.dismiss();
@@ -423,6 +427,7 @@ public class PrihodiRashodiActivity extends Activity {
 
 	/**
 	 * metoda koja sluzi za pregled prihoda i rashoda po mjesecima
+	 * 
 	 * @param iz
 	 * @param brojMj
 	 */
@@ -445,6 +450,7 @@ public class PrihodiRashodiActivity extends Activity {
 
 	/**
 	 * metoda koja sluzi za pregled prihoda i rashoda zajedno
+	 * 
 	 * @param brojMj
 	 */
 	public void pregledZajedno(int brojMj) {
@@ -466,13 +472,15 @@ public class PrihodiRashodiActivity extends Activity {
 
 	/**
 	 * metoda koja sluzi prilikom promjene postojeceg prihoda ili rashoda
+	 * 
 	 * @param dialog
 	 * @param unos
 	 * @param danasnjiDatum
 	 * @param mjesec
 	 * @param id
 	 */
-	void promjena(Dialog dialog, int unos, String danasnjiDatum, int mjesec, long id) {
+	void promjena(Dialog dialog, int unos, String danasnjiDatum, int mjesec,
+			long id) {
 		EditText etNaziv = (EditText) dialog.findViewById(R.id.etNaziv);
 		String naziv = etNaziv.getText().toString();
 		EditText etOpis = (EditText) dialog.findViewById(R.id.etOpis);
@@ -496,6 +504,7 @@ public class PrihodiRashodiActivity extends Activity {
 
 	/**
 	 * metoda koja izracunava trenutni mjesecni iznos
+	 * 
 	 * @param trenutni
 	 */
 	public void izracunajMjesecni(int trenutni) {
@@ -514,7 +523,7 @@ public class PrihodiRashodiActivity extends Activity {
 				sumaRashoda += transakcija.getIznos();
 			}
 		}
-		
+
 		double sumaStednje = 0;
 
 		List<Transakcija> listaStednje = new Select().all()

@@ -1,5 +1,6 @@
 package hr.foi.air.osobnibankar;
 
+import hr.foi.air.osobnibankar.R;
 import hr.foi.air.osobnibankar.db.Transakcija;
 
 import java.util.Calendar;
@@ -124,9 +125,12 @@ public class KontinuiranaActivity extends Activity {
 				izracunajStednju();
 			} 
 			else if (dan==1 && iznos !=null){
+				
 				progressBar();
 			}
 			else if (dan !=1 && iznos !=null) {
+				Toast.makeText(c, R.string.pokrenutaStednja, Toast.LENGTH_SHORT).show();
+				
 				progressBar();
 			}
 			else
@@ -197,7 +201,7 @@ public class KontinuiranaActivity extends Activity {
 			}
 
 			Transakcija privremena = new Transakcija(trenutniId, null, null,
-					iznos, false, null, null, null, mjesec, izbor);
+					iznos, false, null, null, mjesec, izbor);
 			privremena.save();
 		}
 	}
@@ -232,6 +236,7 @@ public class KontinuiranaActivity extends Activity {
 
 		dialog = new Dialog(c);
 		dialog.setContentView(R.layout.mjesecnakontinuirana);
+		dialog.setTitle(R.string.kontinuiranaIznos);
 		dialog.show();
 
 		if (jezik == 2) {
@@ -270,7 +275,7 @@ public class KontinuiranaActivity extends Activity {
 				int trenutno = cal.get(Calendar.MONTH)+1;
 				String naziv = "Kontinuirana";
 				Transakcija kontinuirana = new Transakcija(trenutniId, naziv,
-						null, iznosMjesecne, false, null, null, null, trenutno, izbor);
+						null, iznosMjesecne, false, null, null, trenutno, izbor);
 				kontinuirana.save();
 
 				Transakcija dohvatPrivremene = new Select().all()

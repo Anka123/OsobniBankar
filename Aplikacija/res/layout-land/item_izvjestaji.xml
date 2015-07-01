@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+    
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:contentDescription="@string/plus"
+        android:layout_marginRight="40dp"
+        android:src="@drawable/plus" />
+
+    <TextView
+        android:id="@+id/txtNaziv"
+        android:layout_weight="0.3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:text="@string/txtNaziv"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/txtIznos"
+        android:layout_weight="0.3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+         android:layout_gravity="center"
+         android:textStyle="bold"
+        android:text="@string/txtIznos"
+        android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="70dp" >
+
+        <LinearLayout
+             android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" 
+            >
+        <TextView
+            android:id="@+id/txtDatumNaziv"
+            android:layout_width="94dp"
+            android:layout_height="30dp"
+            android:gravity="left"
+            android:text="@string/datum"
+            android:textSize="16sp" />
+        
+        <TextView
+            android:id="@+id/txtDatum"
+            android:layout_width="94dp"
+            android:layout_height="30dp"
+            android:gravity="left"
+            android:text="@string/datum"
+            android:textSize="16sp" />
+        
+        </LinearLayout>
+        
+
+        <LinearLayout
+             android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" 
+            >
+        <TextView
+            android:id="@+id/txtOpisNaziv"
+            android:layout_width="94dp"
+            android:layout_height="30dp"
+            android:gravity="left"
+            android:text="@string/txtOpis"
+            android:textSize="16sp" />
+        
+        <TextView
+            android:id="@+id/txtOpis"
+            android:layout_width="94dp"
+            android:layout_height="30dp"
+            android:gravity="left"
+            android:text="@string/txtOpis"
+            android:textSize="16sp" />
+        
+        </LinearLayout>
+        
+       
+         
+    </LinearLayout>
+
+</LinearLayout>
+

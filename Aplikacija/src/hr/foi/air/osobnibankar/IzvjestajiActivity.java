@@ -11,8 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.activeandroid.query.Select;
@@ -24,7 +23,7 @@ public class IzvjestajiActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.izvjestaji);
 		final Context c = this;
-		final ExpandableListView lista = (ExpandableListView) findViewById(R.id.izvjestaj);
+		final ListView lista = (ListView) findViewById(R.id.izvjestaj);
 
 		final Spinner spin = (Spinner) findViewById(R.id.izbornik);
 		spin.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -37,18 +36,9 @@ public class IzvjestajiActivity extends Activity {
 						.from(Transakcija.class)
 						.where("kategorija == ?", kategorija_odabir).execute();
 
-				IzvjestajiAdapter izvjestaj_adapter = new IzvjestajiAdapter(c,
-						trans);
+				IzvjestajiAdapter izvjestaj_adapter = new IzvjestajiAdapter(c, R.layout.item_izvjestaji, trans);
 				lista.setAdapter(izvjestaj_adapter);
-				lista.setOnGroupClickListener(new OnGroupClickListener() {
-
-					@Override
-					public boolean onGroupClick(ExpandableListView parent,
-							View v, int groupPosition, long id) {
-
-						return false;
-					}
-				});
+				
 
 			}
 
