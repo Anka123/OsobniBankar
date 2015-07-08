@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/radioGrupBanke"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/textView1izbor"
+        android:layout_width="119dp"
+        android:layout_height="31dp"
+        android:text="@string/izvor_tecaja" />
+
+    <RadioButton
+        android:id="@+id/radioButton1hnb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Banka_HNB" />
+
+    <RadioButton
+        android:id="@+id/radioButton2pbz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Banka_PBZ" />
+
+    <Button
+        android:id="@+id/button1OK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/izbor_OK" />
+
+</RadioGroup>

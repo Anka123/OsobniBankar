@@ -97,6 +97,11 @@
     <string name="line">Pregled Prihoda, Rashoda i Štednje prema datumu</string>
     <string name="piePrihodi">Pregled Prihoda prema kategoriji</string>
     <string name="pieRashodi">Pregled Rashoda prema kategoriji</string>
+    <string name="izvor_tecaja">Izaberite banku: </string>
+    <string name="Banka_HNB">HNB</string>
+    <string name="Banka_PBZ">PBZ</string>
+    <string name="izbor_OK">OK</string>
+    <string name="izbor_banke">Nepoznata banka</string>
     
     <string-array name="pitanje">
         <item name = "ljubimac">Ime kućnog ljubimca?</item>
